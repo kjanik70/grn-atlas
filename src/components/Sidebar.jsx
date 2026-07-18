@@ -1,28 +1,38 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Sidebar.css';
 
-const KINGDOMS = [
-  { id: 'Animalia', label: 'Animalia' },
-  { id: 'Plantae', label: 'Plantae' }
-];
-
-const SPECIES = {
-  Animalia: [
-    { tax_id: 9606, symbol: 'human', common: 'Human', scientific: 'Homo sapiens' },
-    { tax_id: 10090, symbol: 'mouse', common: 'Mouse', scientific: 'Mus musculus' }
-  ],
-  Plantae: [
-    { tax_id: 3702, symbol: 'arabidopsis', common: 'Arabidopsis', scientific: 'Arabidopsis thaliana' },
-    { tax_id: 39947, symbol: 'rice', common: 'Rice', scientific: 'Oryza sativa' },
-    { tax_id: 4081, symbol: 'tomato', common: 'Tomato', scientific: 'Solanum lycopersicum' },
-    { tax_id: 33119, symbol: 'petunia', common: 'Petunia', scientific: 'Petunia axillaris' },
-    { tax_id: 4113, symbol: 'potato', common: 'Potato', scientific: 'Solanum tuberosum' },
-    { tax_id: 3847, symbol: 'soybean', common: 'Soybean', scientific: 'Glycine max' },
-    { tax_id: 29654, symbol: 'poplar', common: 'Poplar', scientific: 'Populus trichocarpa' },
-    { tax_id: 4558, symbol: 'sorghum', common: 'Sorghum', scientific: 'Sorghum bicolor' },
-    { tax_id: 8585, symbol: 'grape', common: 'Grape', scientific: 'Vitis vinifera' }
-  ]
+// Display metadata for species we may hold data for. The actual list shown is
+// driven by which species exist in the database (see the stats fetch below);
+// this map only supplies nice labels and kingdom grouping.
+const SPECIES_META = {
+  human: { common: 'Human', scientific: 'Homo sapiens', kingdom: 'Animalia' },
+  mouse: { common: 'Mouse', scientific: 'Mus musculus', kingdom: 'Animalia' },
+  arabidopsis: { common: 'Arabidopsis', scientific: 'Arabidopsis thaliana', kingdom: 'Plantae' },
+  tomato: { common: 'Tomato', scientific: 'Solanum lycopersicum', kingdom: 'Plantae' },
+  petunia: { common: 'Petunia', scientific: 'Petunia axillaris', kingdom: 'Plantae' },
+  rice: { common: 'Rice', scientific: 'Oryza sativa', kingdom: 'Plantae' },
 };
+
+const KINGDOM_ORDER = ['Animalia', 'Plantae', 'Other'];
+
+// Build the {kingdom: [species]} grouping and kingdom list from the species
+// symbols actually present in the data.
+function groupSpecies(presentSymbols) {
+  const byKingdom = {};
+  presentSymbols.forEach((symbol) => {
+    const meta = SPECIES_META[symbol] || {};
+    const kingdom = meta.kingdom || 'Other';
+    const common = meta.common || symbol.charAt(0).toUpperCase() + symbol.slice(1);
+    (byKingdom[kingdom] = byKingdom[kingdom] || []).push({
+      symbol, common, scientific: meta.scientific || '',
+    });
+  });
+  Object.values(byKingdom).forEach((list) => list.sort((a, b) => a.common.localeCompare(b.common)));
+  const kingdoms = KINGDOM_ORDER
+    .filter((k) => byKingdom[k])
+    .map((k) => ({ id: k, label: k }));
+  return { byKingdom, kingdoms };
+}
 
 export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading }) {
   const [searchInput, setSearchInput] = useState('');
@@ -34,8 +44,22 @@ export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading
   const [confidence, setConfidence] = useState(filters.minConfidence);
   const [direction, setDirection] = useState(filters.direction);
   const [maxDepth, setMaxDepth] = useState(filters.maxDepth);
+  const [speciesByKingdom, setSpeciesByKingdom] = useState({});
+  const [kingdoms, setKingdoms] = useState([]);
   const searchInputRef = useRef(null);
   const suggestionsRef = useRef(null);
+
+  // Populate the kingdom/species filters from the species actually in the data.
+  useEffect(() => {
+    fetch('/api/v1/stats')
+      .then((r) => r.json())
+      .then((stats) => {
+        const { byKingdom, kingdoms } = groupSpecies(stats.species_list || []);
+        setSpeciesByKingdom(byKingdom);
+        setKingdoms(kingdoms);
+      })
+      .catch((err) => console.error('Failed to load species list:', err));
+  }, []);
 
   // Fetch gene suggestions
   useEffect(() => {
@@ -87,7 +111,7 @@ export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading
     // Reset species if kingdom is deselected
     if (!newKingdoms.has(kingdom)) {
       const newSpecies = new Set(selectedSpecies);
-      SPECIES[kingdom]?.forEach(s => newSpecies.delete(s.symbol));
+      speciesByKingdom[kingdom]?.forEach(s => newSpecies.delete(s.symbol));
       setSelectedSpecies(newSpecies);
     }
 
@@ -165,7 +189,7 @@ export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading
   const getVisibleSpecies = () => {
     const visible = [];
     selectedKingdoms.forEach(kingdom => {
-      visible.push(...SPECIES[kingdom]);
+      visible.push(...(speciesByKingdom[kingdom] || []));
     });
     return visible;
   };
@@ -226,7 +250,7 @@ export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading
       <div className="sidebar-section">
         <h3 className="sidebar-title">Kingdom</h3>
         <div className="filter-group">
-          {KINGDOMS.map((kingdom) => (
+          {kingdoms.map((kingdom) => (
             <label key={kingdom.id} className="filter-item">
               <input
                 type="checkbox"
