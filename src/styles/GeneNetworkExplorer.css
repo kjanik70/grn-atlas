@@ -29,6 +29,12 @@
   padding-right: var(--space-md);
 }
 
+.tabs-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
 .copy-link-btn {
   flex-shrink: 0;
   padding: 5px 10px;

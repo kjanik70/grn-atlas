@@ -9,7 +9,9 @@ from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 from pathlib import Path as FilePath
+from collections import defaultdict
 import json
+import math
 import logging
 import sqlite3
 
@@ -465,6 +467,142 @@ async def get_orthology(
         }
 
     return result
+
+# ============= Gene-set analysis: subgraph + GO enrichment =============
+
+class SubgraphRequest(BaseModel):
+    gene_ids: List[str]
+    min_confidence: float = 0.0
+    include_inferred: bool = True
+
+
+@app.post("/api/v1/pathways/subgraph")
+async def get_subgraph(request: SubgraphRequest):
+    """Induced sub-network: genes in the set + interactions among them."""
+    ids = list(dict.fromkeys(request.gene_ids))
+    if not ids:
+        return {"nodes": [], "edges": []}
+    placeholders = ",".join("?" * len(ids))
+    node_rows = db.conn.execute(
+        f"SELECT id, symbol, name, species, is_tf FROM genes WHERE id IN ({placeholders})", ids
+    ).fetchall()
+    nodes = [{"id": r["id"], "symbol": r["symbol"], "name": r["name"],
+              "species": r["species"], "is_tf": bool(r["is_tf"])} for r in node_rows]
+    known = {n["id"] for n in nodes}
+    edge_sql = (
+        f"SELECT source_id, target_id, regulation_type, confidence, sources FROM interactions "
+        f"WHERE source_id IN ({placeholders}) AND target_id IN ({placeholders}) AND confidence >= ?"
+    )
+    params = ids + ids + [request.min_confidence]
+    edges = []
+    for r in db.conn.execute(edge_sql, params).fetchall():
+        if r["source_id"] not in known or r["target_id"] not in known:
+            continue
+        sources = json.loads(r["sources"])
+        inferred = any(s.startswith("Inferred") for s in sources)
+        if inferred and not request.include_inferred:
+            continue
+        edges.append({"source": r["source_id"], "target": r["target_id"],
+                      "regulation_type": r["regulation_type"], "confidence": r["confidence"],
+                      "source_databases": sources, "inferred": inferred})
+    return {"nodes": nodes, "edges": edges}
+
+
+class EnrichmentRequest(BaseModel):
+    gene_ids: List[str]
+    species: Optional[str] = None
+    max_terms: int = 40
+    min_genes: int = 2
+
+
+# Lazily-built per-species GO index: {species: (N, term_k, gene_terms)}.
+_go_index: Dict[str, Any] = {}
+
+
+def _go_index_for(species: str):
+    if species not in _go_index:
+        gene_terms: Dict[str, set] = {}
+        term_k: Dict[str, int] = defaultdict(int)
+        rows = db.conn.execute(
+            "SELECT a.gene_id, a.go_id FROM go_annotations a JOIN genes g ON g.id = a.gene_id "
+            "WHERE g.species = ?", (species,)
+        ).fetchall()
+        for gid, go_id in rows:
+            gene_terms.setdefault(gid, set()).add(go_id)
+        for terms in gene_terms.values():
+            for t in terms:
+                term_k[t] += 1
+        _go_index[species] = (len(gene_terms), dict(term_k), gene_terms)
+    return _go_index[species]
+
+
+def _log_choose(n: int, k: int) -> float:
+    if k < 0 or k > n:
+        return float("-inf")
+    return math.lgamma(n + 1) - math.lgamma(k + 1) - math.lgamma(n - k + 1)
+
+
+def _hypergeom_sf(k: int, n: int, K: int, N: int) -> float:
+    """P(X >= k) for drawing n from N with K successes (overrepresentation)."""
+    logCNn = _log_choose(N, n)
+    total = 0.0
+    hi = min(n, K)
+    for i in range(k, hi + 1):
+        lp = _log_choose(K, i) + _log_choose(N - K, n - i) - logCNn
+        if lp > -700:
+            total += math.exp(lp)
+    return min(total, 1.0)
+
+
+@app.post("/api/v1/enrichment")
+async def enrichment(request: EnrichmentRequest):
+    """GO-term overrepresentation for a gene set (hypergeometric + BH FDR)."""
+    ids = list(dict.fromkeys(request.gene_ids))
+    species = request.species
+    if not species and ids:
+        row = db.conn.execute("SELECT species FROM genes WHERE id = ?", (ids[0],)).fetchone()
+        species = row["species"] if row else None
+    if not species:
+        raise HTTPException(status_code=400, detail="Could not determine species")
+
+    N, term_k, gene_terms = _go_index_for(species)
+    if N == 0:
+        return {"species": species, "background": 0, "study": 0, "results": []}
+
+    study = [g for g in ids if g in gene_terms]
+    n = len(study)
+    study_k: Dict[str, int] = defaultdict(int)
+    for g in study:
+        for t in gene_terms[g]:
+            study_k[t] += 1
+
+    tested = []
+    for go_id, k in study_k.items():
+        if k < request.min_genes:
+            continue
+        K = term_k.get(go_id, 0)
+        p = _hypergeom_sf(k, n, K, N)
+        tested.append((go_id, k, K, p))
+
+    # Benjamini–Hochberg FDR.
+    tested.sort(key=lambda x: x[3])
+    m = len(tested)
+    results = []
+    prev_q = 1.0
+    for rank in range(m - 1, -1, -1):
+        go_id, k, K, p = tested[rank]
+        q = min(prev_q, p * m / (rank + 1))
+        prev_q = q
+        term = db.conn.execute("SELECT name, namespace FROM go_terms WHERE go_id = ?", (go_id,)).fetchone()
+        results.append({
+            "go_id": go_id, "name": term["name"] if term else go_id,
+            "namespace": term["namespace"] if term else "",
+            "study_count": k, "background_count": K, "p_value": p, "q_value": q,
+        })
+    results.sort(key=lambda r: r["p_value"])
+    return {"species": species, "background": N, "study": n,
+            "results": results[:request.max_terms]}
+
 
 # ============= Genome / Synteny Endpoints =============
 

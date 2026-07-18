@@ -43,6 +43,7 @@ PLAZA_POSITIONS_JSON = DATA_DIR / "plaza_positions.json"
 PLAZA_ORTHOLOGS_JSON = DATA_DIR / "orthologs_plaza.json"
 PLAZA_GENES_JSON = DATA_DIR / "genome_genes_plaza.json"
 PLAZA_SYMBOLS_JSON = DATA_DIR / "gene_symbols_plaza.json"
+GO_JSON = DATA_DIR / "go_annotations.json.gz"
 
 # Authoritative assembly chromosome lengths (bp) for scaled ideograms.
 # Human: GRCh38; Arabidopsis: TAIR10. Falls back to max observed coordinate
@@ -233,6 +234,19 @@ def build():
             length INTEGER NOT NULL,
             PRIMARY KEY (species, chromosome)
         );
+
+        CREATE TABLE go_terms (
+            go_id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            namespace TEXT
+        );
+        CREATE TABLE go_annotations (
+            gene_id TEXT NOT NULL,
+            go_id TEXT NOT NULL,
+            PRIMARY KEY (gene_id, go_id)
+        );
+        CREATE INDEX idx_go_ann_gene ON go_annotations(gene_id);
+        CREATE INDEX idx_go_ann_term ON go_annotations(go_id);
     """)
 
     # Insert human genes
@@ -400,6 +414,27 @@ def build():
     )
     n_syn = len(inferred)
 
+    # GO annotations (optional; for enrichment analysis).
+    go_data = {}
+    if GO_JSON.exists():
+        import gzip
+        with gzip.open(GO_JSON, "rt", encoding="utf-8") as _f:
+            go_data = json.load(_f)
+    n_go_terms = n_go_ann = 0
+    if go_data:
+        conn.executemany(
+            "INSERT OR IGNORE INTO go_terms (go_id, name, namespace) VALUES (?, ?, ?)",
+            [(gid, v[0], v[1] if len(v) > 1 else "") for gid, v in go_data.get("terms", {}).items()])
+        n_go_terms = len(go_data.get("terms", {}))
+        ann_rows = [
+            (gene_id, go_id)
+            for gene_id, go_ids in go_data.get("annotations", {}).items() if gene_id in valid_ids
+            for go_id in go_ids
+        ]
+        conn.executemany(
+            "INSERT OR IGNORE INTO go_annotations (gene_id, go_id) VALUES (?, ?)", ann_rows)
+        n_go_ann = len(ann_rows)
+
     conn.commit()
 
     loc_by_species = defaultdict(int)
@@ -407,6 +442,7 @@ def build():
         loc_by_species[species] += 1
     conn.close()
 
+    print(f"  GO: {n_go_terms} terms, {n_go_ann} annotations")
     print(f"  Inferred Arabidopsis-symbol synonyms on {n_syn} tomato/petunia genes")
     print(f"  Genome: {len(loc_rows)} locations, {len(orth_rows)} ortholog pairs, "
           f"{len(chrom_rows)} chromosomes")

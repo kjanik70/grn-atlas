@@ -1,0 +1,72 @@
+.gs-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.gs-modal {
+  background: var(--surface-0);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  width: min(720px, 94vw);
+  max-height: 88vh;
+  overflow: auto;
+  padding: var(--space-xl);
+}
+
+.gs-header { display: flex; align-items: center; justify-content: space-between; }
+.gs-header h2 { margin: 0; font-size: var(--text-xl); }
+.gs-close { border: none; background: transparent; color: var(--text-secondary); font-size: 24px; cursor: pointer; }
+.gs-close:hover { color: var(--text-primary); }
+
+.gs-hint { font-size: var(--text-sm); color: var(--text-secondary); margin: var(--space-sm) 0; }
+
+.gs-input {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  padding: var(--space-sm);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.gs-run {
+  margin-top: var(--space-sm);
+  padding: 6px 16px;
+  background: var(--fill-accent);
+  color: var(--on-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--text-base);
+}
+.gs-run:disabled { opacity: 0.6; cursor: default; }
+
+.gs-error { margin-top: var(--space-sm); color: var(--text-danger); font-size: var(--text-sm); }
+
+.gs-section { margin-top: var(--space-lg); }
+.gs-section h3 { font-size: var(--text-lg); margin: 0 0 var(--space-xs); }
+.gs-metrics { font-size: var(--text-sm); color: var(--text-secondary); margin: 0 0 var(--space-sm); }
+
+.gs-hubs { font-size: var(--text-sm); }
+.gs-label { color: var(--text-secondary); }
+.gs-hub { margin-right: var(--space-sm); }
+.gs-hub em { color: var(--text-muted); font-style: normal; }
+
+.gs-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.gs-table th, .gs-table td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--border); }
+.gs-table th { color: var(--text-secondary); font-weight: 600; }
+.gs-table a { color: var(--text-accent); text-decoration: none; }
+.gs-table a:hover { text-decoration: underline; }
+.gs-ns { color: var(--text-muted); font-size: var(--text-xs); }
+.gs-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }

@@ -103,6 +103,31 @@ export const pathwayAPI = {
   }
 };
 
+// Gene-set analysis: induced subgraph + GO enrichment
+export const analysisAPI = {
+  subgraph: async (geneIds, options = {}) => {
+    const response = await fetch(`${API_BASE}/pathways/subgraph`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        gene_ids: geneIds,
+        min_confidence: options.minConfidence || 0.0,
+        include_inferred: options.includeInferred !== false,
+      }),
+    });
+    return response.json();
+  },
+
+  enrich: async (geneIds, species) => {
+    const response = await fetch(`${API_BASE}/enrichment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ gene_ids: geneIds, species }),
+    });
+    return response.json();
+  },
+};
+
 // Genome / synteny comparison
 export const genomeAPI = {
   getSpecies: async () => {

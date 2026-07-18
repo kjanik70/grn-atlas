@@ -6,6 +6,7 @@ import NetworkVisualization from './components/NetworkVisualization';
 import GeneDetailPanel from './components/GeneDetailPanel';
 import ComparisonView from './components/ComparisonView';
 import GenomeComparisonView from './components/GenomeComparisonView';
+import GeneSetPanel from './components/GeneSetPanel';
 import InterventionDesigner from './components/InterventionDesigner';
 import PathwayView from './components/PathwayView';
 import './styles/GeneNetworkExplorer.css';
@@ -97,6 +98,15 @@ export default function GeneNetworkExplorer() {
     window.history.replaceState(null, '', `?${p.toString()}`);
   }, [selectedGene, viewMode, filters]);
 
+  const [showGeneSet, setShowGeneSet] = useState(false);
+  const analysisGeneIds = React.useMemo(() => {
+    if (!selectedGene) return [];
+    const ids = new Set([selectedGene.id]);
+    (networkData?.regulators || []).forEach((r) => ids.add(r.id));
+    (networkData?.targets || []).forEach((t) => ids.add(t.id));
+    return [...ids];
+  }, [selectedGene, networkData]);
+
   const [linkCopied, setLinkCopied] = useState(false);
   const copyLink = useCallback(() => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -150,9 +160,15 @@ export default function GeneNetworkExplorer() {
         )}
         <div className="tabs-row">
           <ViewTabs viewMode={viewMode} onViewChange={setViewMode} />
-          <button className="copy-link-btn" onClick={copyLink} title="Copy a shareable link to this view">
-            {linkCopied ? '✓ Copied' : '🔗 Copy link'}
-          </button>
+          <div className="tabs-actions">
+            <button className="copy-link-btn" onClick={() => setShowGeneSet(true)}
+              title="GO enrichment and network metrics for a gene set">
+              📊 Analyze
+            </button>
+            <button className="copy-link-btn" onClick={copyLink} title="Copy a shareable link to this view">
+              {linkCopied ? '✓ Copied' : '🔗 Copy link'}
+            </button>
+          </div>
         </div>
 
         <div className="content-area">
@@ -238,6 +254,14 @@ export default function GeneNetworkExplorer() {
           )}
         </div>
       </div>
+
+      <GeneSetPanel
+        open={showGeneSet}
+        onClose={() => setShowGeneSet(false)}
+        initialGeneIds={analysisGeneIds}
+        species={selectedGene?.species}
+        includeInferred={filters.includeInferred}
+      />
     </div>
   );
 }
