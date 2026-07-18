@@ -19,7 +19,8 @@ export default function GeneNetworkExplorer() {
     regulationType: ['activation', 'repression'],
     minConfidence: 0.6,
     maxDepth: 3,
-    direction: 'both' // 'regulators', 'targets', 'both'
+    direction: 'both', // 'regulators', 'targets', 'both'
+    includeInferred: true
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -51,7 +52,8 @@ export default function GeneNetworkExplorer() {
             max_depth: filters.maxDepth,
             direction: filters.direction,
             regulation_type: filters.regulationType,
-            min_confidence: filters.minConfidence
+            min_confidence: filters.minConfidence,
+            include_inferred: filters.includeInferred
           })
         });
         const networkJson = await networkResponse.json();

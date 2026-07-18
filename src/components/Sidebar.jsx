@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import DataSourcesPanel from './DataSourcesPanel';
 import '../styles/Sidebar.css';
 
 // Display metadata for species we may hold data for. The actual list shown is
@@ -42,10 +43,13 @@ export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading
   const [selectedSpecies, setSelectedSpecies] = useState(new Set(filters.species));
   const [regulationTypes, setRegulationTypes] = useState(new Set(filters.regulationType));
   const [confidence, setConfidence] = useState(filters.minConfidence);
+  const [includeInferred, setIncludeInferred] = useState(filters.includeInferred !== false);
   const [direction, setDirection] = useState(filters.direction);
   const [maxDepth, setMaxDepth] = useState(filters.maxDepth);
   const [speciesByKingdom, setSpeciesByKingdom] = useState({});
   const [kingdoms, setKingdoms] = useState([]);
+  const [showDataSources, setShowDataSources] = useState(false);
+  const [stats, setStats] = useState(null);
   const searchInputRef = useRef(null);
   const suggestionsRef = useRef(null);
 
@@ -54,6 +58,7 @@ export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading
     fetch('/api/v1/stats')
       .then((r) => r.json())
       .then((stats) => {
+        setStats(stats);
         const { byKingdom, kingdoms } = groupSpecies(stats.species_list || []);
         setSpeciesByKingdom(byKingdom);
         setKingdoms(kingdoms);
@@ -163,6 +168,13 @@ export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading
       ...filters,
       minConfidence: value
     });
+  };
+
+  // Handle inferred-edge toggle
+  const handleInferredToggle = () => {
+    const value = !includeInferred;
+    setIncludeInferred(value);
+    onFilterChange({ ...filters, includeInferred: value });
   };
 
   // Handle direction change
@@ -282,6 +294,21 @@ export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading
         </div>
       )}
 
+      {/* Evidence Filter */}
+      <div className="sidebar-section">
+        <h3 className="sidebar-title">Evidence</h3>
+        <div className="filter-group">
+          <label className="filter-item" title="Edges predicted by projecting the Arabidopsis network through orthology onto tomato/petunia — not measured">
+            <input
+              type="checkbox"
+              checked={includeInferred}
+              onChange={handleInferredToggle}
+            />
+            <span>Include inferred edges</span>
+          </label>
+        </div>
+      </div>
+
       {/* Regulation Type Filter */}
       <div className="sidebar-section">
         <h3 className="sidebar-title">Regulation type</h3>
@@ -341,11 +368,22 @@ export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading
       {/* Info */}
       <div className="sidebar-info">
         <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
-          <div>2 species (human, arabidopsis)</div>
-          <div>19,776 genes</div>
-          <div>96,703 interactions</div>
+          {stats ? (
+            <>
+              <div>{stats.species} species</div>
+              <div>{stats.genes?.toLocaleString()} genes</div>
+              <div>{stats.interactions?.toLocaleString()} interactions</div>
+            </>
+          ) : (
+            <div>Loading…</div>
+          )}
         </div>
+        <button className="data-sources-btn" onClick={() => setShowDataSources(true)}>
+          Data &amp; citations
+        </button>
       </div>
+
+      <DataSourcesPanel open={showDataSources} onClose={() => setShowDataSources(false)} />
     </div>
   );
 }

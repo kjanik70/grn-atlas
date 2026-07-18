@@ -108,7 +108,8 @@ export default function PathwayView({ gene, filters, onCyInit, onNodeAction, ini
           target_symbol: targetGene,
           max_depth: maxDepth,
           limit: pathLimit,
-          min_confidence: filters.minConfidence
+          min_confidence: filters.minConfidence,
+          include_inferred: filters.includeInferred
         })
       });
 
@@ -423,9 +424,16 @@ function PathCard({ path, index, selected, onClick }) {
                       </div>
                     </div>
                     <div className="source-cell">
-                      <span className="source">
-                        {path.sources?.[i]?.join(', ') || 'Unknown'}
-                      </span>
+                      {(path.sources?.[i] || []).some(s => s.startsWith('Inferred')) ? (
+                        <span className="source inferred"
+                          title="Predicted from the Arabidopsis network via orthology — not measured">
+                          Inferred (Arabidopsis)
+                        </span>
+                      ) : (
+                        <span className="source">
+                          {path.sources?.[i]?.join(', ') || 'Unknown'}
+                        </span>
+                      )}
                     </div>
                   </>
                 )}

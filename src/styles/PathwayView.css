@@ -664,6 +664,12 @@
   white-space: nowrap;
 }
 
+.source.inferred {
+  color: var(--warning-dark);
+  font-style: italic;
+  cursor: help;
+}
+
 .path-summary-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;

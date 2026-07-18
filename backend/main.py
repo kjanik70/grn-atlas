@@ -68,6 +68,8 @@ class GeneInteraction(BaseModel):
     confidence: float
     regulation_type: str  # 'activation', 'repression', 'unknown'
     source_databases: List[str]
+    pmids: List[str] = []
+    inferred: bool = False  # True when projected from another species' network
 
 class NetworkData(BaseModel):
     gene: Gene
@@ -119,12 +121,14 @@ class PathFindingRequest(BaseModel):
     limit: int = 20
     min_confidence: float = 0.3
     regulation_type: List[str] = ["activation", "repression", "regulation"]
+    include_inferred: bool = True
 
 class NeighborhoodRequest(BaseModel):
     max_depth: int = 1
     direction: str = "both"
     regulation_type: List[str] = ["activation", "repression", "regulation"]
     min_confidence: float = 0.3
+    include_inferred: bool = True
 
 # ============= Database Service =============
 # Backed by a local SQLite database built from the full TRRUST v2 human
@@ -184,43 +188,42 @@ class GeneDatabase:
         ).fetchone()
         return self._row_to_gene(row) if row else None
 
-    def get_regulators(self, gene_id: str, min_confidence: float = 0.0) -> List[GeneInteraction]:
+    @staticmethod
+    def _row_to_interaction(row) -> GeneInteraction:
+        sources = json.loads(row["sources"])
+        pmids = json.loads(row["pmids"]) if "pmids" in row.keys() and row["pmids"] else []
+        return GeneInteraction(
+            id=row["id"], symbol=row["symbol"], name=row["name"], species=row["species"],
+            is_tf=bool(row["is_tf"]), confidence=row["confidence"],
+            regulation_type=row["regulation_type"], source_databases=sources,
+            pmids=pmids, inferred=any(s.startswith("Inferred") for s in sources),
+        )
+
+    def get_regulators(self, gene_id: str, min_confidence: float = 0.0,
+                       include_inferred: bool = True) -> List[GeneInteraction]:
         """Get regulators of a gene"""
-        rows = self.conn.execute(
-            """
-            SELECT g.*, i.regulation_type, i.confidence, i.sources
+        sql = """
+            SELECT g.*, i.regulation_type, i.confidence, i.sources, i.pmids
             FROM interactions i JOIN genes g ON g.id = i.source_id
             WHERE i.target_id = ? AND i.confidence >= ?
-            """,
-            (gene_id, min_confidence)
-        ).fetchall()
-        return [
-            GeneInteraction(
-                id=r["id"], symbol=r["symbol"], name=r["name"], species=r["species"],
-                is_tf=bool(r["is_tf"]), confidence=r["confidence"],
-                regulation_type=r["regulation_type"], source_databases=json.loads(r["sources"])
-            )
-            for r in rows
-        ]
+        """
+        if not include_inferred:
+            sql += " AND i.sources NOT LIKE '%Inferred%'"
+        rows = self.conn.execute(sql, (gene_id, min_confidence)).fetchall()
+        return [self._row_to_interaction(r) for r in rows]
 
-    def get_targets(self, gene_id: str, min_confidence: float = 0.0) -> List[GeneInteraction]:
+    def get_targets(self, gene_id: str, min_confidence: float = 0.0,
+                    include_inferred: bool = True) -> List[GeneInteraction]:
         """Get targets of a gene"""
-        rows = self.conn.execute(
-            """
-            SELECT g.*, i.regulation_type, i.confidence, i.sources
+        sql = """
+            SELECT g.*, i.regulation_type, i.confidence, i.sources, i.pmids
             FROM interactions i JOIN genes g ON g.id = i.target_id
             WHERE i.source_id = ? AND i.confidence >= ?
-            """,
-            (gene_id, min_confidence)
-        ).fetchall()
-        return [
-            GeneInteraction(
-                id=r["id"], symbol=r["symbol"], name=r["name"], species=r["species"],
-                is_tf=bool(r["is_tf"]), confidence=r["confidence"],
-                regulation_type=r["regulation_type"], source_databases=json.loads(r["sources"])
-            )
-            for r in rows
-        ]
+        """
+        if not include_inferred:
+            sql += " AND i.sources NOT LIKE '%Inferred%'"
+        rows = self.conn.execute(sql, (gene_id, min_confidence)).fetchall()
+        return [self._row_to_interaction(r) for r in rows]
 
 # Initialize database
 db = GeneDatabase(DB_PATH)
@@ -297,8 +300,8 @@ async def get_neighborhood(gene_id: str, request: NeighborhoodRequest = Neighbor
         raise HTTPException(status_code=404, detail="Gene not found")
 
     # Get regulators and targets
-    regulators = db.get_regulators(gene_id, request.min_confidence) if request.direction in ["both", "regulators"] else []
-    targets = db.get_targets(gene_id, request.min_confidence) if request.direction in ["both", "targets"] else []
+    regulators = db.get_regulators(gene_id, request.min_confidence, request.include_inferred) if request.direction in ["both", "regulators"] else []
+    targets = db.get_targets(gene_id, request.min_confidence, request.include_inferred) if request.direction in ["both", "targets"] else []
 
     # Filter by regulation type
     regulators = [r for r in regulators if r.regulation_type in request.regulation_type]
@@ -328,26 +331,25 @@ async def find_paths(request: PathFindingRequest):
     target_gene = target_results[0]
     
     paths = []
-    queue = [(request.source_gene_id, [source], [], [], {request.source_gene_id})]
+    queue = [(request.source_gene_id, [source], [], [], [], {request.source_gene_id})]
     max_queue = 50000
 
     while queue and len(paths) < request.limit and len(queue) < max_queue:
-        current_id, current_path, regulations, confidences, path_visited = queue.pop(0)
+        current_id, current_path, regulations, confidences, edge_sources, path_visited = queue.pop(0)
 
         if current_id == target_gene.id:
             path_genes = [PathGene(id=g.id, symbol=g.symbol, name=g.name) for g in current_path]
-            sources_list = [["TRRUST"] for _ in regulations]
             paths.append(Path(
                 genes=path_genes,
                 regulation_types=regulations,
                 confidences=confidences,
-                sources=sources_list,
+                sources=edge_sources,
                 overall_confidence=sum(confidences) / len(confidences) if confidences else 0.0
             ))
             continue
 
         if len(current_path) <= request.max_depth:
-            targets = db.get_targets(current_id, request.min_confidence)
+            targets = db.get_targets(current_id, request.min_confidence, request.include_inferred)
             for target in targets:
                 if target.id not in path_visited and target.regulation_type in request.regulation_type:
                     target_gene_obj = db.get_gene(target.id)
@@ -357,6 +359,7 @@ async def find_paths(request: PathFindingRequest):
                             current_path + [target_gene_obj],
                             regulations + [target.regulation_type],
                             confidences + [target.confidence],
+                            edge_sources + [target.source_databases],
                             path_visited | {target.id}
                         ))
 

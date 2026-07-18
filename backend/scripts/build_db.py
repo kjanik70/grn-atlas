@@ -91,9 +91,10 @@ def load_human_edges():
     for (tf, target), d in pair_data.items():
         n_act, n_rep = len(d["Activation"]), len(d["Repression"])
         reg = "activation" if n_act >= n_rep else "repression"
-        total_refs = len(d["Activation"] | d["Repression"])
-        confidence = round(min(0.5 + 0.1 * total_refs, 0.95), 2)
-        edges.append((tf, target, reg, confidence, "TRRUST"))
+        all_pmids = d["Activation"] | d["Repression"]
+        confidence = round(min(0.5 + 0.1 * len(all_pmids), 0.95), 2)
+        pmids = sorted(p for p in all_pmids if p.isdigit())
+        edges.append((tf, target, reg, confidence, "TRRUST", pmids))
     return edges
 
 
@@ -136,7 +137,7 @@ def load_arabidopsis_edges():
                 reg = atrm[key]
                 confidence = max(confidence, 0.90)
                 directed += 1
-            edges.append((tf, target, reg, confidence, "PlantRegMap"))
+            edges.append((tf, target, reg, confidence, "PlantRegMap", []))
     print(f"  ATRM: set direction on {directed}/{len(atrm)} literature-curated pairs")
     return edges
 
@@ -152,7 +153,7 @@ def load_tomato_edges():
             if len(parts) < 4:
                 continue
             tf, target, reg, conf = parts[0], parts[1], parts[2], float(parts[3])
-            edges.append((tf, target, reg, conf, "PlantRegMap"))
+            edges.append((tf, target, reg, conf, "PlantRegMap", []))
     return edges
 
 
@@ -167,12 +168,12 @@ def build():
     arab_names = json.loads(ARABIDOPSIS_NAMES_JSON.read_text())
 
     # Human genes
-    human_tfs = {tf for tf, _, _, _, _ in human_edges}
-    human_genes = sorted(human_tfs | {t for _, t, _, _, _ in human_edges})
+    human_tfs = {tf for tf, *_ in human_edges}
+    human_genes = sorted(human_tfs | {e[1] for e in human_edges})
 
     # Arabidopsis genes
-    arab_tfs = {tf for tf, _, _, _, _ in arab_edges}
-    arab_all = sorted(arab_tfs | {t for _, t, _, _, _ in arab_edges})
+    arab_tfs = {tf for tf, *_ in arab_edges}
+    arab_all = sorted(arab_tfs | {e[1] for e in arab_edges})
 
     DB_PATH.unlink(missing_ok=True)
     conn = sqlite3.connect(DB_PATH)
@@ -197,6 +198,7 @@ def build():
             regulation_type TEXT NOT NULL,
             confidence REAL NOT NULL,
             sources TEXT NOT NULL,
+            pmids TEXT NOT NULL DEFAULT '[]',
             PRIMARY KEY (source_id, target_id)
         );
         CREATE INDEX idx_interactions_source ON interactions(source_id);
@@ -270,8 +272,10 @@ def build():
     # Insert all interactions (human + Arabidopsis + real tomato)
     all_edges = human_edges + arab_edges + tomato_edges
     conn.executemany(
-        "INSERT OR IGNORE INTO interactions (source_id, target_id, regulation_type, confidence, sources) VALUES (?, ?, ?, ?, ?)",
-        [(tf, target, reg, conf, json.dumps([src])) for tf, target, reg, conf, src in all_edges],
+        "INSERT OR IGNORE INTO interactions (source_id, target_id, regulation_type, confidence, sources, pmids) "
+        "VALUES (?, ?, ?, ?, ?, ?)",
+        [(tf, target, reg, conf, json.dumps([src]), json.dumps(pmids))
+         for tf, target, reg, conf, src, pmids in all_edges],
     )
     # ---- Genome layer (optional; only populated where fetched caches exist) ----
     def load_json(path):
@@ -299,7 +303,7 @@ def build():
     # never mistaken for measured regulation.
     omap = load_json(ORTHOLOG_MAP_JSON)  # {AGI(upper): {species: [plant genes]}}
     inferred_edges = []
-    for tf, target, reg, conf, _src in arab_edges:
+    for tf, target, reg, conf, *_ in arab_edges:
         tf_orth = omap.get(tf.upper(), {})
         tg_orth = omap.get(target.upper(), {})
         for species in ("tomato", "petunia"):
@@ -309,9 +313,9 @@ def build():
                         inferred_edges.append(
                             (a, b, reg, round(conf * INFERRED_CONF_FACTOR, 2)))
     conn.executemany(
-        "INSERT OR IGNORE INTO interactions (source_id, target_id, regulation_type, confidence, sources) "
-        "VALUES (?, ?, ?, ?, ?)",
-        [(a, b, reg, conf, json.dumps(["Inferred:Arabidopsis"]))
+        "INSERT OR IGNORE INTO interactions (source_id, target_id, regulation_type, confidence, sources, pmids) "
+        "VALUES (?, ?, ?, ?, ?, ?)",
+        [(a, b, reg, conf, json.dumps(["Inferred:Arabidopsis"]), "[]")
          for a, b, reg, conf in inferred_edges],
     )
 

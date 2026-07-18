@@ -185,6 +185,15 @@ export default function GeneDetailPanel({ gene, data }) {
                   ))}
                 </div>
               )}
+              {regulator.pmids && regulator.pmids.length > 0 && (
+                <div className="interaction-pmids">
+                  {regulator.pmids.slice(0, 5).map((pmid) => (
+                    <a key={pmid} className="pmid-link"
+                       href={`https://pubmed.ncbi.nlm.nih.gov/${pmid}`}
+                       target="_blank" rel="noopener noreferrer">PMID {pmid}</a>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -247,6 +256,15 @@ export default function GeneDetailPanel({ gene, data }) {
                         ? 'Predicted by projecting the Arabidopsis network through orthology — not measured'
                         : undefined}
                     >{source.startsWith('Inferred:') ? 'Inferred (Arabidopsis)' : source}</span>
+                  ))}
+                </div>
+              )}
+              {target.pmids && target.pmids.length > 0 && (
+                <div className="interaction-pmids">
+                  {target.pmids.slice(0, 5).map((pmid) => (
+                    <a key={pmid} className="pmid-link"
+                       href={`https://pubmed.ncbi.nlm.nih.gov/${pmid}`}
+                       target="_blank" rel="noopener noreferrer">PMID {pmid}</a>
                   ))}
                 </div>
               )}

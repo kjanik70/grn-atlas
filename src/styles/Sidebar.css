@@ -222,6 +222,19 @@
   border-top: 0.5px solid var(--border);
 }
 
+.data-sources-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 12px;
+  background: var(--surface-0);
+  color: var(--text-accent);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.data-sources-btn:hover { background: var(--bg-accent); }
+
 .sidebar-info > div {
   display: flex;
   flex-direction: column;

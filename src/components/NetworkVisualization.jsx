@@ -262,6 +262,7 @@ function convertDataToCytoscape(data, selectedGene) {
           regulation_type: regulator.regulation_type || 'unknown',
           confidence: regulator.confidence || 0.5,
           source_databases: regulator.source_databases || [],
+          inferred: regulator.inferred ? 1 : 0,
           type: 'regulator-edge'
         }
       });
@@ -294,6 +295,7 @@ function convertDataToCytoscape(data, selectedGene) {
           regulation_type: target.regulation_type || 'unknown',
           confidence: target.confidence || 0.5,
           source_databases: target.source_databases || [],
+          inferred: target.inferred ? 1 : 0,
           type: 'target-edge'
         }
       });
@@ -406,6 +408,14 @@ function getCytoscapeStyle() {
         'line-color': '#999999',
         'target-arrow-color': '#999999',
         'edge_color': '#999999'
+      }
+    },
+    {
+      // Orthology-projected (inferred) edges: dashed and faded.
+      selector: 'edge[inferred = 1]',
+      style: {
+        'line-style': 'dashed',
+        'opacity': '0.45'
       }
     },
     {

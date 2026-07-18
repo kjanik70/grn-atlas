@@ -318,6 +318,24 @@
   font-weight: 500;
 }
 
+.interaction-pmids {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.pmid-link {
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  color: var(--text-accent);
+  text-decoration: none;
+}
+.pmid-link:hover { background-color: var(--bg-accent); text-decoration: underline; }
+
 /* Orthology-projected (inferred) edges — visually distinct from measured ones. */
 .source-tag.inferred {
   background-color: var(--bg-warning);
