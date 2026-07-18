@@ -51,6 +51,22 @@
 }
 .swap-btn:hover { background: var(--bg-accent); }
 
+.genome-export {
+  display: flex;
+  gap: var(--space-xs);
+  align-self: flex-end;
+}
+.genome-export-btn {
+  padding: 6px 10px;
+  font-size: var(--text-sm);
+  background: var(--surface-0);
+  color: var(--text-accent);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.genome-export-btn:hover { background: var(--bg-accent); }
+
 .genome-legend {
   margin-left: auto;
   display: flex;

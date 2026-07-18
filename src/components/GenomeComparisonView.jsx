@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { genomeAPI } from '../services/apiService';
 import '../styles/GenomeComparisonView.css';
 
@@ -143,6 +143,42 @@ export default function GenomeComparisonView() {
 
   const swap = () => { setSpeciesA(speciesB); setSpeciesB(speciesA); };
 
+  const svgRef = useRef(null);
+  const downloadBlob = (blob, filename) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url);
+  };
+  const serializeSvg = () => {
+    if (!svgRef.current) return null;
+    const clone = svgRef.current.cloneNode(true);
+    clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    clone.setAttribute('width', VIEW_W);
+    clone.setAttribute('height', DRAW_H);
+    clone.style.background = '#ffffff';
+    return new XMLSerializer().serializeToString(clone);
+  };
+  const exportSvg = () => {
+    const s = serializeSvg();
+    if (s) downloadBlob(new Blob([s], { type: 'image/svg+xml' }), `genome_${speciesA}_vs_${speciesB}.svg`);
+  };
+  const exportPng = () => {
+    const s = serializeSvg();
+    if (!s) return;
+    const img = new Image();
+    const scale = 2;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = VIEW_W * scale; canvas.height = DRAW_H * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => downloadBlob(blob, `genome_${speciesA}_vs_${speciesB}.png`));
+    };
+    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(s)));
+  };
+
   const geneTicks = (layout, x, side, mapped) => {
     if (!layout) return null;
     const anchor = side === 'left' ? 'end' : 'start';
@@ -197,6 +233,11 @@ export default function GenomeComparisonView() {
           </select>
         </div>
 
+        <div className="genome-export">
+          <button className="genome-export-btn" onClick={exportSvg} title="Download as SVG">⤓ SVG</button>
+          <button className="genome-export-btn" onClick={exportPng} title="Download as PNG">⤓ PNG</button>
+        </div>
+
         <div className="genome-legend">
           <span className="lg-item"><span className="sw sw-gene" /> Gene</span>
           <span className="lg-item"><span className="sw sw-tf" /> TF</span>
@@ -229,7 +270,7 @@ export default function GenomeComparisonView() {
           </div>
 
           <div className="genome-canvas">
-            <svg viewBox={`0 0 ${VIEW_W} ${DRAW_H}`} preserveAspectRatio="xMidYMid meet"
+            <svg ref={svgRef} viewBox={`0 0 ${VIEW_W} ${DRAW_H}`} preserveAspectRatio="xMidYMid meet"
                  className="genome-svg" role="img"
                  aria-label={`Chromosome comparison between ${label(speciesA)} and ${label(speciesB)}`}>
               <text className="col-title" x={X_LEFT + BAR_W / 2} y={12} textAnchor="middle">

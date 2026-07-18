@@ -56,6 +56,36 @@ export default function Toolbar({ gene, stats, cyRef }) {
     download(blob, `grn_atlas_${gene.symbol}.json`);
   };
 
+  const exportGraphML = () => {
+    const cy = cyRef?.current;
+    if (!cy) return;
+    const esc = (s) => String(s ?? '').replace(/[<>&"]/g, (c) =>
+      ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
+    const lines = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<graphml xmlns="http://graphml.graphdrawing.org/xmlns">',
+      '<key id="label" for="node" attr.name="label" attr.type="string"/>',
+      '<key id="species" for="node" attr.name="species" attr.type="string"/>',
+      '<key id="reg" for="edge" attr.name="regulation_type" attr.type="string"/>',
+      '<key id="conf" for="edge" attr.name="confidence" attr.type="double"/>',
+      '<key id="src" for="edge" attr.name="sources" attr.type="string"/>',
+      '<graph edgedefault="directed">',
+    ];
+    cy.nodes().forEach((n) => {
+      lines.push(`<node id="${esc(n.id())}"><data key="label">${esc(n.data('label'))}</data>` +
+        `<data key="species">${esc(n.data('species'))}</data></node>`);
+    });
+    cy.edges().forEach((e) => {
+      const d = e.data();
+      lines.push(`<edge source="${esc(e.source().id())}" target="${esc(e.target().id())}">` +
+        `<data key="reg">${esc(d.regulation_type)}</data>` +
+        `<data key="conf">${esc(d.confidence)}</data>` +
+        `<data key="src">${esc((d.source_databases || []).join(';'))}</data></edge>`);
+    });
+    lines.push('</graph></graphml>');
+    download(new Blob([lines.join('\n')], { type: 'application/xml' }), `grn_atlas_${gene.symbol}.graphml`);
+  };
+
   const exportCSV = () => {
     const cy = cyRef?.current;
     if (!cy) return;
@@ -130,6 +160,10 @@ export default function Toolbar({ gene, stats, cyRef }) {
               <button className="export-option" onClick={exportJSON} disabled={!hasCy}>
                 <span className="export-icon">JSON</span>
                 <span className="export-desc">Cytoscape data</span>
+              </button>
+              <button className="export-option" onClick={exportGraphML} disabled={!hasCy}>
+                <span className="export-icon">GraphML</span>
+                <span className="export-desc">Cytoscape/Gephi</span>
               </button>
               <button className="export-option" onClick={exportCSV} disabled={!hasCy}>
                 <span className="export-icon">CSV</span>
