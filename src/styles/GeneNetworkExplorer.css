@@ -21,6 +21,27 @@
   position: relative;
 }
 
+.tabs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+.copy-link-btn {
+  flex-shrink: 0;
+  padding: 5px 10px;
+  font-size: var(--text-sm);
+  background: var(--surface-0);
+  color: var(--text-accent);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.copy-link-btn:hover { background: var(--bg-accent); }
+
 /* Error Banner */
 .error-banner {
   background-color: var(--bg-danger);

@@ -68,6 +68,43 @@ export default function GeneNetworkExplorer() {
     }
   }, [filters]);
 
+  // Restore state from a shared permalink on first load.
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    if (p.get('view')) setViewMode(p.get('view'));
+    const fp = {};
+    if (p.get('species')) fp.species = p.get('species').split(',');
+    if (p.get('reg')) fp.regulationType = p.get('reg').split(',');
+    if (p.get('conf')) fp.minConfidence = parseFloat(p.get('conf'));
+    if (p.get('depth')) fp.maxDepth = parseInt(p.get('depth'), 10);
+    if (p.get('dir')) fp.direction = p.get('dir');
+    if (p.get('inferred')) fp.includeInferred = p.get('inferred') === '1';
+    if (Object.keys(fp).length) setFilters((f) => ({ ...f, ...fp }));
+    if (p.get('gene')) handleGeneSearch(p.get('gene'));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Keep the URL in sync so the current view is always shareable.
+  useEffect(() => {
+    const p = new URLSearchParams();
+    if (selectedGene) p.set('gene', selectedGene.symbol);
+    p.set('view', viewMode);
+    if (filters.species?.length) p.set('species', filters.species.join(','));
+    p.set('reg', filters.regulationType.join(','));
+    p.set('conf', String(filters.minConfidence));
+    p.set('depth', String(filters.maxDepth));
+    p.set('dir', filters.direction);
+    p.set('inferred', filters.includeInferred ? '1' : '0');
+    window.history.replaceState(null, '', `?${p.toString()}`);
+  }, [selectedGene, viewMode, filters]);
+
+  const [linkCopied, setLinkCopied] = useState(false);
+  const copyLink = useCallback(() => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 1500);
+    });
+  }, []);
+
   const handleNodeAction = useCallback((geneId, geneSymbol, action) => {
     if (action === 'view-neighborhood') {
       handleGeneSearch(geneSymbol);
@@ -111,7 +148,12 @@ export default function GeneNetworkExplorer() {
         {selectedGene && (
           <Toolbar gene={selectedGene} stats={networkData?.stats} cyRef={cyInstanceRef} />
         )}
-        <ViewTabs viewMode={viewMode} onViewChange={setViewMode} />
+        <div className="tabs-row">
+          <ViewTabs viewMode={viewMode} onViewChange={setViewMode} />
+          <button className="copy-link-btn" onClick={copyLink} title="Copy a shareable link to this view">
+            {linkCopied ? '✓ Copied' : '🔗 Copy link'}
+          </button>
+        </div>
 
         <div className="content-area">
           {error && (
