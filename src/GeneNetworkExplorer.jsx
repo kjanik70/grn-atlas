@@ -169,9 +169,25 @@ export default function GeneNetworkExplorer() {
             <div className="empty-state">
               <div className="empty-icon">🧬</div>
               <h2>Gene Regulatory Network Atlas</h2>
-              <p>Search for a gene to get started</p>
-              <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '8px' }}>
-                21 species • 591K genes • 6.7M interactions
+              <p>Search for a gene, or try an example:</p>
+              <div className="example-genes">
+                {[
+                  { symbol: 'TP53', note: 'human tumor suppressor' },
+                  { symbol: 'MYC', note: 'human oncogene' },
+                  { symbol: 'LHY', note: 'Arabidopsis clock' },
+                  { symbol: 'LFY', note: 'plant flowering' },
+                ].map((ex) => (
+                  <button key={ex.symbol} className="example-gene-btn"
+                    onClick={() => handleGeneSearch(ex.symbol)}>
+                    <strong>{ex.symbol}</strong>
+                    <span>{ex.note}</span>
+                  </button>
+                ))}
+              </div>
+              <p className="empty-hint">
+                Explore regulators and targets, trace pathways, compare chromosomes across
+                species, and design interventions. Some plant edges are <em>inferred</em> from
+                Arabidopsis via orthology (shown dashed and labeled) — see “Data &amp; citations”.
               </p>
             </div>
           ) : (

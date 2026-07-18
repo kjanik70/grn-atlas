@@ -59,3 +59,9 @@
 .ds-name:hover { text-decoration: underline; }
 .ds-provides { font-size: var(--text-sm); margin-top: 2px; }
 .ds-cite { font-size: var(--text-xs); color: var(--text-muted); margin-top: 2px; font-style: italic; }
+
+.ds-subhead { font-size: var(--text-lg); margin: var(--space-lg) 0 var(--space-sm); }
+.ds-glossary { margin: 0; }
+.ds-term { margin-bottom: var(--space-sm); }
+.ds-term dt { font-weight: 600; font-size: var(--text-sm); }
+.ds-term dd { margin: 0; font-size: var(--text-sm); color: var(--text-secondary); }

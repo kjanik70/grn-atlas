@@ -40,6 +40,16 @@ const SOURCES = [
   },
 ];
 
+const GLOSSARY = [
+  ['Transcription factor (TF)', 'A protein that binds DNA to switch other genes on or off.'],
+  ['Regulator / target', 'A regulator (TF) controls a target gene; edges point regulator → target.'],
+  ['Activation / repression', 'Whether a regulator increases (activation) or decreases (repression) its target.'],
+  ['Ortholog', 'The “same” gene in a different species, descended from a common ancestor.'],
+  ['Synteny', 'Conserved gene order along chromosomes between species, shown as ribbons.'],
+  ['Confidence', 'How well-supported an interaction is (evidence count / method); filterable.'],
+  ['Inferred edge', 'A regulatory edge predicted for tomato/petunia by projecting the Arabidopsis network through orthology — a prediction, not a measurement.'],
+];
+
 export default function DataSourcesPanel({ open, onClose }) {
   const [stats, setStats] = useState(null);
 
@@ -81,6 +91,16 @@ export default function DataSourcesPanel({ open, onClose }) {
             </li>
           ))}
         </ul>
+
+        <h3 className="ds-subhead">Glossary</h3>
+        <dl className="ds-glossary">
+          {GLOSSARY.map(([term, def]) => (
+            <div key={term} className="ds-term">
+              <dt>{term}</dt>
+              <dd>{def}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </div>
   );
