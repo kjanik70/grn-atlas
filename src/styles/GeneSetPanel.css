@@ -58,6 +58,15 @@
 .gs-section h3 { font-size: var(--text-lg); margin: 0 0 var(--space-xs); }
 .gs-metrics { font-size: var(--text-sm); color: var(--text-secondary); margin: 0 0 var(--space-sm); }
 
+.subgraph-canvas {
+  width: 100%;
+  height: 320px;
+  margin-top: var(--space-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-1);
+}
+
 .gs-hubs { font-size: var(--text-sm); }
 .gs-label { color: var(--text-secondary); }
 .gs-hub { margin-right: var(--space-sm); }

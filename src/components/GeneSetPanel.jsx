@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { analysisAPI } from '../services/apiService';
+import SubgraphGraph from './SubgraphGraph';
 import '../styles/GeneSetPanel.css';
 
 const NS_LABEL = { BP: 'process', CC: 'component', MF: 'function', '': '' };
@@ -28,7 +29,7 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
   const [subgraph, setSubgraph] = useState(null);
   const [enrichment, setEnrichment] = useState(null);
 
-  const run = useCallback(async (geneIds) => {
+  const analyze = useCallback(async (geneIds, sp) => {
     if (!geneIds || geneIds.length < 2) {
       setError('Provide at least 2 genes.');
       return;
@@ -38,7 +39,7 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
     try {
       const [sg, enr] = await Promise.all([
         analysisAPI.subgraph(geneIds, { includeInferred }),
-        analysisAPI.enrich(geneIds, species),
+        analysisAPI.enrich(geneIds, sp),
       ]);
       setSubgraph(sg);
       setEnrichment(enr);
@@ -47,21 +48,40 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
     } finally {
       setLoading(false);
     }
-  }, [species, includeInferred]);
+  }, [includeInferred]);
 
   // Auto-run when opened from the network ("analyze this network").
   useEffect(() => {
     if (open && initialGeneIds && initialGeneIds.length) {
       setText(initialGeneIds.join(', '));
-      run(initialGeneIds);
+      analyze(initialGeneIds, species);
     }
-  }, [open, initialGeneIds, run]);
+  }, [open, initialGeneIds, species, analyze]);
 
   if (!open) return null;
 
-  const runFromText = () => {
-    const ids = text.split(/[\s,]+/).map((t) => t.trim()).filter(Boolean);
-    run(ids);
+  // Resolve pasted tokens (symbols or ids, any species) to gene ids, then analyze.
+  const runFromText = async () => {
+    const tokens = text.split(/[\s,]+/).map((t) => t.trim()).filter(Boolean);
+    if (tokens.length < 2) { setError('Provide at least 2 genes.'); return; }
+    setLoading(true);
+    setError(null);
+    try {
+      const resolved = await Promise.all(tokens.map(async (tok) => {
+        const r = await fetch(`/api/v1/genes/search?q=${encodeURIComponent(tok)}&limit=1`);
+        const d = await r.json();
+        return d.results?.[0] || null;
+      }));
+      const hits = resolved.filter(Boolean);
+      if (hits.length < 2) { setError('Could not resolve those genes.'); setLoading(false); return; }
+      const counts = {};
+      hits.forEach((h) => { counts[h.species] = (counts[h.species] || 0) + 1; });
+      const sp = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+      await analyze(hits.map((h) => h.id), sp);
+    } catch (e) {
+      setError(e.message);
+      setLoading(false);
+    }
   };
 
   const hubs = subgraph ? topHubs(subgraph.nodes, subgraph.edges) : [];
@@ -104,6 +124,9 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
                   <span key={h.symbol} className="gs-hub">{h.symbol} <em>({h.deg})</em></span>
                 ))}
               </div>
+            )}
+            {subgraph.edges.length > 0 && (
+              <SubgraphGraph nodes={subgraph.nodes} edges={subgraph.edges} />
             )}
           </div>
         )}

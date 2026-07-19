@@ -306,7 +306,7 @@ function convertDataToCytoscape(data, selectedGene) {
 }
 
 // Cytoscape style configuration
-function getCytoscapeStyle() {
+export function getCytoscapeStyle() {
   return [
     {
       selector: 'node',
@@ -429,7 +429,7 @@ function getCytoscapeStyle() {
 }
 
 // Layout configuration
-function getLayout(layoutName = 'cose') {
+export function getLayout(layoutName = 'cose') {
   const layouts = {
     cose: {
       name: 'cose',
