@@ -71,16 +71,25 @@ SEQCTX_FILES = {
 
 
 def load_rows(basename):
-    """Read a list-of-dicts cache from <basename>.json.gz or <basename>.json."""
-    gz = DATA_DIR / f"{basename}.json.gz"
-    plain = DATA_DIR / f"{basename}.json"
-    if gz.exists():
-        import gzip
-        with gzip.open(gz, "rt", encoding="utf-8") as f:
-            return json.load(f)
-    if plain.exists():
-        return json.loads(plain.read_text())
-    return []
+    """Read + concatenate list-of-dicts caches for a sequence-context table across
+    all species: <basename>.json[.gz] and <basename>_<species>.json[.gz]."""
+    import gzip
+    rows = []
+    seen = set()
+    for path in sorted(DATA_DIR.glob(f"{basename}*.json*")):
+        if path.name in seen or path.suffix not in (".gz", ".json"):
+            continue
+        # avoid loading both foo.json and foo.json.gz for the same stem
+        stem = path.name[:-3] if path.name.endswith(".gz") else path.name
+        if stem in seen:
+            continue
+        seen.add(stem)
+        if path.name.endswith(".gz"):
+            with gzip.open(path, "rt", encoding="utf-8") as f:
+                rows.extend(json.load(f))
+        else:
+            rows.extend(json.loads(path.read_text()))
+    return rows
 
 # Authoritative assembly chromosome lengths (bp) for scaled ideograms.
 # Human: GRCh38; Arabidopsis: TAIR10. Falls back to max observed coordinate

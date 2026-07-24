@@ -8,6 +8,7 @@ import ComparisonView from './components/ComparisonView';
 import GenomeComparisonView from './components/GenomeComparisonView';
 import GeneSetPanel from './components/GeneSetPanel';
 import OrganismView from './components/OrganismView';
+import { COLLECTIONS } from './collections';
 import InterventionDesigner from './components/InterventionDesigner';
 import PathwayView from './components/PathwayView';
 import './styles/GeneNetworkExplorer.css';
@@ -100,6 +101,11 @@ export default function GeneNetworkExplorer() {
   }, [selectedGene, viewMode, filters]);
 
   const [showGeneSet, setShowGeneSet] = useState(false);
+  const [collection, setCollection] = useState(null);
+  const openCollection = useCallback((col) => {
+    setCollection(col);
+    setShowGeneSet(true);
+  }, []);
   const analysisGeneIds = React.useMemo(() => {
     if (!selectedGene) return [];
     const ids = new Set([selectedGene.id]);
@@ -208,6 +214,17 @@ export default function GeneNetworkExplorer() {
                 species, and design interventions. Some plant edges are <em>inferred</em> from
                 Arabidopsis via orthology (shown dashed and labeled) — see “Data &amp; citations”.
               </p>
+              <div className="collections">
+                <div className="collections-label">Curated collections</div>
+                <div className="collection-btns">
+                  {COLLECTIONS.map((col) => (
+                    <button key={col.id} className="collection-btn"
+                      onClick={() => openCollection(col)} title={col.description}>
+                      {col.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           ) : (
             <>
@@ -260,9 +277,9 @@ export default function GeneNetworkExplorer() {
 
       <GeneSetPanel
         open={showGeneSet}
-        onClose={() => setShowGeneSet(false)}
-        initialGeneIds={analysisGeneIds}
-        species={selectedGene?.species}
+        onClose={() => { setShowGeneSet(false); setCollection(null); }}
+        initialGeneIds={collection ? collection.geneIds : analysisGeneIds}
+        species={collection ? collection.species : selectedGene?.species}
         includeInferred={filters.includeInferred}
       />
     </div>

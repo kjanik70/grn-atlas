@@ -1,0 +1,3341 @@
+[
+ {
+  "motif_id": "MA1289.2|Peaxi162Scf00069g00202",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1289.2",
+  "tf_gene_id": "Peaxi162Scf00069g00202",
+  "tf_symbol": "TCP3"
+ },
+ {
+  "motif_id": "MA1393.3|Peaxi162Scf00945g00023",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1393.3",
+  "tf_gene_id": "Peaxi162Scf00945g00023",
+  "tf_symbol": "MYB70"
+ },
+ {
+  "motif_id": "MA0951.1|Peaxi162Scf00237g01510",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0951.1",
+  "tf_gene_id": "Peaxi162Scf00237g01510",
+  "tf_symbol": "HB6"
+ },
+ {
+  "motif_id": "MA0950.1|Peaxi162Scf00767g00212",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0950.1",
+  "tf_gene_id": "Peaxi162Scf00767g00212",
+  "tf_symbol": "HB-7"
+ },
+ {
+  "motif_id": "MA2052.2|Peaxi162Scf00003g00267",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2052.2",
+  "tf_gene_id": "Peaxi162Scf00003g00267",
+  "tf_symbol": "ZF2"
+ },
+ {
+  "motif_id": "MA1351.3|Peaxi162Scf00403g00716",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1351.3",
+  "tf_gene_id": "Peaxi162Scf00403g00716",
+  "tf_symbol": "GBF3"
+ },
+ {
+  "motif_id": "MA0110.4|Peaxi162Scf00044g01613",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0110.4",
+  "tf_gene_id": "Peaxi162Scf00044g01613",
+  "tf_symbol": "HB16"
+ },
+ {
+  "motif_id": "MA0951.1|Peaxi162Scf00044g01613",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0951.1",
+  "tf_gene_id": "Peaxi162Scf00044g01613",
+  "tf_symbol": "HB16"
+ },
+ {
+  "motif_id": "MA0561.1|Peaxi162Scf00351g00108",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0561.1",
+  "tf_gene_id": "Peaxi162Scf00351g00108",
+  "tf_symbol": "PIF4"
+ },
+ {
+  "motif_id": "MA0562.1|Peaxi162Scf00351g00108",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0562.1",
+  "tf_gene_id": "Peaxi162Scf00351g00108",
+  "tf_symbol": "PIF4"
+ },
+ {
+  "motif_id": "MA1372.2|Peaxi162Scf00081g00151",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1372.2",
+  "tf_gene_id": "Peaxi162Scf00081g00151",
+  "tf_symbol": "STZ"
+ },
+ {
+  "motif_id": "MA2052.2|Peaxi162Scf00081g00151",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2052.2",
+  "tf_gene_id": "Peaxi162Scf00081g00151",
+  "tf_symbol": "STZ"
+ },
+ {
+  "motif_id": "MA0570.3|Peaxi162Scf00016g01934",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0570.3",
+  "tf_gene_id": "Peaxi162Scf00016g01934",
+  "tf_symbol": "ABF1"
+ },
+ {
+  "motif_id": "MA0590.1|Peaxi162Scf00314g00633",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0590.1",
+  "tf_gene_id": "Peaxi162Scf00314g00633",
+  "tf_symbol": "LFY"
+ },
+ {
+  "motif_id": "MA1394.3|Peaxi162Scf00945g00023",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1394.3",
+  "tf_gene_id": "Peaxi162Scf00945g00023",
+  "tf_symbol": "MYB70"
+ },
+ {
+  "motif_id": "MA0570.3|Peaxi162Scf00003g02333",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0570.3",
+  "tf_gene_id": "Peaxi162Scf00003g02333",
+  "tf_symbol": "ABF3"
+ },
+ {
+  "motif_id": "MA1065.3|Peaxi162Scf00128g01526",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1065.3",
+  "tf_gene_id": "Peaxi162Scf00128g01526",
+  "tf_symbol": "TCP20"
+ },
+ {
+  "motif_id": "MA2032.2|Peaxi162Scf00016g02929",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2032.2",
+  "tf_gene_id": "Peaxi162Scf00016g02929",
+  "tf_symbol": "TRB1"
+ },
+ {
+  "motif_id": "MA1065.3|Peaxi162Scf00420g00064",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1065.3",
+  "tf_gene_id": "Peaxi162Scf00420g00064",
+  "tf_symbol": "TCP20"
+ },
+ {
+  "motif_id": "MA1283.2|Peaxi162Scf00541g00061",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1283.2",
+  "tf_gene_id": "Peaxi162Scf00541g00061",
+  "tf_symbol": "TCP16"
+ },
+ {
+  "motif_id": "MA1355.2|Peaxi162Scf00152g00527",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1355.2",
+  "tf_gene_id": "Peaxi162Scf00152g00527",
+  "tf_symbol": "TRB1"
+ },
+ {
+  "motif_id": "MA2032.2|Peaxi162Scf00152g00527",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2032.2",
+  "tf_gene_id": "Peaxi162Scf00152g00527",
+  "tf_symbol": "TRB1"
+ },
+ {
+  "motif_id": "MA1428.2|Peaxi162Scf00391g00048",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1428.2",
+  "tf_gene_id": "Peaxi162Scf00391g00048",
+  "tf_symbol": "AtTCP23"
+ },
+ {
+  "motif_id": "MA1288.2|Peaxi162Scf00391g00048",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1288.2",
+  "tf_gene_id": "Peaxi162Scf00391g00048",
+  "tf_symbol": "AtTCP23"
+ },
+ {
+  "motif_id": "MA1066.1|Peaxi162Scf00391g00048",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1066.1",
+  "tf_gene_id": "Peaxi162Scf00391g00048",
+  "tf_symbol": "AtTCP23"
+ },
+ {
+  "motif_id": "MA2032.2|Peaxi162Scf00003g02843",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2032.2",
+  "tf_gene_id": "Peaxi162Scf00003g02843",
+  "tf_symbol": "TRB1"
+ },
+ {
+  "motif_id": "MA1062.3|Peaxi162Scf00274g00082",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1062.3",
+  "tf_gene_id": "Peaxi162Scf00274g00082",
+  "tf_symbol": "TCP15"
+ },
+ {
+  "motif_id": "MA1283.2|Peaxi162Scf00274g00082",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1283.2",
+  "tf_gene_id": "Peaxi162Scf00274g00082",
+  "tf_symbol": "TCP15"
+ },
+ {
+  "motif_id": "MA1287.2|Peaxi162Scf00021g00213",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1287.2",
+  "tf_gene_id": "Peaxi162Scf00021g00213",
+  "tf_symbol": "TCP11"
+ },
+ {
+  "motif_id": "MA1291.1|Peaxi162Scf00021g00213",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1291.1",
+  "tf_gene_id": "Peaxi162Scf00021g00213",
+  "tf_symbol": "TCP11"
+ },
+ {
+  "motif_id": "MA1035.1|Peaxi162Scf00189g10021",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1035.1",
+  "tf_gene_id": "Peaxi162Scf00189g10021",
+  "tf_symbol": "TCP4"
+ },
+ {
+  "motif_id": "MA1035.1|Peaxi162Scf00069g00202",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1035.1",
+  "tf_gene_id": "Peaxi162Scf00069g00202",
+  "tf_symbol": "TCP3"
+ },
+ {
+  "motif_id": "MA1035.1|Peaxi162Scf00000g00252",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1035.1",
+  "tf_gene_id": "Peaxi162Scf00000g00252",
+  "tf_symbol": "TCP10"
+ },
+ {
+  "motif_id": "MA0937.1|Peaxi162Scf00000g00481",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0937.1",
+  "tf_gene_id": "Peaxi162Scf00000g00481",
+  "tf_symbol": "NAC3"
+ },
+ {
+  "motif_id": "MA1786.2|Peaxi162Scf00998g00126",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1786.2",
+  "tf_gene_id": "Peaxi162Scf00998g00126",
+  "tf_symbol": "NAC019"
+ },
+ {
+  "motif_id": "MA1750.1|Peaxi162Scf00017g02335",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1750.1",
+  "tf_gene_id": "Peaxi162Scf00017g02335",
+  "tf_symbol": "DEL3"
+ },
+ {
+  "motif_id": "MA0941.2|Peaxi162Scf00252g00228",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0941.2",
+  "tf_gene_id": "Peaxi162Scf00252g00228",
+  "tf_symbol": "ABF2"
+ },
+ {
+  "motif_id": "MA0931.2|Peaxi162Scf00290g00115",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0931.2",
+  "tf_gene_id": "Peaxi162Scf00290g00115",
+  "tf_symbol": "ABI5"
+ },
+ {
+  "motif_id": "MA1787.2|Peaxi162Scf00004g02727",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1787.2",
+  "tf_gene_id": "Peaxi162Scf00004g02727",
+  "tf_symbol": "NAC064"
+ },
+ {
+  "motif_id": "MA2010.2|Peaxi162Scf00006g00229",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2010.2",
+  "tf_gene_id": "Peaxi162Scf00006g00229",
+  "tf_symbol": "SMB"
+ },
+ {
+  "motif_id": "MA2044.2|Peaxi162Scf00241g00423",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2044.2",
+  "tf_gene_id": "Peaxi162Scf00241g00423",
+  "tf_symbol": "NAC007"
+ },
+ {
+  "motif_id": "MA2033.2|Peaxi162Scf00213g00119",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2033.2",
+  "tf_gene_id": "Peaxi162Scf00213g00119",
+  "tf_symbol": "NAC038"
+ },
+ {
+  "motif_id": "MA2034.2|Peaxi162Scf00171g00619",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2034.2",
+  "tf_gene_id": "Peaxi162Scf00171g00619",
+  "tf_symbol": "NAC057"
+ },
+ {
+  "motif_id": "MA2033.2|Peaxi162Scf00045g00146",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2033.2",
+  "tf_gene_id": "Peaxi162Scf00045g00146",
+  "tf_symbol": "NAC024"
+ },
+ {
+  "motif_id": "MA1402.1|Peaxi162Scf00287g01628",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1402.1",
+  "tf_gene_id": "Peaxi162Scf00287g01628",
+  "tf_symbol": "BPC6"
+ },
+ {
+  "motif_id": "MA1403.1|Peaxi162Scf00287g01628",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1403.1",
+  "tf_gene_id": "Peaxi162Scf00287g01628",
+  "tf_symbol": "BPC6"
+ },
+ {
+  "motif_id": "MA1064.2|Peaxi162Scf00317g00020",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1064.2",
+  "tf_gene_id": "Peaxi162Scf00317g00020",
+  "tf_symbol": "TCP24"
+ },
+ {
+  "motif_id": "MA1750.1|Peaxi162Scf00129g00736",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1750.1",
+  "tf_gene_id": "Peaxi162Scf00129g00736",
+  "tf_symbol": "DEL1"
+ },
+ {
+  "motif_id": "MA0575.2|Peaxi162Scf00945g00023",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0575.2",
+  "tf_gene_id": "Peaxi162Scf00945g00023",
+  "tf_symbol": "MYB70"
+ },
+ {
+  "motif_id": "MA1074.2|Peaxi162Scf00013g00537",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1074.2",
+  "tf_gene_id": "Peaxi162Scf00013g00537",
+  "tf_symbol": "PIF7"
+ },
+ {
+  "motif_id": "MA2029.2|Peaxi162Scf00503g00613",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2029.2",
+  "tf_gene_id": "Peaxi162Scf00503g00613",
+  "tf_symbol": "FLP"
+ },
+ {
+  "motif_id": "MA1333.2|Peaxi162Scf00112g01217",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1333.2",
+  "tf_gene_id": "Peaxi162Scf00112g01217",
+  "tf_symbol": "BEH4"
+ },
+ {
+  "motif_id": "MA1331.2|Peaxi162Scf00112g01217",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1331.2",
+  "tf_gene_id": "Peaxi162Scf00112g01217",
+  "tf_symbol": "BEH4"
+ },
+ {
+  "motif_id": "MA1332.2|Peaxi162Scf00008g00459",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1332.2",
+  "tf_gene_id": "Peaxi162Scf00008g00459",
+  "tf_symbol": "BEH1"
+ },
+ {
+  "motif_id": "MA0549.2|Peaxi162Scf00008g00459",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0549.2",
+  "tf_gene_id": "Peaxi162Scf00008g00459",
+  "tf_symbol": "BEH1"
+ },
+ {
+  "motif_id": "MA0550.3|Peaxi162Scf00064g00329",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0550.3",
+  "tf_gene_id": "Peaxi162Scf00064g00329",
+  "tf_symbol": "BES1"
+ },
+ {
+  "motif_id": "MA0549.2|Peaxi162Scf00064g00329",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0549.2",
+  "tf_gene_id": "Peaxi162Scf00064g00329",
+  "tf_symbol": "BES1"
+ },
+ {
+  "motif_id": "MA1333.2|Peaxi162Scf00264g00840",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1333.2",
+  "tf_gene_id": "Peaxi162Scf00264g00840",
+  "tf_symbol": "BEH3"
+ },
+ {
+  "motif_id": "MA0954.3|Peaxi162Scf00767g00212",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0954.3",
+  "tf_gene_id": "Peaxi162Scf00767g00212",
+  "tf_symbol": "HB-7"
+ },
+ {
+  "motif_id": "MA1338.3|Peaxi162Scf00003g05367",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1338.3",
+  "tf_gene_id": "Peaxi162Scf00003g05367",
+  "tf_symbol": "EEL"
+ },
+ {
+  "motif_id": "MA1345.2|Peaxi162Scf00188g00066",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1345.2",
+  "tf_gene_id": "Peaxi162Scf00188g00066",
+  "tf_symbol": "bZIP58"
+ },
+ {
+  "motif_id": "MA1743.2|Peaxi162Scf00418g00083",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1743.2",
+  "tf_gene_id": "Peaxi162Scf00418g00083",
+  "tf_symbol": "bZIP2"
+ },
+ {
+  "motif_id": "MA0554.2|Peaxi162Scf00620g00624",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0554.2",
+  "tf_gene_id": "Peaxi162Scf00620g00624",
+  "tf_symbol": "AGL14"
+ },
+ {
+  "motif_id": "MA1337.2|Peaxi162Scf00016g00411",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1337.2",
+  "tf_gene_id": "Peaxi162Scf00016g00411",
+  "tf_symbol": "bZIP44"
+ },
+ {
+  "motif_id": "MA2020.2|Peaxi162Scf00503g00003",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2020.2",
+  "tf_gene_id": "Peaxi162Scf00503g00003",
+  "tf_symbol": "HSFB4"
+ },
+ {
+  "motif_id": "MA1341.2|Peaxi162Scf00058g00267",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1341.2",
+  "tf_gene_id": "Peaxi162Scf00058g00267",
+  "tf_symbol": "BZIP53"
+ },
+ {
+  "motif_id": "MA1337.2|Peaxi162Scf00010g00091",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1337.2",
+  "tf_gene_id": "Peaxi162Scf00010g00091",
+  "tf_symbol": "bZIP44"
+ },
+ {
+  "motif_id": "MA1743.2|Peaxi162Scf00010g00091",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1743.2",
+  "tf_gene_id": "Peaxi162Scf00010g00091",
+  "tf_symbol": "bZIP44"
+ },
+ {
+  "motif_id": "MA1340.2|Peaxi162Scf00020g02019",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1340.2",
+  "tf_gene_id": "Peaxi162Scf00020g02019",
+  "tf_symbol": "bZIP3"
+ },
+ {
+  "motif_id": "MA1350.1|Peaxi162Scf00479g01010",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1350.1",
+  "tf_gene_id": "Peaxi162Scf00479g01010",
+  "tf_symbol": "bZIP42"
+ },
+ {
+  "motif_id": "MA1339.1|Peaxi162Scf00479g01010",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1339.1",
+  "tf_gene_id": "Peaxi162Scf00479g01010",
+  "tf_symbol": "bZIP42"
+ },
+ {
+  "motif_id": "MA1340.2|Peaxi162Scf00479g01010",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1340.2",
+  "tf_gene_id": "Peaxi162Scf00479g01010",
+  "tf_symbol": "bZIP42"
+ },
+ {
+  "motif_id": "MA1349.2|Peaxi162Scf00052g00335",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1349.2",
+  "tf_gene_id": "Peaxi162Scf00052g00335",
+  "tf_symbol": "bZIP68"
+ },
+ {
+  "motif_id": "MA0968.3|Peaxi162Scf00052g00335",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0968.3",
+  "tf_gene_id": "Peaxi162Scf00052g00335",
+  "tf_symbol": "bZIP68"
+ },
+ {
+  "motif_id": "MA0954.3|Peaxi162Scf00618g00123",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0954.3",
+  "tf_gene_id": "Peaxi162Scf00618g00123",
+  "tf_symbol": "HB-7"
+ },
+ {
+  "motif_id": "MA1338.3|Peaxi162Scf00575g00618",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1338.3",
+  "tf_gene_id": "Peaxi162Scf00575g00618",
+  "tf_symbol": "AREB3"
+ },
+ {
+  "motif_id": "MA1341.2|Peaxi162Scf00673g00034",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1341.2",
+  "tf_gene_id": "Peaxi162Scf00673g00034",
+  "tf_symbol": "BZIP53"
+ },
+ {
+  "motif_id": "MA1659.2|Peaxi162Scf00016g01934",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1659.2",
+  "tf_gene_id": "Peaxi162Scf00016g01934",
+  "tf_symbol": "ABF1"
+ },
+ {
+  "motif_id": "MA0930.3|Peaxi162Scf00016g01934",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0930.3",
+  "tf_gene_id": "Peaxi162Scf00016g01934",
+  "tf_symbol": "ABF1"
+ },
+ {
+  "motif_id": "MA1349.2|Peaxi162Scf00045g00325",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1349.2",
+  "tf_gene_id": "Peaxi162Scf00045g00325",
+  "tf_symbol": "bZIP16"
+ },
+ {
+  "motif_id": "MA0968.3|Peaxi162Scf00045g00325",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0968.3",
+  "tf_gene_id": "Peaxi162Scf00045g00325",
+  "tf_symbol": "bZIP16"
+ },
+ {
+  "motif_id": "MA0954.3|Peaxi162Scf00074g00025",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0954.3",
+  "tf_gene_id": "Peaxi162Scf00074g00025",
+  "tf_symbol": "HB-7"
+ },
+ {
+  "motif_id": "MA0554.2|Peaxi162Scf01294g00240",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0554.2",
+  "tf_gene_id": "Peaxi162Scf01294g00240",
+  "tf_symbol": "AGL72"
+ },
+ {
+  "motif_id": "MA2020.2|Peaxi162Scf00004g00431",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2020.2",
+  "tf_gene_id": "Peaxi162Scf00004g00431",
+  "tf_symbol": "HSFB4"
+ },
+ {
+  "motif_id": "MA1337.2|Peaxi162Scf00684g00027",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1337.2",
+  "tf_gene_id": "Peaxi162Scf00684g00027",
+  "tf_symbol": "bZIP44"
+ },
+ {
+  "motif_id": "MA1743.2|Peaxi162Scf00684g00027",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1743.2",
+  "tf_gene_id": "Peaxi162Scf00684g00027",
+  "tf_symbol": "bZIP44"
+ },
+ {
+  "motif_id": "MA1210.3|Peaxi162Scf00449g00610",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1210.3",
+  "tf_gene_id": "Peaxi162Scf00449g00610",
+  "tf_symbol": "HAT22"
+ },
+ {
+  "motif_id": "MA1210.3|Peaxi162Scf00096g01614",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1210.3",
+  "tf_gene_id": "Peaxi162Scf00096g01614",
+  "tf_symbol": "HAT9"
+ },
+ {
+  "motif_id": "MA1210.3|Peaxi162Scf00258g00820",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1210.3",
+  "tf_gene_id": "Peaxi162Scf00258g00820",
+  "tf_symbol": "HAT22"
+ },
+ {
+  "motif_id": "MA2035.2|Peaxi162Scf00944g00154",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2035.2",
+  "tf_gene_id": "Peaxi162Scf00944g00154",
+  "tf_symbol": "NAC075"
+ },
+ {
+  "motif_id": "MA2009.2|Peaxi162Scf00099g00076",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2009.2",
+  "tf_gene_id": "Peaxi162Scf00099g00076",
+  "tf_symbol": "NAC010"
+ },
+ {
+  "motif_id": "MA1790.1|Peaxi162Scf00099g00076",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1790.1",
+  "tf_gene_id": "Peaxi162Scf00099g00076",
+  "tf_symbol": "NAC010"
+ },
+ {
+  "motif_id": "MA2035.2|Peaxi162Scf00298g00105",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2035.2",
+  "tf_gene_id": "Peaxi162Scf00298g00105",
+  "tf_symbol": "NAC075"
+ },
+ {
+  "motif_id": "MA1790.1|Peaxi162Scf00845g00010",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1790.1",
+  "tf_gene_id": "Peaxi162Scf00845g00010",
+  "tf_symbol": "NAC073"
+ },
+ {
+  "motif_id": "MA1184.2|Peaxi162Scf00294g00813",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1184.2",
+  "tf_gene_id": "Peaxi162Scf00294g00813",
+  "tf_symbol": "RVE1"
+ },
+ {
+  "motif_id": "MA0556.2|Peaxi162Scf00083g01812",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0556.2",
+  "tf_gene_id": "Peaxi162Scf00083g01812",
+  "tf_symbol": "AP3"
+ },
+ {
+  "motif_id": "MA0559.1|Peaxi162Scf00922g00026",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0559.1",
+  "tf_gene_id": "Peaxi162Scf00922g00026",
+  "tf_symbol": "PI"
+ },
+ {
+  "motif_id": "MA1663.3|Peaxi162Scf00176g01638",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1663.3",
+  "tf_gene_id": "Peaxi162Scf00176g01638",
+  "tf_symbol": "NAC2"
+ },
+ {
+  "motif_id": "MA2049.2|Peaxi162Scf00253g00321",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2049.2",
+  "tf_gene_id": "Peaxi162Scf00253g00321",
+  "tf_symbol": "NAC053"
+ },
+ {
+  "motif_id": "MA1425.2|Peaxi162Scf00073g01119",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1425.2",
+  "tf_gene_id": "Peaxi162Scf00073g01119",
+  "tf_symbol": "HYH"
+ },
+ {
+  "motif_id": "MA1258.2|Peaxi162Scf01149g00023",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1258.2",
+  "tf_gene_id": "Peaxi162Scf01149g00023",
+  "tf_symbol": "DREB19"
+ },
+ {
+  "motif_id": "MA0986.1|Peaxi162Scf01149g00023",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0986.1",
+  "tf_gene_id": "Peaxi162Scf01149g00023",
+  "tf_symbol": "DREB19"
+ },
+ {
+  "motif_id": "MA1427.3|Peaxi162Scf00294g00625",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1427.3",
+  "tf_gene_id": "Peaxi162Scf00294g00625",
+  "tf_symbol": "NAC028"
+ },
+ {
+  "motif_id": "MA0938.3|Peaxi162Scf00015g00941",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0938.3",
+  "tf_gene_id": "Peaxi162Scf00015g00941",
+  "tf_symbol": "NAC058"
+ },
+ {
+  "motif_id": "MA2038.2|Peaxi162Scf00589g00322",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2038.2",
+  "tf_gene_id": "Peaxi162Scf00589g00322",
+  "tf_symbol": "NAC103"
+ },
+ {
+  "motif_id": "MA0938.3|Peaxi162Scf00634g00032",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0938.3",
+  "tf_gene_id": "Peaxi162Scf00634g00032",
+  "tf_symbol": "NAC058"
+ },
+ {
+  "motif_id": "MA0938.3|Peaxi162Scf00013g00103",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0938.3",
+  "tf_gene_id": "Peaxi162Scf00013g00103",
+  "tf_symbol": "NAC058"
+ },
+ {
+  "motif_id": "MA2042.2|Peaxi162Scf00452g00412",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2042.2",
+  "tf_gene_id": "Peaxi162Scf00452g00412",
+  "tf_symbol": "MYB58"
+ },
+ {
+  "motif_id": "MA1197.2|Peaxi162Scf00001g00012",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1197.2",
+  "tf_gene_id": "Peaxi162Scf00001g00012",
+  "tf_symbol": "EICBP.B"
+ },
+ {
+  "motif_id": "MA1768.2|Peaxi162Scf00129g00228",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1768.2",
+  "tf_gene_id": "Peaxi162Scf00129g00228",
+  "tf_symbol": "MYB94"
+ },
+ {
+  "motif_id": "MA1781.2|Peaxi162Scf00129g00228",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1781.2",
+  "tf_gene_id": "Peaxi162Scf00129g00228",
+  "tf_symbol": "MYB94"
+ },
+ {
+  "motif_id": "MA2371.1|Peaxi162Scf00013g00223",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2371.1",
+  "tf_gene_id": "Peaxi162Scf00013g00223",
+  "tf_symbol": "MYB60"
+ },
+ {
+  "motif_id": "MA1738.1|Peaxi162Scf00013g00223",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1738.1",
+  "tf_gene_id": "Peaxi162Scf00013g00223",
+  "tf_symbol": "MYB60"
+ },
+ {
+  "motif_id": "MA1768.2|Peaxi162Scf00013g00223",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1768.2",
+  "tf_gene_id": "Peaxi162Scf00013g00223",
+  "tf_symbol": "MYB60"
+ },
+ {
+  "motif_id": "MA1781.2|Peaxi162Scf00013g00223",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1781.2",
+  "tf_gene_id": "Peaxi162Scf00013g00223",
+  "tf_symbol": "MYB60"
+ },
+ {
+  "motif_id": "MA1774.2|Peaxi162Scf00013g00223",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1774.2",
+  "tf_gene_id": "Peaxi162Scf00013g00223",
+  "tf_symbol": "MYB60"
+ },
+ {
+  "motif_id": "MA1773.2|Peaxi162Scf00166g01118",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1773.2",
+  "tf_gene_id": "Peaxi162Scf00166g01118",
+  "tf_symbol": "MYB51"
+ },
+ {
+  "motif_id": "MA1426.2|Peaxi162Scf00503g00613",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1426.2",
+  "tf_gene_id": "Peaxi162Scf00503g00613",
+  "tf_symbol": "FLP"
+ },
+ {
+  "motif_id": "MA1382.2|Peaxi162Scf00393g00052",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1382.2",
+  "tf_gene_id": "Peaxi162Scf00393g00052",
+  "tf_symbol": "FHY3"
+ },
+ {
+  "motif_id": "MA0557.2|Peaxi162Scf00393g00052",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0557.2",
+  "tf_gene_id": "Peaxi162Scf00393g00052",
+  "tf_symbol": "FHY3"
+ },
+ {
+  "motif_id": "MA0005.3|Peaxi162Scf00154g00516",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0005.3",
+  "tf_gene_id": "Peaxi162Scf00154g00516",
+  "tf_symbol": "SHP2"
+ },
+ {
+  "motif_id": "MA0005.3|Peaxi162Scf00022g00098",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0005.3",
+  "tf_gene_id": "Peaxi162Scf00022g00098",
+  "tf_symbol": "AG"
+ },
+ {
+  "motif_id": "MA0548.3|Peaxi162Scf01108g00332",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0548.3",
+  "tf_gene_id": "Peaxi162Scf01108g00332",
+  "tf_symbol": "AGL15"
+ },
+ {
+  "motif_id": "MA2104.1|Peaxi162Scf00038g01650",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2104.1",
+  "tf_gene_id": "Peaxi162Scf00038g01650",
+  "tf_symbol": "IDD7"
+ },
+ {
+  "motif_id": "MA1789.1|Peaxi162Scf00102g00626",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1789.1",
+  "tf_gene_id": "Peaxi162Scf00102g00626",
+  "tf_symbol": "NAC071"
+ },
+ {
+  "motif_id": "MA0548.3|Peaxi162Scf00130g00423",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0548.3",
+  "tf_gene_id": "Peaxi162Scf00130g00423",
+  "tf_symbol": "AGL18"
+ },
+ {
+  "motif_id": "MA2388.1|Peaxi162Scf00047g01542",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2388.1",
+  "tf_gene_id": "Peaxi162Scf00047g01542",
+  "tf_symbol": "GATA1"
+ },
+ {
+  "motif_id": "MA2388.1|Peaxi162Scf00536g00710",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2388.1",
+  "tf_gene_id": "Peaxi162Scf00536g00710",
+  "tf_symbol": "GATA1"
+ },
+ {
+  "motif_id": "MA1404.1|Peaxi162Scf00337g00011",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1404.1",
+  "tf_gene_id": "Peaxi162Scf00337g00011",
+  "tf_symbol": "BPC2"
+ },
+ {
+  "motif_id": "MA1794.2|Peaxi162Scf00074g00543",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1794.2",
+  "tf_gene_id": "Peaxi162Scf00074g00543",
+  "tf_symbol": "NLP6"
+ },
+ {
+  "motif_id": "MA1403.1|Peaxi162Scf00016g00005",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1403.1",
+  "tf_gene_id": "Peaxi162Scf00016g00005",
+  "tf_symbol": "BPC4"
+ },
+ {
+  "motif_id": "MA2026.2|Peaxi162Scf00228g00914",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2026.2",
+  "tf_gene_id": "Peaxi162Scf00228g00914",
+  "tf_symbol": "MYB108"
+ },
+ {
+  "motif_id": "MA2026.2|Peaxi162Scf00058g00238",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2026.2",
+  "tf_gene_id": "Peaxi162Scf00058g00238",
+  "tf_symbol": "MYB108"
+ },
+ {
+  "motif_id": "MA1324.1|Peaxi162Scf00366g00123",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1324.1",
+  "tf_gene_id": "Peaxi162Scf00366g00123",
+  "tf_symbol": "GATA20"
+ },
+ {
+  "motif_id": "MA1323.2|Peaxi162Scf00366g00123",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1323.2",
+  "tf_gene_id": "Peaxi162Scf00366g00123",
+  "tf_symbol": "GATA20"
+ },
+ {
+  "motif_id": "MA0585.2|Peaxi162Scf00154g00516",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0585.2",
+  "tf_gene_id": "Peaxi162Scf00154g00516",
+  "tf_symbol": "SHP2"
+ },
+ {
+  "motif_id": "MA1157.2|Peaxi162Scf00845g00005",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1157.2",
+  "tf_gene_id": "Peaxi162Scf00845g00005",
+  "tf_symbol": "MGP"
+ },
+ {
+  "motif_id": "MA1371.2|Peaxi162Scf00845g00005",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1371.2",
+  "tf_gene_id": "Peaxi162Scf00845g00005",
+  "tf_symbol": "MGP"
+ },
+ {
+  "motif_id": "MA1158.2|Peaxi162Scf00845g00005",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1158.2",
+  "tf_gene_id": "Peaxi162Scf00845g00005",
+  "tf_symbol": "MGP"
+ },
+ {
+  "motif_id": "MA1374.2|Peaxi162Scf00038g01650",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1374.2",
+  "tf_gene_id": "Peaxi162Scf00038g01650",
+  "tf_symbol": "IDD7"
+ },
+ {
+  "motif_id": "MA1258.2|Peaxi162Scf00284g00033",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1258.2",
+  "tf_gene_id": "Peaxi162Scf00284g00033",
+  "tf_symbol": "DREB2C"
+ },
+ {
+  "motif_id": "MA1363.1|Peaxi162Scf00062g00421",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1363.1",
+  "tf_gene_id": "Peaxi162Scf00062g00421",
+  "tf_symbol": "LRL1"
+ },
+ {
+  "motif_id": "MA2375.1|Peaxi162Scf00045g01116",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2375.1",
+  "tf_gene_id": "Peaxi162Scf00045g01116",
+  "tf_symbol": "BMY2"
+ },
+ {
+  "motif_id": "MA2014.2|Peaxi162Scf00045g01116",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2014.2",
+  "tf_gene_id": "Peaxi162Scf00045g01116",
+  "tf_symbol": "BMY2"
+ },
+ {
+  "motif_id": "MA0930.3|Peaxi162Scf00152g00029",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0930.3",
+  "tf_gene_id": "Peaxi162Scf00152g00029",
+  "tf_symbol": "ABF3"
+ },
+ {
+  "motif_id": "MA0930.3|Peaxi162Scf00003g02333",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0930.3",
+  "tf_gene_id": "Peaxi162Scf00003g02333",
+  "tf_symbol": "ABF3"
+ },
+ {
+  "motif_id": "MA1333.2|Peaxi162Scf00111g01478",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1333.2",
+  "tf_gene_id": "Peaxi162Scf00111g01478",
+  "tf_symbol": "BEH4"
+ },
+ {
+  "motif_id": "MA1406.2|Peaxi162Scf00346g00073",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1406.2",
+  "tf_gene_id": "Peaxi162Scf00346g00073",
+  "tf_symbol": "HB4"
+ },
+ {
+  "motif_id": "MA1198.2|Peaxi162Scf00102g00931",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1198.2",
+  "tf_gene_id": "Peaxi162Scf00102g00931",
+  "tf_symbol": "HAT3"
+ },
+ {
+  "motif_id": "MA1024.2|Peaxi162Scf00102g00931",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1024.2",
+  "tf_gene_id": "Peaxi162Scf00102g00931",
+  "tf_symbol": "HAT3"
+ },
+ {
+  "motif_id": "MA1311.3|Peaxi162Scf00111g00122",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1311.3",
+  "tf_gene_id": "Peaxi162Scf00111g00122",
+  "tf_symbol": "WRKY28"
+ },
+ {
+  "motif_id": "MA0942.2|Peaxi162Scf00011g01847",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0942.2",
+  "tf_gene_id": "Peaxi162Scf00011g01847",
+  "tf_symbol": "ARF1"
+ },
+ {
+  "motif_id": "MA1014.1|Peaxi162Scf00270g00317",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1014.1",
+  "tf_gene_id": "Peaxi162Scf00270g00317",
+  "tf_symbol": "GATA10"
+ },
+ {
+  "motif_id": "MA1013.1|Peaxi162Scf00270g00317",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1013.1",
+  "tf_gene_id": "Peaxi162Scf00270g00317",
+  "tf_symbol": "GATA10"
+ },
+ {
+  "motif_id": "MA1325.2|Peaxi162Scf00270g00317",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1325.2",
+  "tf_gene_id": "Peaxi162Scf00270g00317",
+  "tf_symbol": "GATA10"
+ },
+ {
+  "motif_id": "MA1014.1|Peaxi162Scf00029g00143",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1014.1",
+  "tf_gene_id": "Peaxi162Scf00029g00143",
+  "tf_symbol": "GATA29"
+ },
+ {
+  "motif_id": "MA1325.2|Peaxi162Scf00029g00143",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1325.2",
+  "tf_gene_id": "Peaxi162Scf00029g00143",
+  "tf_symbol": "GATA29"
+ },
+ {
+  "motif_id": "MA2022.2|Peaxi162Scf00080g01010",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2022.2",
+  "tf_gene_id": "Peaxi162Scf00080g01010",
+  "tf_symbol": "LOB"
+ },
+ {
+  "motif_id": "MA1012.1|Peaxi162Scf00518g00012",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1012.1",
+  "tf_gene_id": "Peaxi162Scf00518g00012",
+  "tf_symbol": "MAF1"
+ },
+ {
+  "motif_id": "MA2022.2|Peaxi162Scf00089g00154",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2022.2",
+  "tf_gene_id": "Peaxi162Scf00089g00154",
+  "tf_symbol": "LOB"
+ },
+ {
+  "motif_id": "MA2030.2|Peaxi162Scf00777g00521",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2030.2",
+  "tf_gene_id": "Peaxi162Scf00777g00521",
+  "tf_symbol": "MYB96"
+ },
+ {
+  "motif_id": "MA2022.2|Peaxi162Scf00129g01529",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2022.2",
+  "tf_gene_id": "Peaxi162Scf00129g01529",
+  "tf_symbol": "LBD25"
+ },
+ {
+  "motif_id": "MA0986.1|Peaxi162Scf00284g00033",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0986.1",
+  "tf_gene_id": "Peaxi162Scf00284g00033",
+  "tf_symbol": "DREB2C"
+ },
+ {
+  "motif_id": "MA2030.2|Peaxi162Scf00274g00625",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2030.2",
+  "tf_gene_id": "Peaxi162Scf00274g00625",
+  "tf_symbol": "MYB96"
+ },
+ {
+  "motif_id": "MA1768.2|Peaxi162Scf00274g00625",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1768.2",
+  "tf_gene_id": "Peaxi162Scf00274g00625",
+  "tf_symbol": "MYB96"
+ },
+ {
+  "motif_id": "MA1781.2|Peaxi162Scf00274g00625",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1781.2",
+  "tf_gene_id": "Peaxi162Scf00274g00625",
+  "tf_symbol": "MYB96"
+ },
+ {
+  "motif_id": "MA1257.2|Peaxi162Scf00059g00101",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1257.2",
+  "tf_gene_id": "Peaxi162Scf00059g00101",
+  "tf_symbol": "ERF9"
+ },
+ {
+  "motif_id": "MA1269.2|Peaxi162Scf01514g00005",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1269.2",
+  "tf_gene_id": "Peaxi162Scf01514g00005",
+  "tf_symbol": "DOF1"
+ },
+ {
+  "motif_id": "MA1156.2|Peaxi162Scf00182g00066",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1156.2",
+  "tf_gene_id": "Peaxi162Scf00182g00066",
+  "tf_symbol": "JKD"
+ },
+ {
+  "motif_id": "MA1156.2|Peaxi162Scf00101g00099",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1156.2",
+  "tf_gene_id": "Peaxi162Scf00101g00099",
+  "tf_symbol": "JKD"
+ },
+ {
+  "motif_id": "MA1370.2|Peaxi162Scf00025g00051",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1370.2",
+  "tf_gene_id": "Peaxi162Scf00025g00051",
+  "tf_symbol": "IDD5"
+ },
+ {
+  "motif_id": "MA1156.2|Peaxi162Scf00472g00007",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1156.2",
+  "tf_gene_id": "Peaxi162Scf00472g00007",
+  "tf_symbol": "JKD"
+ },
+ {
+  "motif_id": "MA1374.2|Peaxi162Scf00207g01365",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1374.2",
+  "tf_gene_id": "Peaxi162Scf00207g01365",
+  "tf_symbol": "IDD7"
+ },
+ {
+  "motif_id": "MA2104.1|Peaxi162Scf00207g01365",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2104.1",
+  "tf_gene_id": "Peaxi162Scf00207g01365",
+  "tf_symbol": "IDD7"
+ },
+ {
+  "motif_id": "MA1374.2|Peaxi162Scf00037g00092",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1374.2",
+  "tf_gene_id": "Peaxi162Scf00037g00092",
+  "tf_symbol": "IDD2"
+ },
+ {
+  "motif_id": "MA1374.2|Peaxi162Scf00327g00079",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1374.2",
+  "tf_gene_id": "Peaxi162Scf00327g00079",
+  "tf_symbol": "IDD12"
+ },
+ {
+  "motif_id": "MA1285.2|Peaxi162Scf00192g00043",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1285.2",
+  "tf_gene_id": "Peaxi162Scf00192g00043",
+  "tf_symbol": "TCP9"
+ },
+ {
+  "motif_id": "MA1205.1|Peaxi162Scf00021g00015",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1205.1",
+  "tf_gene_id": "Peaxi162Scf00021g00015",
+  "tf_symbol": "AGL6"
+ },
+ {
+  "motif_id": "MA1204.1|Peaxi162Scf00021g00015",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1204.1",
+  "tf_gene_id": "Peaxi162Scf00021g00015",
+  "tf_symbol": "AGL6"
+ },
+ {
+  "motif_id": "MA1285.2|Peaxi162Scf00021g00218",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1285.2",
+  "tf_gene_id": "Peaxi162Scf00021g00218",
+  "tf_symbol": "TCP9"
+ },
+ {
+  "motif_id": "MA1205.1|Peaxi162Scf00089g00129",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1205.1",
+  "tf_gene_id": "Peaxi162Scf00089g00129",
+  "tf_symbol": "AGL6"
+ },
+ {
+  "motif_id": "MA1760.1|Peaxi162Scf00316g00518",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1760.1",
+  "tf_gene_id": "Peaxi162Scf00316g00518",
+  "tf_symbol": "HSFA6B"
+ },
+ {
+  "motif_id": "MA1664.3|Peaxi162Scf00316g00518",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1664.3",
+  "tf_gene_id": "Peaxi162Scf00316g00518",
+  "tf_symbol": "HSFA6B"
+ },
+ {
+  "motif_id": "MA1664.3|Peaxi162Scf00131g00415",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1664.3",
+  "tf_gene_id": "Peaxi162Scf00131g00415",
+  "tf_symbol": "HSFA6B"
+ },
+ {
+  "motif_id": "MA1665.3|Peaxi162Scf00915g00029",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1665.3",
+  "tf_gene_id": "Peaxi162Scf00915g00029",
+  "tf_symbol": "HSFB2A"
+ },
+ {
+  "motif_id": "MA1758.2|Peaxi162Scf00516g00645",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1758.2",
+  "tf_gene_id": "Peaxi162Scf00516g00645",
+  "tf_symbol": "HSFA1E"
+ },
+ {
+  "motif_id": "MA1664.3|Peaxi162Scf00259g00710",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1664.3",
+  "tf_gene_id": "Peaxi162Scf00259g00710",
+  "tf_symbol": "HSFA7A"
+ },
+ {
+  "motif_id": "MA1330.2|Peaxi162Scf00011g00748",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1330.2",
+  "tf_gene_id": "Peaxi162Scf00011g00748",
+  "tf_symbol": "HB24"
+ },
+ {
+  "motif_id": "MA1330.2|Peaxi162Scf00366g00031",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1330.2",
+  "tf_gene_id": "Peaxi162Scf00366g00031",
+  "tf_symbol": "HB24"
+ },
+ {
+  "motif_id": "MA2043.2|Peaxi162Scf00815g00121",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2043.2",
+  "tf_gene_id": "Peaxi162Scf00815g00121",
+  "tf_symbol": "NAC004"
+ },
+ {
+  "motif_id": "MA1038.2|Peaxi162Scf00074g00355",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1038.2",
+  "tf_gene_id": "Peaxi162Scf00074g00355",
+  "tf_symbol": "MYB3"
+ },
+ {
+  "motif_id": "MA1315.2|Peaxi162Scf00102g01641",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1315.2",
+  "tf_gene_id": "Peaxi162Scf00102g01641",
+  "tf_symbol": "WRKY56"
+ },
+ {
+  "motif_id": "MA1301.2|Peaxi162Scf00744g00220",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1301.2",
+  "tf_gene_id": "Peaxi162Scf00744g00220",
+  "tf_symbol": "WRKY25"
+ },
+ {
+  "motif_id": "MA1079.3|Peaxi162Scf01099g00015",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1079.3",
+  "tf_gene_id": "Peaxi162Scf01099g00015",
+  "tf_symbol": "WRKY21"
+ },
+ {
+  "motif_id": "MA1298.2|Peaxi162Scf00102g01633",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1298.2",
+  "tf_gene_id": "Peaxi162Scf00102g01633",
+  "tf_symbol": "WRKY29"
+ },
+ {
+  "motif_id": "MA1314.2|Peaxi162Scf00740g00034",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1314.2",
+  "tf_gene_id": "Peaxi162Scf00740g00034",
+  "tf_symbol": "WRKY14"
+ },
+ {
+  "motif_id": "MA1303.2|Peaxi162Scf00585g00513",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1303.2",
+  "tf_gene_id": "Peaxi162Scf00585g00513",
+  "tf_symbol": "WRKY22"
+ },
+ {
+  "motif_id": "MA1296.2|Peaxi162Scf00102g01741",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1296.2",
+  "tf_gene_id": "Peaxi162Scf00102g01741",
+  "tf_symbol": "WRKY46"
+ },
+ {
+  "motif_id": "MA1083.3|Peaxi162Scf00102g01741",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1083.3",
+  "tf_gene_id": "Peaxi162Scf00102g01741",
+  "tf_symbol": "WRKY46"
+ },
+ {
+  "motif_id": "MA1038.2|Peaxi162Scf00876g00221",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1038.2",
+  "tf_gene_id": "Peaxi162Scf00876g00221",
+  "tf_symbol": "MYB3"
+ },
+ {
+  "motif_id": "MA1318.2|Peaxi162Scf00444g00320",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1318.2",
+  "tf_gene_id": "Peaxi162Scf00444g00320",
+  "tf_symbol": "WRKY27"
+ },
+ {
+  "motif_id": "MA1316.2|Peaxi162Scf00770g00114",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1316.2",
+  "tf_gene_id": "Peaxi162Scf00770g00114",
+  "tf_symbol": "WRKY68"
+ },
+ {
+  "motif_id": "MA1306.2|Peaxi162Scf00459g00841",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1306.2",
+  "tf_gene_id": "Peaxi162Scf00459g00841",
+  "tf_symbol": "WRKY17"
+ },
+ {
+  "motif_id": "MA1299.2|Peaxi162Scf00459g00841",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1299.2",
+  "tf_gene_id": "Peaxi162Scf00459g00841",
+  "tf_symbol": "WRKY17"
+ },
+ {
+  "motif_id": "MA1083.3|Peaxi162Scf00904g00212",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1083.3",
+  "tf_gene_id": "Peaxi162Scf00904g00212",
+  "tf_symbol": "WRKY30"
+ },
+ {
+  "motif_id": "MA1038.2|Peaxi162Scf00391g00621",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1038.2",
+  "tf_gene_id": "Peaxi162Scf00391g00621",
+  "tf_symbol": "MYB3"
+ },
+ {
+  "motif_id": "MA1302.2|Peaxi162Scf00202g00057",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1302.2",
+  "tf_gene_id": "Peaxi162Scf00202g00057",
+  "tf_symbol": "WRKY65"
+ },
+ {
+  "motif_id": "MA1306.2|Peaxi162Scf00045g01641",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1306.2",
+  "tf_gene_id": "Peaxi162Scf00045g01641",
+  "tf_symbol": "WRKY11"
+ },
+ {
+  "motif_id": "MA1299.2|Peaxi162Scf00045g01641",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1299.2",
+  "tf_gene_id": "Peaxi162Scf00045g01641",
+  "tf_symbol": "WRKY11"
+ },
+ {
+  "motif_id": "MA1303.2|Peaxi162Scf00074g01736",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1303.2",
+  "tf_gene_id": "Peaxi162Scf00074g01736",
+  "tf_symbol": "WRKY29"
+ },
+ {
+  "motif_id": "MA1298.2|Peaxi162Scf00074g01736",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1298.2",
+  "tf_gene_id": "Peaxi162Scf00074g01736",
+  "tf_symbol": "WRKY29"
+ },
+ {
+  "motif_id": "MA1087.3|Peaxi162Scf00420g00640",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1087.3",
+  "tf_gene_id": "Peaxi162Scf00420g00640",
+  "tf_symbol": "WRKY45"
+ },
+ {
+  "motif_id": "MA1315.2|Peaxi162Scf00074g01735",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1315.2",
+  "tf_gene_id": "Peaxi162Scf00074g01735",
+  "tf_symbol": "WRKY24"
+ },
+ {
+  "motif_id": "MA1041.1|Peaxi162Scf00194g00218",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1041.1",
+  "tf_gene_id": "Peaxi162Scf00194g00218",
+  "tf_symbol": "MYB50"
+ },
+ {
+  "motif_id": "MA1309.1|Peaxi162Scf00451g00421",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1309.1",
+  "tf_gene_id": "Peaxi162Scf00451g00421",
+  "tf_symbol": "WRKY3"
+ },
+ {
+  "motif_id": "MA1309.1|Peaxi162Scf00222g00117",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1309.1",
+  "tf_gene_id": "Peaxi162Scf00222g00117",
+  "tf_symbol": "WRKY4"
+ },
+ {
+  "motif_id": "MA1305.2|Peaxi162Scf00732g00236",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1305.2",
+  "tf_gene_id": "Peaxi162Scf00732g00236",
+  "tf_symbol": "WRKY67"
+ },
+ {
+  "motif_id": "MA1308.2|Peaxi162Scf00732g00236",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1308.2",
+  "tf_gene_id": "Peaxi162Scf00732g00236",
+  "tf_symbol": "WRKY67"
+ },
+ {
+  "motif_id": "MA2369.1|Peaxi162Scf00358g00081",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2369.1",
+  "tf_gene_id": "Peaxi162Scf00358g00081",
+  "tf_symbol": "HB32"
+ },
+ {
+  "motif_id": "MA2013.2|Peaxi162Scf00314g00628",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2013.2",
+  "tf_gene_id": "Peaxi162Scf00314g00628",
+  "tf_symbol": "ERF115"
+ },
+ {
+  "motif_id": "MA2019.2|Peaxi162Scf00170g01112",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2019.2",
+  "tf_gene_id": "Peaxi162Scf00170g01112",
+  "tf_symbol": "HSF3"
+ },
+ {
+  "motif_id": "MA2019.2|Peaxi162Scf00815g00357",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2019.2",
+  "tf_gene_id": "Peaxi162Scf00815g00357",
+  "tf_symbol": "HSF3"
+ },
+ {
+  "motif_id": "MA0588.2|Peaxi162Scf00204g00217",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0588.2",
+  "tf_gene_id": "Peaxi162Scf00204g00217",
+  "tf_symbol": "TGA1"
+ },
+ {
+  "motif_id": "MA1346.2|Peaxi162Scf00258g00009",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1346.2",
+  "tf_gene_id": "Peaxi162Scf00258g00009",
+  "tf_symbol": "TGA10"
+ },
+ {
+  "motif_id": "MA1069.3|Peaxi162Scf00258g00009",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1069.3",
+  "tf_gene_id": "Peaxi162Scf00258g00009",
+  "tf_symbol": "TGA10"
+ },
+ {
+  "motif_id": "MA1348.1|Peaxi162Scf00003g00523",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1348.1",
+  "tf_gene_id": "Peaxi162Scf00003g00523",
+  "tf_symbol": "TGA9"
+ },
+ {
+  "motif_id": "MA1336.2|Peaxi162Scf00756g00212",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1336.2",
+  "tf_gene_id": "Peaxi162Scf00756g00212",
+  "tf_symbol": "TGA3"
+ },
+ {
+  "motif_id": "MA1070.3|Peaxi162Scf00756g00212",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1070.3",
+  "tf_gene_id": "Peaxi162Scf00756g00212",
+  "tf_symbol": "TGA3"
+ },
+ {
+  "motif_id": "MA1335.1|Peaxi162Scf00756g00212",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1335.1",
+  "tf_gene_id": "Peaxi162Scf00756g00212",
+  "tf_symbol": "TGA3"
+ },
+ {
+  "motif_id": "MA1346.2|Peaxi162Scf00406g00716",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1346.2",
+  "tf_gene_id": "Peaxi162Scf00406g00716",
+  "tf_symbol": "TGA10"
+ },
+ {
+  "motif_id": "MA1346.2|Peaxi162Scf00003g00428",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1346.2",
+  "tf_gene_id": "Peaxi162Scf00003g00428",
+  "tf_symbol": "TGA10"
+ },
+ {
+  "motif_id": "MA1336.2|Peaxi162Scf00160g01615",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1336.2",
+  "tf_gene_id": "Peaxi162Scf00160g01615",
+  "tf_symbol": "TGA1"
+ },
+ {
+  "motif_id": "MA1070.3|Peaxi162Scf00160g01615",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1070.3",
+  "tf_gene_id": "Peaxi162Scf00160g01615",
+  "tf_symbol": "TGA1"
+ },
+ {
+  "motif_id": "MA0588.2|Peaxi162Scf00160g01615",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0588.2",
+  "tf_gene_id": "Peaxi162Scf00160g01615",
+  "tf_symbol": "TGA1"
+ },
+ {
+  "motif_id": "MA1348.1|Peaxi162Scf00091g00312",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1348.1",
+  "tf_gene_id": "Peaxi162Scf00091g00312",
+  "tf_symbol": "TGA9"
+ },
+ {
+  "motif_id": "MA1047.3|Peaxi162Scf00004g00441",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1047.3",
+  "tf_gene_id": "Peaxi162Scf00004g00441",
+  "tf_symbol": "TGA6"
+ },
+ {
+  "motif_id": "MA1069.3|Peaxi162Scf00004g00441",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1069.3",
+  "tf_gene_id": "Peaxi162Scf00004g00441",
+  "tf_symbol": "TGA6"
+ },
+ {
+  "motif_id": "MA0962.2|Peaxi162Scf01086g00136",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0962.2",
+  "tf_gene_id": "Peaxi162Scf01086g00136",
+  "tf_symbol": "bHLH115"
+ },
+ {
+  "motif_id": "MA1159.2|Peaxi162Scf00171g00727",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1159.2",
+  "tf_gene_id": "Peaxi162Scf00171g00727",
+  "tf_symbol": "IDD16"
+ },
+ {
+  "motif_id": "MA1392.3|Peaxi162Scf00689g00121",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1392.3",
+  "tf_gene_id": "Peaxi162Scf00689g00121",
+  "tf_symbol": "MYB98"
+ },
+ {
+  "motif_id": "MA1170.2|Peaxi162Scf00689g00121",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1170.2",
+  "tf_gene_id": "Peaxi162Scf00689g00121",
+  "tf_symbol": "MYB98"
+ },
+ {
+  "motif_id": "MA1392.3|Peaxi162Scf00009g00022",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1392.3",
+  "tf_gene_id": "Peaxi162Scf00009g00022",
+  "tf_symbol": "MYB98"
+ },
+ {
+  "motif_id": "MA1169.1|Peaxi162Scf00009g00022",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1169.1",
+  "tf_gene_id": "Peaxi162Scf00009g00022",
+  "tf_symbol": "MYB98"
+ },
+ {
+  "motif_id": "MA1678.3|Peaxi162Scf00091g00074",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1678.3",
+  "tf_gene_id": "Peaxi162Scf00091g00074",
+  "tf_symbol": "NTL8"
+ },
+ {
+  "motif_id": "MA0974.3|Peaxi162Scf00013g00429",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0974.3",
+  "tf_gene_id": "Peaxi162Scf00013g00429",
+  "tf_symbol": "CDF3"
+ },
+ {
+  "motif_id": "MA0974.3|Peaxi162Scf00274g00447",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0974.3",
+  "tf_gene_id": "Peaxi162Scf00274g00447",
+  "tf_symbol": "CDF3"
+ },
+ {
+  "motif_id": "MA0973.2|Peaxi162Scf00274g00447",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0973.2",
+  "tf_gene_id": "Peaxi162Scf00274g00447",
+  "tf_symbol": "CDF3"
+ },
+ {
+  "motif_id": "MA2380.1|Peaxi162Scf00085g00045",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2380.1",
+  "tf_gene_id": "Peaxi162Scf00085g00045",
+  "tf_symbol": "DOF4.7"
+ },
+ {
+  "motif_id": "MA1775.2|Peaxi162Scf00194g00218",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1775.2",
+  "tf_gene_id": "Peaxi162Scf00194g00218",
+  "tf_symbol": "MYB50"
+ },
+ {
+  "motif_id": "MA1776.2|Peaxi162Scf00203g01315",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1776.2",
+  "tf_gene_id": "Peaxi162Scf00203g01315",
+  "tf_symbol": "MYB67"
+ },
+ {
+  "motif_id": "MA1776.2|Peaxi162Scf00036g00710",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1776.2",
+  "tf_gene_id": "Peaxi162Scf00036g00710",
+  "tf_symbol": "MYB67"
+ },
+ {
+  "motif_id": "MA0976.3|Peaxi162Scf00102g01717",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0976.3",
+  "tf_gene_id": "Peaxi162Scf00102g01717",
+  "tf_symbol": "CRF4"
+ },
+ {
+  "motif_id": "MA0975.1|Peaxi162Scf00102g01717",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0975.1",
+  "tf_gene_id": "Peaxi162Scf00102g01717",
+  "tf_symbol": "CRF4"
+ },
+ {
+  "motif_id": "MA1053.1|Peaxi162Scf00016g00183",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1053.1",
+  "tf_gene_id": "Peaxi162Scf00016g00183",
+  "tf_symbol": "RRTF1"
+ },
+ {
+  "motif_id": "MA0976.3|Peaxi162Scf00904g00035",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0976.3",
+  "tf_gene_id": "Peaxi162Scf00904g00035",
+  "tf_symbol": "CRF5"
+ },
+ {
+  "motif_id": "MA0975.1|Peaxi162Scf00904g00035",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0975.1",
+  "tf_gene_id": "Peaxi162Scf00904g00035",
+  "tf_symbol": "CRF5"
+ },
+ {
+  "motif_id": "MA0975.1|Peaxi162Scf00618g00058",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0975.1",
+  "tf_gene_id": "Peaxi162Scf00618g00058",
+  "tf_symbol": "CRF9"
+ },
+ {
+  "motif_id": "MA0976.3|Peaxi162Scf00618g00058",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0976.3",
+  "tf_gene_id": "Peaxi162Scf00618g00058",
+  "tf_symbol": "CRF9"
+ },
+ {
+  "motif_id": "MA2352.1|Peaxi162Scf00276g00412",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2352.1",
+  "tf_gene_id": "Peaxi162Scf00276g00412",
+  "tf_symbol": "PC-MYB1"
+ },
+ {
+  "motif_id": "MA1379.1|Peaxi162Scf00520g00614",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1379.1",
+  "tf_gene_id": "Peaxi162Scf00520g00614",
+  "tf_symbol": "SOL1"
+ },
+ {
+  "motif_id": "MA1162.1|Peaxi162Scf00520g00614",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1162.1",
+  "tf_gene_id": "Peaxi162Scf00520g00614",
+  "tf_symbol": "SOL1"
+ },
+ {
+  "motif_id": "MA1161.1|Peaxi162Scf00520g00614",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1161.1",
+  "tf_gene_id": "Peaxi162Scf00520g00614",
+  "tf_symbol": "SOL1"
+ },
+ {
+  "motif_id": "MA1162.1|Peaxi162Scf00245g01214",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1162.1",
+  "tf_gene_id": "Peaxi162Scf00245g01214",
+  "tf_symbol": "TCX2"
+ },
+ {
+  "motif_id": "MA2352.1|Peaxi162Scf00523g00004",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2352.1",
+  "tf_gene_id": "Peaxi162Scf00523g00004",
+  "tf_symbol": "MYB3R2"
+ },
+ {
+  "motif_id": "MA1161.1|Peaxi162Scf00341g00027",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1161.1",
+  "tf_gene_id": "Peaxi162Scf00341g00027",
+  "tf_symbol": "TSO1"
+ },
+ {
+  "motif_id": "MA0960.1|Peaxi162Scf00024g02317",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0960.1",
+  "tf_gene_id": "Peaxi162Scf00024g02317",
+  "tf_symbol": "bHLH104"
+ },
+ {
+  "motif_id": "MA1803.2|Peaxi162Scf00051g00317",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1803.2",
+  "tf_gene_id": "Peaxi162Scf00051g00317",
+  "tf_symbol": "VIP1"
+ },
+ {
+  "motif_id": "MA1244.2|Peaxi162Scf00569g00053",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1244.2",
+  "tf_gene_id": "Peaxi162Scf00569g00053",
+  "tf_symbol": "RAP2.6"
+ },
+ {
+  "motif_id": "MA1376.2|Peaxi162Scf00365g00043",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1376.2",
+  "tf_gene_id": "Peaxi162Scf00365g00043",
+  "tf_symbol": "DEAR3"
+ },
+ {
+  "motif_id": "MA1376.2|Peaxi162Scf00549g10014",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1376.2",
+  "tf_gene_id": "Peaxi162Scf00549g10014",
+  "tf_symbol": "DEAR3"
+ },
+ {
+  "motif_id": "MA1061.2|Peaxi162Scf00503g00311",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1061.2",
+  "tf_gene_id": "Peaxi162Scf00503g00311",
+  "tf_symbol": "SPT"
+ },
+ {
+  "motif_id": "MA2005.2|Peaxi162Scf00226g00319",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2005.2",
+  "tf_gene_id": "Peaxi162Scf00226g00319",
+  "tf_symbol": "NAC13"
+ },
+ {
+  "motif_id": "MA1061.2|Peaxi162Scf00450g00124",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1061.2",
+  "tf_gene_id": "Peaxi162Scf00450g00124",
+  "tf_symbol": "SPT"
+ },
+ {
+  "motif_id": "MA1770.2|Peaxi162Scf00420g00240",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1770.2",
+  "tf_gene_id": "Peaxi162Scf00420g00240",
+  "tf_symbol": "MYB40"
+ },
+ {
+  "motif_id": "MA1772.2|Peaxi162Scf00420g00240",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1772.2",
+  "tf_gene_id": "Peaxi162Scf00420g00240",
+  "tf_symbol": "MYB40"
+ },
+ {
+  "motif_id": "MA1036.1|Peaxi162Scf00001g00231",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1036.1",
+  "tf_gene_id": "Peaxi162Scf00001g00231",
+  "tf_symbol": "MYB12"
+ },
+ {
+  "motif_id": "MA1039.1|Peaxi162Scf00362g00831",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1039.1",
+  "tf_gene_id": "Peaxi162Scf00362g00831",
+  "tf_symbol": "HOS10"
+ },
+ {
+  "motif_id": "MA1039.1|Peaxi162Scf01221g00042",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1039.1",
+  "tf_gene_id": "Peaxi162Scf01221g00042",
+  "tf_symbol": "MYB4"
+ },
+ {
+  "motif_id": "MA2024.2|Peaxi162Scf00452g00412",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2024.2",
+  "tf_gene_id": "Peaxi162Scf00452g00412",
+  "tf_symbol": "MYB58"
+ },
+ {
+  "motif_id": "MA2025.2|Peaxi162Scf00041g01811",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2025.2",
+  "tf_gene_id": "Peaxi162Scf00041g01811",
+  "tf_symbol": "MYB93"
+ },
+ {
+  "motif_id": "MA2007.2|Peaxi162Scf00170g01335",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2007.2",
+  "tf_gene_id": "Peaxi162Scf00170g01335",
+  "tf_symbol": "MYB39"
+ },
+ {
+  "motif_id": "MA1769.2|Peaxi162Scf00170g01335",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1769.2",
+  "tf_gene_id": "Peaxi162Scf00170g01335",
+  "tf_symbol": "MYB39"
+ },
+ {
+  "motif_id": "MA1772.2|Peaxi162Scf00170g01335",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1772.2",
+  "tf_gene_id": "Peaxi162Scf00170g01335",
+  "tf_symbol": "MYB39"
+ },
+ {
+  "motif_id": "MA2007.2|Peaxi162Scf00006g00098",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2007.2",
+  "tf_gene_id": "Peaxi162Scf00006g00098",
+  "tf_symbol": "MYB107"
+ },
+ {
+  "motif_id": "MA1778.2|Peaxi162Scf00006g00098",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1778.2",
+  "tf_gene_id": "Peaxi162Scf00006g00098",
+  "tf_symbol": "MYB107"
+ },
+ {
+  "motif_id": "MA2008.2|Peaxi162Scf00102g01226",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2008.2",
+  "tf_gene_id": "Peaxi162Scf00102g01226",
+  "tf_symbol": "MYB42"
+ },
+ {
+  "motif_id": "MA1040.1|Peaxi162Scf00004g02328",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1040.1",
+  "tf_gene_id": "Peaxi162Scf00004g02328",
+  "tf_symbol": "MYB83"
+ },
+ {
+  "motif_id": "MA0551.2|Peaxi162Scf00073g01119",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0551.2",
+  "tf_gene_id": "Peaxi162Scf00073g01119",
+  "tf_symbol": "HYH"
+ },
+ {
+  "motif_id": "MA1181.2|Peaxi162Scf00118g00310",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1181.2",
+  "tf_gene_id": "Peaxi162Scf00118g00310",
+  "tf_symbol": "PAP1"
+ },
+ {
+  "motif_id": "MA0560.2|Peaxi162Scf00194g00213",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0560.2",
+  "tf_gene_id": "Peaxi162Scf00194g00213",
+  "tf_symbol": "PIF3"
+ },
+ {
+  "motif_id": "MA2026.2|Peaxi162Scf00071g00135",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2026.2",
+  "tf_gene_id": "Peaxi162Scf00071g00135",
+  "tf_symbol": "MYB61"
+ },
+ {
+  "motif_id": "MA1775.2|Peaxi162Scf00071g00135",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1775.2",
+  "tf_gene_id": "Peaxi162Scf00071g00135",
+  "tf_symbol": "MYB61"
+ },
+ {
+  "motif_id": "MA1766.2|Peaxi162Scf00191g01323",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1766.2",
+  "tf_gene_id": "Peaxi162Scf00191g01323",
+  "tf_symbol": "MYB17"
+ },
+ {
+  "motif_id": "MA2041.2|Peaxi162Scf00543g00414",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2041.2",
+  "tf_gene_id": "Peaxi162Scf00543g00414",
+  "tf_symbol": "MYB13"
+ },
+ {
+  "motif_id": "MA1771.2|Peaxi162Scf00008g02024",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1771.2",
+  "tf_gene_id": "Peaxi162Scf00008g02024",
+  "tf_symbol": "MYB17"
+ },
+ {
+  "motif_id": "MA1766.2|Peaxi162Scf00008g02024",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1766.2",
+  "tf_gene_id": "Peaxi162Scf00008g02024",
+  "tf_symbol": "MYB17"
+ },
+ {
+  "motif_id": "MA1780.2|Peaxi162Scf00041g01811",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1780.2",
+  "tf_gene_id": "Peaxi162Scf00041g01811",
+  "tf_symbol": "MYB93"
+ },
+ {
+  "motif_id": "MA1766.2|Peaxi162Scf00056g00026",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1766.2",
+  "tf_gene_id": "Peaxi162Scf00056g00026",
+  "tf_symbol": "MYB17"
+ },
+ {
+  "motif_id": "MA1765.2|Peaxi162Scf00020g02349",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1765.2",
+  "tf_gene_id": "Peaxi162Scf00020g02349",
+  "tf_symbol": "MYB121"
+ },
+ {
+  "motif_id": "MA1780.2|Peaxi162Scf00295g01125",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1780.2",
+  "tf_gene_id": "Peaxi162Scf00295g01125",
+  "tf_symbol": "MYB92"
+ },
+ {
+  "motif_id": "MA1779.2|Peaxi162Scf00428g00117",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1779.2",
+  "tf_gene_id": "Peaxi162Scf00428g00117",
+  "tf_symbol": "MYB83"
+ },
+ {
+  "motif_id": "MA1779.2|Peaxi162Scf00004g02328",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1779.2",
+  "tf_gene_id": "Peaxi162Scf00004g02328",
+  "tf_symbol": "MYB83"
+ },
+ {
+  "motif_id": "MA0574.1|Peaxi162Scf00015g03118",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0574.1",
+  "tf_gene_id": "Peaxi162Scf00015g03118",
+  "tf_symbol": "MYB15"
+ },
+ {
+  "motif_id": "MA1761.2|Peaxi162Scf00130g00326",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1761.2",
+  "tf_gene_id": "Peaxi162Scf00130g00326",
+  "tf_symbol": "HSFB3"
+ },
+ {
+  "motif_id": "MA1761.2|Peaxi162Scf00002g02718",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1761.2",
+  "tf_gene_id": "Peaxi162Scf00002g02718",
+  "tf_symbol": "HSFB3"
+ },
+ {
+  "motif_id": "MA1401.2|Peaxi162Scf00171g00419",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1401.2",
+  "tf_gene_id": "Peaxi162Scf00171g00419",
+  "tf_symbol": "EPR1"
+ },
+ {
+  "motif_id": "MA1401.2|Peaxi162Scf00358g00058",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1401.2",
+  "tf_gene_id": "Peaxi162Scf00358g00058",
+  "tf_symbol": "EPR1"
+ },
+ {
+  "motif_id": "MA1187.2|Peaxi162Scf00472g00610",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1187.2",
+  "tf_gene_id": "Peaxi162Scf00472g00610",
+  "tf_symbol": "ASG4"
+ },
+ {
+  "motif_id": "MA1182.2|Peaxi162Scf00472g00610",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1182.2",
+  "tf_gene_id": "Peaxi162Scf00472g00610",
+  "tf_symbol": "ASG4"
+ },
+ {
+  "motif_id": "MA1667.3|Peaxi162Scf00546g00118",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1667.3",
+  "tf_gene_id": "Peaxi162Scf00546g00118",
+  "tf_symbol": "HSFC1"
+ },
+ {
+  "motif_id": "MA1081.3|Peaxi162Scf00744g00220",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1081.3",
+  "tf_gene_id": "Peaxi162Scf00744g00220",
+  "tf_symbol": "WRKY25"
+ },
+ {
+  "motif_id": "MA1674.3|Peaxi162Scf00160g01636",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1674.3",
+  "tf_gene_id": "Peaxi162Scf00160g01636",
+  "tf_symbol": "NAC017"
+ },
+ {
+  "motif_id": "MA1282.2|Peaxi162Scf00166g00045",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1282.2",
+  "tf_gene_id": "Peaxi162Scf00166g00045",
+  "tf_symbol": "PTF1"
+ },
+ {
+  "motif_id": "MA0567.1|Peaxi162Scf00078g00181",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0567.1",
+  "tf_gene_id": "Peaxi162Scf00078g00181",
+  "tf_symbol": "ERF1"
+ },
+ {
+  "motif_id": "MA0567.1|Peaxi162Scf00120g00012",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0567.1",
+  "tf_gene_id": "Peaxi162Scf00120g00012",
+  "tf_symbol": "ERF1"
+ },
+ {
+  "motif_id": "MA0567.1|Peaxi162Scf00424g00042",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0567.1",
+  "tf_gene_id": "Peaxi162Scf00424g00042",
+  "tf_symbol": "ERF1"
+ },
+ {
+  "motif_id": "MA1774.2|Peaxi162Scf00575g00016",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1774.2",
+  "tf_gene_id": "Peaxi162Scf00575g00016",
+  "tf_symbol": "MYB60"
+ },
+ {
+  "motif_id": "MA1659.2|Peaxi162Scf00003g02333",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1659.2",
+  "tf_gene_id": "Peaxi162Scf00003g02333",
+  "tf_symbol": "ABF3"
+ },
+ {
+  "motif_id": "MA2037.2|Peaxi162Scf00111g00145",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2037.2",
+  "tf_gene_id": "Peaxi162Scf00111g00145",
+  "tf_symbol": "NAC096"
+ },
+ {
+  "motif_id": "MA1305.2|Peaxi162Scf00304g00620",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1305.2",
+  "tf_gene_id": "Peaxi162Scf00304g00620",
+  "tf_symbol": "WRKY55"
+ },
+ {
+  "motif_id": "MA2039.2|Peaxi162Scf00384g00416",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2039.2",
+  "tf_gene_id": "Peaxi162Scf00384g00416",
+  "tf_symbol": "ASIL2"
+ },
+ {
+  "motif_id": "MA1305.2|Peaxi162Scf00739g00429",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1305.2",
+  "tf_gene_id": "Peaxi162Scf00739g00429",
+  "tf_symbol": "WRKY55"
+ },
+ {
+  "motif_id": "MA1308.2|Peaxi162Scf00739g00429",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1308.2",
+  "tf_gene_id": "Peaxi162Scf00739g00429",
+  "tf_symbol": "WRKY55"
+ },
+ {
+  "motif_id": "MA1772.2|Peaxi162Scf00305g00045",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1772.2",
+  "tf_gene_id": "Peaxi162Scf00305g00045",
+  "tf_symbol": "MYB20"
+ },
+ {
+  "motif_id": "MA1772.2|Peaxi162Scf00128g00742",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1772.2",
+  "tf_gene_id": "Peaxi162Scf00128g00742",
+  "tf_symbol": "MYB43"
+ },
+ {
+  "motif_id": "MA2389.1|Peaxi162Scf00427g00516",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2389.1",
+  "tf_gene_id": "Peaxi162Scf00427g00516",
+  "tf_symbol": "GBF1"
+ },
+ {
+  "motif_id": "MA1751.2|Peaxi162Scf00559g00420",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1751.2",
+  "tf_gene_id": "Peaxi162Scf00559g00420",
+  "tf_symbol": "EIL3"
+ },
+ {
+  "motif_id": "MA1258.2|Peaxi162Scf00744g00036",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1258.2",
+  "tf_gene_id": "Peaxi162Scf00744g00036",
+  "tf_symbol": "DREB2A"
+ },
+ {
+  "motif_id": "MA1670.2|Peaxi162Scf00648g10013",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1670.2",
+  "tf_gene_id": "Peaxi162Scf00648g10013",
+  "tf_symbol": "DDF1"
+ },
+ {
+  "motif_id": "MA1300.2|Peaxi162Scf00178g01110",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1300.2",
+  "tf_gene_id": "Peaxi162Scf00178g01110",
+  "tf_symbol": "WRKY6"
+ },
+ {
+  "motif_id": "MA1310.2|Peaxi162Scf00178g01110",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1310.2",
+  "tf_gene_id": "Peaxi162Scf00178g01110",
+  "tf_symbol": "WRKY6"
+ },
+ {
+  "motif_id": "MA1307.3|Peaxi162Scf00178g01110",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1307.3",
+  "tf_gene_id": "Peaxi162Scf00178g01110",
+  "tf_symbol": "WRKY6"
+ },
+ {
+  "motif_id": "MA1300.2|Peaxi162Scf00007g00315",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1300.2",
+  "tf_gene_id": "Peaxi162Scf00007g00315",
+  "tf_symbol": "WRKY6"
+ },
+ {
+  "motif_id": "MA1310.2|Peaxi162Scf00007g00315",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1310.2",
+  "tf_gene_id": "Peaxi162Scf00007g00315",
+  "tf_symbol": "WRKY6"
+ },
+ {
+  "motif_id": "MA1307.3|Peaxi162Scf00007g00315",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1307.3",
+  "tf_gene_id": "Peaxi162Scf00007g00315",
+  "tf_symbol": "WRKY6"
+ },
+ {
+  "motif_id": "MA1415.2|Peaxi162Scf00089g00844",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1415.2",
+  "tf_gene_id": "Peaxi162Scf00089g00844",
+  "tf_symbol": "REF6"
+ },
+ {
+  "motif_id": "MA2005.2|Peaxi162Scf00160g01636",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2005.2",
+  "tf_gene_id": "Peaxi162Scf00160g01636",
+  "tf_symbol": "NAC017"
+ },
+ {
+  "motif_id": "MA1396.2|Peaxi162Scf00083g00169",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1396.2",
+  "tf_gene_id": "Peaxi162Scf00083g00169",
+  "tf_symbol": "GATA6"
+ },
+ {
+  "motif_id": "MA1026.3|Peaxi162Scf00038g00093",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1026.3",
+  "tf_gene_id": "Peaxi162Scf00038g00093",
+  "tf_symbol": "ATHB-15"
+ },
+ {
+  "motif_id": "MA1093.2|Peaxi162Scf00420g00640",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1093.2",
+  "tf_gene_id": "Peaxi162Scf00420g00640",
+  "tf_symbol": "WRKY45"
+ },
+ {
+  "motif_id": "MA1080.1|Peaxi162Scf00770g00114",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1080.1",
+  "tf_gene_id": "Peaxi162Scf00770g00114",
+  "tf_symbol": "WRKY68"
+ },
+ {
+  "motif_id": "MA1076.3|Peaxi162Scf00549g00222",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1076.3",
+  "tf_gene_id": "Peaxi162Scf00549g00222",
+  "tf_symbol": "WRKY15"
+ },
+ {
+  "motif_id": "MA1093.2|Peaxi162Scf00128g01541",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1093.2",
+  "tf_gene_id": "Peaxi162Scf00128g01541",
+  "tf_symbol": "WRKY75"
+ },
+ {
+  "motif_id": "MA2039.2|Peaxi162Scf00038g01951",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2039.2",
+  "tf_gene_id": "Peaxi162Scf00038g01951",
+  "tf_symbol": "ASIL2"
+ },
+ {
+  "motif_id": "MA1389.2|Peaxi162Scf00415g00079",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1389.2",
+  "tf_gene_id": "Peaxi162Scf00415g00079",
+  "tf_symbol": "PHR1"
+ },
+ {
+  "motif_id": "MA0962.2|Peaxi162Scf00024g02317",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0962.2",
+  "tf_gene_id": "Peaxi162Scf00024g02317",
+  "tf_symbol": "bHLH104"
+ },
+ {
+  "motif_id": "MA0964.3|Peaxi162Scf00013g00838",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0964.3",
+  "tf_gene_id": "Peaxi162Scf00013g00838",
+  "tf_symbol": "BIM1"
+ },
+ {
+  "motif_id": "MA1025.2|Peaxi162Scf00008g03526",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1025.2",
+  "tf_gene_id": "Peaxi162Scf00008g03526",
+  "tf_symbol": "HBI1"
+ },
+ {
+  "motif_id": "MA0964.3|Peaxi162Scf00017g03268",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0964.3",
+  "tf_gene_id": "Peaxi162Scf00017g03268",
+  "tf_symbol": "BIM1"
+ },
+ {
+  "motif_id": "MA1175.2|Peaxi162Scf00526g00820",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1175.2",
+  "tf_gene_id": "Peaxi162Scf00526g00820",
+  "tf_symbol": "MYB81"
+ },
+ {
+  "motif_id": "MA1391.3|Peaxi162Scf00526g00820",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1391.3",
+  "tf_gene_id": "Peaxi162Scf00526g00820",
+  "tf_symbol": "MYB81"
+ },
+ {
+  "motif_id": "MA1389.2|Peaxi162Scf00156g00915",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1389.2",
+  "tf_gene_id": "Peaxi162Scf00156g00915",
+  "tf_symbol": "PHL1"
+ },
+ {
+  "motif_id": "MA1167.2|Peaxi162Scf00984g00245",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1167.2",
+  "tf_gene_id": "Peaxi162Scf00984g00245",
+  "tf_symbol": "EFM"
+ },
+ {
+  "motif_id": "MA1331.2|Peaxi162Scf00111g01478",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1331.2",
+  "tf_gene_id": "Peaxi162Scf00111g01478",
+  "tf_symbol": "BEH4"
+ },
+ {
+  "motif_id": "MA0569.2|Peaxi162Scf00045g00011",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0569.2",
+  "tf_gene_id": "Peaxi162Scf00045g00011",
+  "tf_symbol": "MYC2"
+ },
+ {
+  "motif_id": "MA0566.1|Peaxi162Scf00045g00011",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0566.1",
+  "tf_gene_id": "Peaxi162Scf00045g00011",
+  "tf_symbol": "MYC2"
+ },
+ {
+  "motif_id": "MA0959.1|Peaxi162Scf00716g00024",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0959.1",
+  "tf_gene_id": "Peaxi162Scf00716g00024",
+  "tf_symbol": "JAM2"
+ },
+ {
+  "motif_id": "MA2046.2|Peaxi162Scf00194g01039",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2046.2",
+  "tf_gene_id": "Peaxi162Scf00194g01039",
+  "tf_symbol": "LOV1"
+ },
+ {
+  "motif_id": "MA1063.2|Peaxi162Scf00192g00043",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1063.2",
+  "tf_gene_id": "Peaxi162Scf00192g00043",
+  "tf_symbol": "TCP9"
+ },
+ {
+  "motif_id": "MA0587.2|Peaxi162Scf00541g00061",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0587.2",
+  "tf_gene_id": "Peaxi162Scf00541g00061",
+  "tf_symbol": "TCP16"
+ },
+ {
+  "motif_id": "MA1286.2|Peaxi162Scf00317g00020",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1286.2",
+  "tf_gene_id": "Peaxi162Scf00317g00020",
+  "tf_symbol": "TCP24"
+ },
+ {
+  "motif_id": "MA1383.2|Peaxi162Scf00170g00063",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1383.2",
+  "tf_gene_id": "Peaxi162Scf00170g00063",
+  "tf_symbol": "KAN2"
+ },
+ {
+  "motif_id": "MA1383.2|Peaxi162Scf00185g00095",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1383.2",
+  "tf_gene_id": "Peaxi162Scf00185g00095",
+  "tf_symbol": "KAN2"
+ },
+ {
+  "motif_id": "MA1383.2|Peaxi162Scf00045g00221",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1383.2",
+  "tf_gene_id": "Peaxi162Scf00045g00221",
+  "tf_symbol": "KAN3"
+ },
+ {
+  "motif_id": "MA1800.1|Peaxi162Scf00380g00041",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1800.1",
+  "tf_gene_id": "Peaxi162Scf00380g00041",
+  "tf_symbol": "RAV1"
+ },
+ {
+  "motif_id": "MA1669.2|Peaxi162Scf00757g00019",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1669.2",
+  "tf_gene_id": "Peaxi162Scf00757g00019",
+  "tf_symbol": "CBF1"
+ },
+ {
+  "motif_id": "MA0943.2|Peaxi162Scf00287g00193",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0943.2",
+  "tf_gene_id": "Peaxi162Scf00287g00193",
+  "tf_symbol": "MP"
+ },
+ {
+  "motif_id": "MA1398.3|Peaxi162Scf00136g00115",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1398.3",
+  "tf_gene_id": "Peaxi162Scf00136g00115",
+  "tf_symbol": "KUA1"
+ },
+ {
+  "motif_id": "MA1075.1|Peaxi162Scf00103g01013",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1075.1",
+  "tf_gene_id": "Peaxi162Scf00103g01013",
+  "tf_symbol": "WRKY12"
+ },
+ {
+  "motif_id": "MA1075.1|Peaxi162Scf00853g00029",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1075.1",
+  "tf_gene_id": "Peaxi162Scf00853g00029",
+  "tf_symbol": "WRKY12"
+ },
+ {
+  "motif_id": "MA1091.1|Peaxi162Scf00732g00236",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1091.1",
+  "tf_gene_id": "Peaxi162Scf00732g00236",
+  "tf_symbol": "WRKY67"
+ },
+ {
+  "motif_id": "MA1295.2|Peaxi162Scf00285g00820",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1295.2",
+  "tf_gene_id": "Peaxi162Scf00285g00820",
+  "tf_symbol": "WRKY20"
+ },
+ {
+  "motif_id": "MA1295.2|Peaxi162Scf00955g00032",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1295.2",
+  "tf_gene_id": "Peaxi162Scf00955g00032",
+  "tf_symbol": "WRKY20"
+ },
+ {
+  "motif_id": "MA1661.2|Peaxi162Scf01294g00224",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1661.2",
+  "tf_gene_id": "Peaxi162Scf01294g00224",
+  "tf_symbol": "GTL1"
+ },
+ {
+  "motif_id": "MA1363.1|Peaxi162Scf00347g01020",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1363.1",
+  "tf_gene_id": "Peaxi162Scf00347g01020",
+  "tf_symbol": "LRL1"
+ },
+ {
+  "motif_id": "MA1387.2|Peaxi162Scf00380g00618",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1387.2",
+  "tf_gene_id": "Peaxi162Scf00380g00618",
+  "tf_symbol": "HRS1"
+ },
+ {
+  "motif_id": "MA1062.3|Peaxi162Scf00013g00140",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1062.3",
+  "tf_gene_id": "Peaxi162Scf00013g00140",
+  "tf_symbol": "TCP14"
+ },
+ {
+  "motif_id": "MA1283.2|Peaxi162Scf00013g00140",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1283.2",
+  "tf_gene_id": "Peaxi162Scf00013g00140",
+  "tf_symbol": "TCP14"
+ },
+ {
+  "motif_id": "MA1688.2|Peaxi162Scf00488g00814",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1688.2",
+  "tf_gene_id": "Peaxi162Scf00488g00814",
+  "tf_symbol": "ARF16"
+ },
+ {
+  "motif_id": "MA1688.2|Peaxi162Scf00123g00214",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1688.2",
+  "tf_gene_id": "Peaxi162Scf00123g00214",
+  "tf_symbol": "ARF16"
+ },
+ {
+  "motif_id": "MA0008.4|Peaxi162Scf00129g01043",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0008.4",
+  "tf_gene_id": "Peaxi162Scf00129g01043",
+  "tf_symbol": "HB-1"
+ },
+ {
+  "motif_id": "MA1004.2|Peaxi162Scf00030g00022",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1004.2",
+  "tf_gene_id": "Peaxi162Scf00030g00022",
+  "tf_symbol": "ERF13"
+ },
+ {
+  "motif_id": "MA1004.2|Peaxi162Scf01052g00024",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1004.2",
+  "tf_gene_id": "Peaxi162Scf01052g00024",
+  "tf_symbol": "ERF13"
+ },
+ {
+  "motif_id": "MA1004.2|Peaxi162Scf00475g00053",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1004.2",
+  "tf_gene_id": "Peaxi162Scf00475g00053",
+  "tf_symbol": "ERF13"
+ },
+ {
+  "motif_id": "MA1006.2|Peaxi162Scf00475g00053",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1006.2",
+  "tf_gene_id": "Peaxi162Scf00475g00053",
+  "tf_symbol": "ERF13"
+ },
+ {
+  "motif_id": "MA2017.2|Peaxi162Scf00359g00815",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2017.2",
+  "tf_gene_id": "Peaxi162Scf00359g00815",
+  "tf_symbol": "NAC042"
+ },
+ {
+  "motif_id": "MA1176.2|Peaxi162Scf00540g00619",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1176.2",
+  "tf_gene_id": "Peaxi162Scf00540g00619",
+  "tf_symbol": "MYB100"
+ },
+ {
+  "motif_id": "MA1170.2|Peaxi162Scf00540g00619",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1170.2",
+  "tf_gene_id": "Peaxi162Scf00540g00619",
+  "tf_symbol": "MYB100"
+ },
+ {
+  "motif_id": "MA0589.2|Peaxi162Scf00047g02131",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0589.2",
+  "tf_gene_id": "Peaxi162Scf00047g02131",
+  "tf_symbol": "ZAP1"
+ },
+ {
+  "motif_id": "MA0589.2|Peaxi162Scf00776g00329",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0589.2",
+  "tf_gene_id": "Peaxi162Scf00776g00329",
+  "tf_symbol": "ZAP1"
+ },
+ {
+  "motif_id": "MA0580.1|Peaxi162Scf00931g00515",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0580.1",
+  "tf_gene_id": "Peaxi162Scf00931g00515",
+  "tf_symbol": "DYT1"
+ },
+ {
+  "motif_id": "MA0569.2|Peaxi162Scf00460g00011",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0569.2",
+  "tf_gene_id": "Peaxi162Scf00460g00011",
+  "tf_symbol": "MYC3"
+ },
+ {
+  "motif_id": "MA1173.2|Peaxi162Scf00007g00823",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1173.2",
+  "tf_gene_id": "Peaxi162Scf00007g00823",
+  "tf_symbol": "MYB101"
+ },
+ {
+  "motif_id": "MA1328.1|Peaxi162Scf00129g00014",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1328.1",
+  "tf_gene_id": "Peaxi162Scf00129g00014",
+  "tf_symbol": "HB34"
+ },
+ {
+  "motif_id": "MA1292.2|Peaxi162Scf00411g00008",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1292.2",
+  "tf_gene_id": "Peaxi162Scf00411g00008",
+  "tf_symbol": "MYB48"
+ },
+ {
+  "motif_id": "MA0975.1|Peaxi162Scf00390g10026",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0975.1",
+  "tf_gene_id": "Peaxi162Scf00390g10026",
+  "tf_symbol": "CRF2"
+ },
+ {
+  "motif_id": "MA0975.1|Peaxi162Scf00074g00125",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0975.1",
+  "tf_gene_id": "Peaxi162Scf00074g00125",
+  "tf_symbol": "CRF7"
+ },
+ {
+  "motif_id": "MA0555.2|Peaxi162Scf00454g00519",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0555.2",
+  "tf_gene_id": "Peaxi162Scf00454g00519",
+  "tf_symbol": "SVP"
+ },
+ {
+  "motif_id": "MA1168.2|Peaxi162Scf00146g00719",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1168.2",
+  "tf_gene_id": "Peaxi162Scf00146g00719",
+  "tf_symbol": "MYR2"
+ },
+ {
+  "motif_id": "MA1168.2|Peaxi162Scf00096g00412",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1168.2",
+  "tf_gene_id": "Peaxi162Scf00096g00412",
+  "tf_symbol": "MYR2"
+ },
+ {
+  "motif_id": "MA0566.1|Peaxi162Scf00767g00043",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0566.1",
+  "tf_gene_id": "Peaxi162Scf00767g00043",
+  "tf_symbol": "MYC2"
+ },
+ {
+  "motif_id": "MA0566.1|Peaxi162Scf00460g00011",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0566.1",
+  "tf_gene_id": "Peaxi162Scf00460g00011",
+  "tf_symbol": "MYC3"
+ },
+ {
+  "motif_id": "MA1329.3|Peaxi162Scf00447g00082",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1329.3",
+  "tf_gene_id": "Peaxi162Scf00447g00082",
+  "tf_symbol": "HB25"
+ },
+ {
+  "motif_id": "MA1177.2|Peaxi162Scf00526g00820",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1177.2",
+  "tf_gene_id": "Peaxi162Scf00526g00820",
+  "tf_symbol": "MYB81"
+ },
+ {
+  "motif_id": "MA1391.3|Peaxi162Scf00978g00214",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1391.3",
+  "tf_gene_id": "Peaxi162Scf00978g00214",
+  "tf_symbol": "MYB97"
+ },
+ {
+  "motif_id": "MA1391.3|Peaxi162Scf00342g00113",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1391.3",
+  "tf_gene_id": "Peaxi162Scf00342g00113",
+  "tf_symbol": "MYB104"
+ },
+ {
+  "motif_id": "MA1293.2|Peaxi162Scf00129g01231",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1293.2",
+  "tf_gene_id": "Peaxi162Scf00129g01231",
+  "tf_symbol": "MYB57"
+ },
+ {
+  "motif_id": "MA2372.1|Peaxi162Scf00016g00288",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2372.1",
+  "tf_gene_id": "Peaxi162Scf00016g00288",
+  "tf_symbol": "ZF1"
+ },
+ {
+  "motif_id": "MA1020.1|Peaxi162Scf00128g00824",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1020.1",
+  "tf_gene_id": "Peaxi162Scf00128g00824",
+  "tf_symbol": "GT-1"
+ },
+ {
+  "motif_id": "MA0940.1|Peaxi162Scf00017g03265",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0940.1",
+  "tf_gene_id": "Peaxi162Scf00017g03265",
+  "tf_symbol": "AP1"
+ },
+ {
+  "motif_id": "MA0940.1|Peaxi162Scf00020g02337",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0940.1",
+  "tf_gene_id": "Peaxi162Scf00020g02337",
+  "tf_symbol": "CAL"
+ },
+ {
+  "motif_id": "MA0940.1|Peaxi162Scf00013g00725",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0940.1",
+  "tf_gene_id": "Peaxi162Scf00013g00725",
+  "tf_symbol": "AP1"
+ },
+ {
+  "motif_id": "MA1203.1|Peaxi162Scf00066g00133",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1203.1",
+  "tf_gene_id": "Peaxi162Scf00066g00133",
+  "tf_symbol": "GOA"
+ },
+ {
+  "motif_id": "MA1199.1|Peaxi162Scf00016g03458",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1199.1",
+  "tf_gene_id": "Peaxi162Scf00016g03458",
+  "tf_symbol": "AGL44"
+ },
+ {
+  "motif_id": "MA1746.1|Peaxi162Scf00180g00131",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1746.1",
+  "tf_gene_id": "Peaxi162Scf00180g00131",
+  "tf_symbol": "bZIP69"
+ },
+ {
+  "motif_id": "MA1179.2|Peaxi162Scf01302g00033",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1179.2",
+  "tf_gene_id": "Peaxi162Scf01302g00033",
+  "tf_symbol": "MYB1"
+ },
+ {
+  "motif_id": "MA2016.2|Peaxi162Scf00127g00057",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2016.2",
+  "tf_gene_id": "Peaxi162Scf00127g00057",
+  "tf_symbol": "GRF6"
+ },
+ {
+  "motif_id": "MA1294.2|Peaxi162Scf00753g00338",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1294.2",
+  "tf_gene_id": "Peaxi162Scf00753g00338",
+  "tf_symbol": "MYB116"
+ },
+ {
+  "motif_id": "MA1294.2|Peaxi162Scf00015g01036",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1294.2",
+  "tf_gene_id": "Peaxi162Scf00015g01036",
+  "tf_symbol": "MYB62"
+ },
+ {
+  "motif_id": "MA1742.2|Peaxi162Scf00304g00518",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1742.2",
+  "tf_gene_id": "Peaxi162Scf00304g00518",
+  "tf_symbol": "bZIP18"
+ },
+ {
+  "motif_id": "MA1742.2|Peaxi162Scf00739g00324",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1742.2",
+  "tf_gene_id": "Peaxi162Scf00739g00324",
+  "tf_symbol": "bZIP52"
+ },
+ {
+  "motif_id": "MA1343.2|Peaxi162Scf00739g00324",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1343.2",
+  "tf_gene_id": "Peaxi162Scf00739g00324",
+  "tf_symbol": "bZIP52"
+ },
+ {
+  "motif_id": "MA0121.2|Peaxi162Scf00347g00627",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0121.2",
+  "tf_gene_id": "Peaxi162Scf00347g00627",
+  "tf_symbol": "RR12"
+ },
+ {
+  "motif_id": "MA1284.2|Peaxi162Scf00479g00005",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1284.2",
+  "tf_gene_id": "Peaxi162Scf00479g00005",
+  "tf_symbol": "TCP1"
+ },
+ {
+  "motif_id": "MA1284.2|Peaxi162Scf00535g00016",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1284.2",
+  "tf_gene_id": "Peaxi162Scf00535g00016",
+  "tf_symbol": "TCP1"
+ },
+ {
+  "motif_id": "MA1296.2|Peaxi162Scf00074g01125",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1296.2",
+  "tf_gene_id": "Peaxi162Scf00074g01125",
+  "tf_symbol": "WRKY53"
+ },
+ {
+  "motif_id": "MA1805.2|Peaxi162Scf00074g01125",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1805.2",
+  "tf_gene_id": "Peaxi162Scf00074g01125",
+  "tf_symbol": "WRKY53"
+ },
+ {
+  "motif_id": "MA0936.1|Peaxi162Scf00076g00071",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0936.1",
+  "tf_gene_id": "Peaxi162Scf00076g00071",
+  "tf_symbol": "NAC046"
+ },
+ {
+  "motif_id": "MA0577.4|Peaxi162Scf00059g00113",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0577.4",
+  "tf_gene_id": "Peaxi162Scf00059g00113",
+  "tf_symbol": "SPL3"
+ },
+ {
+  "motif_id": "MA0577.4|Peaxi162Scf00031g01525",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0577.4",
+  "tf_gene_id": "Peaxi162Scf00031g01525",
+  "tf_symbol": "SPL3"
+ },
+ {
+  "motif_id": "MA1059.3|Peaxi162Scf00031g01525",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1059.3",
+  "tf_gene_id": "Peaxi162Scf00031g01525",
+  "tf_symbol": "SPL3"
+ },
+ {
+  "motif_id": "MA1322.3|Peaxi162Scf00003g04342",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1322.3",
+  "tf_gene_id": "Peaxi162Scf00003g04342",
+  "tf_symbol": "SPL15"
+ },
+ {
+  "motif_id": "MA1320.2|Peaxi162Scf00003g04342",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1320.2",
+  "tf_gene_id": "Peaxi162Scf00003g04342",
+  "tf_symbol": "SPL15"
+ },
+ {
+  "motif_id": "MA1055.3|Peaxi162Scf00919g00310",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1055.3",
+  "tf_gene_id": "Peaxi162Scf00919g00310",
+  "tf_symbol": "SPL14"
+ },
+ {
+  "motif_id": "MA1322.3|Peaxi162Scf00258g00128",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1322.3",
+  "tf_gene_id": "Peaxi162Scf00258g00128",
+  "tf_symbol": "SPL9"
+ },
+ {
+  "motif_id": "MA1320.2|Peaxi162Scf00258g00128",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1320.2",
+  "tf_gene_id": "Peaxi162Scf00258g00128",
+  "tf_symbol": "SPL9"
+ },
+ {
+  "motif_id": "MA0586.3|Peaxi162Scf00919g00310",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0586.3",
+  "tf_gene_id": "Peaxi162Scf00919g00310",
+  "tf_symbol": "SPL14"
+ },
+ {
+  "motif_id": "MA1764.2|Peaxi162Scf00753g00338",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1764.2",
+  "tf_gene_id": "Peaxi162Scf00753g00338",
+  "tf_symbol": "MYB116"
+ },
+ {
+  "motif_id": "MA1067.1|Peaxi162Scf00201g00037",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1067.1",
+  "tf_gene_id": "Peaxi162Scf00201g00037",
+  "tf_symbol": "TCP17"
+ },
+ {
+  "motif_id": "MA1290.1|Peaxi162Scf00201g00037",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1290.1",
+  "tf_gene_id": "Peaxi162Scf00201g00037",
+  "tf_symbol": "TCP17"
+ },
+ {
+  "motif_id": "MA2044.2|Peaxi162Scf00054g02213",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2044.2",
+  "tf_gene_id": "Peaxi162Scf00054g02213",
+  "tf_symbol": "NAC007"
+ },
+ {
+  "motif_id": "MA1805.2|Peaxi162Scf00102g01741",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1805.2",
+  "tf_gene_id": "Peaxi162Scf00102g01741",
+  "tf_symbol": "WRKY46"
+ },
+ {
+  "motif_id": "MA2367.1|Peaxi162Scf00029g02912",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2367.1",
+  "tf_gene_id": "Peaxi162Scf00029g02912",
+  "tf_symbol": "WIP5"
+ },
+ {
+  "motif_id": "MA1074.2|Peaxi162Scf00201g00004",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1074.2",
+  "tf_gene_id": "Peaxi162Scf00201g00004",
+  "tf_symbol": "UNE10"
+ },
+ {
+  "motif_id": "MA1074.2|Peaxi162Scf00377g00029",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1074.2",
+  "tf_gene_id": "Peaxi162Scf00377g00029",
+  "tf_symbol": "UNE10"
+ },
+ {
+  "motif_id": "MA1757.2|Peaxi162Scf00021g00922",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1757.2",
+  "tf_gene_id": "Peaxi162Scf00021g00922",
+  "tf_symbol": "HDG1"
+ },
+ {
+  "motif_id": "MA1369.2|Peaxi162Scf00021g00922",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1369.2",
+  "tf_gene_id": "Peaxi162Scf00021g00922",
+  "tf_symbol": "HDG1"
+ },
+ {
+  "motif_id": "MA1375.2|Peaxi162Scf00021g00922",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1375.2",
+  "tf_gene_id": "Peaxi162Scf00021g00922",
+  "tf_symbol": "HDG1"
+ },
+ {
+  "motif_id": "MA0990.2|Peaxi162Scf00171g00618",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0990.2",
+  "tf_gene_id": "Peaxi162Scf00171g00618",
+  "tf_symbol": "HDG12"
+ },
+ {
+  "motif_id": "MA0990.2|Peaxi162Scf00063g02324",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0990.2",
+  "tf_gene_id": "Peaxi162Scf00063g02324",
+  "tf_symbol": "HDG10"
+ },
+ {
+  "motif_id": "MA0990.2|Peaxi162Scf00643g00645",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0990.2",
+  "tf_gene_id": "Peaxi162Scf00643g00645",
+  "tf_symbol": "HDG11"
+ },
+ {
+  "motif_id": "MA0967.1|Peaxi162Scf00385g00068",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0967.1",
+  "tf_gene_id": "Peaxi162Scf00385g00068",
+  "tf_symbol": "BZIP60"
+ },
+ {
+  "motif_id": "MA0565.3|Peaxi162Scf00420g00827",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0565.3",
+  "tf_gene_id": "Peaxi162Scf00420g00827",
+  "tf_symbol": "FUS3"
+ },
+ {
+  "motif_id": "MA1080.1|Peaxi162Scf00164g01010",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1080.1",
+  "tf_gene_id": "Peaxi162Scf00164g01010",
+  "tf_symbol": "WRKY23"
+ },
+ {
+  "motif_id": "MA1177.2|Peaxi162Scf00047g01824",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1177.2",
+  "tf_gene_id": "Peaxi162Scf00047g01824",
+  "tf_symbol": "MYB65"
+ },
+ {
+  "motif_id": "MA1171.2|Peaxi162Scf00066g01813",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1171.2",
+  "tf_gene_id": "Peaxi162Scf00066g01813",
+  "tf_symbol": "MYB69"
+ },
+ {
+  "motif_id": "MA1171.2|Peaxi162Scf00171g00047",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1171.2",
+  "tf_gene_id": "Peaxi162Scf00171g00047",
+  "tf_symbol": "MYB52"
+ },
+ {
+  "motif_id": "MA1685.2|Peaxi162Scf00488g00814",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1685.2",
+  "tf_gene_id": "Peaxi162Scf00488g00814",
+  "tf_symbol": "ARF16"
+ },
+ {
+  "motif_id": "MA0584.2|Peaxi162Scf00020g02337",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0584.2",
+  "tf_gene_id": "Peaxi162Scf00020g02337",
+  "tf_symbol": "CAL"
+ },
+ {
+  "motif_id": "MA0571.2|Peaxi162Scf01161g00121",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0571.2",
+  "tf_gene_id": "Peaxi162Scf01161g00121",
+  "tf_symbol": "ANT"
+ },
+ {
+  "motif_id": "MA0571.2|Peaxi162Scf00096g01849",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0571.2",
+  "tf_gene_id": "Peaxi162Scf00096g01849",
+  "tf_symbol": "ANT"
+ },
+ {
+  "motif_id": "MA1043.2|Peaxi162Scf00128g01627",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1043.2",
+  "tf_gene_id": "Peaxi162Scf00128g01627",
+  "tf_symbol": "NAC041"
+ },
+ {
+  "motif_id": "MA1043.2|Peaxi162Scf00516g00027",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1043.2",
+  "tf_gene_id": "Peaxi162Scf00516g00027",
+  "tf_symbol": "NAC097"
+ },
+ {
+  "motif_id": "MA1764.2|Peaxi162Scf00015g01036",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1764.2",
+  "tf_gene_id": "Peaxi162Scf00015g01036",
+  "tf_symbol": "MYB62"
+ },
+ {
+  "motif_id": "MA1797.1|Peaxi162Scf00380g00041",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1797.1",
+  "tf_gene_id": "Peaxi162Scf00380g00041",
+  "tf_symbol": "RAV1"
+ },
+ {
+  "motif_id": "MA1378.1|Peaxi162Scf00085g02316",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1378.1",
+  "tf_gene_id": "Peaxi162Scf00085g02316",
+  "tf_symbol": "AIL6"
+ },
+ {
+  "motif_id": "MA0973.2|Peaxi162Scf00129g10011",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0973.2",
+  "tf_gene_id": "Peaxi162Scf00129g10011",
+  "tf_symbol": "CDF2"
+ },
+ {
+  "motif_id": "MA1757.2|Peaxi162Scf00915g00122",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1757.2",
+  "tf_gene_id": "Peaxi162Scf00915g00122",
+  "tf_symbol": "HDG1"
+ },
+ {
+  "motif_id": "MA1369.2|Peaxi162Scf00915g00122",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1369.2",
+  "tf_gene_id": "Peaxi162Scf00915g00122",
+  "tf_symbol": "HDG1"
+ },
+ {
+  "motif_id": "MA1369.2|Peaxi162Scf00040g00320",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1369.2",
+  "tf_gene_id": "Peaxi162Scf00040g00320",
+  "tf_symbol": "HDG1"
+ },
+ {
+  "motif_id": "MA1375.2|Peaxi162Scf00233g00069",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1375.2",
+  "tf_gene_id": "Peaxi162Scf00233g00069",
+  "tf_symbol": "ANL2"
+ },
+ {
+  "motif_id": "MA2387.1|Peaxi162Scf00541g00010",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2387.1",
+  "tf_gene_id": "Peaxi162Scf00541g00010",
+  "tf_symbol": "FEZ"
+ },
+ {
+  "motif_id": "MA1055.3|Peaxi162Scf00058g02017",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1055.3",
+  "tf_gene_id": "Peaxi162Scf00058g02017",
+  "tf_symbol": "SPL1"
+ },
+ {
+  "motif_id": "MA1055.3|Peaxi162Scf00164g00523",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1055.3",
+  "tf_gene_id": "Peaxi162Scf00164g00523",
+  "tf_symbol": "SPL1"
+ },
+ {
+  "motif_id": "MA2363.1|Peaxi162Scf00389g00028",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2363.1",
+  "tf_gene_id": "Peaxi162Scf00389g00028",
+  "tf_symbol": "RAP2.7"
+ },
+ {
+  "motif_id": "MA2344.1|Peaxi162Scf00270g00419",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2344.1",
+  "tf_gene_id": "Peaxi162Scf00270g00419",
+  "tf_symbol": "REV"
+ },
+ {
+  "motif_id": "MA1394.3|Peaxi162Scf00566g00051",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1394.3",
+  "tf_gene_id": "Peaxi162Scf00566g00051",
+  "tf_symbol": "MYB73"
+ }
+]

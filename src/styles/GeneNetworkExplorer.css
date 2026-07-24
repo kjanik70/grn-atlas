@@ -126,6 +126,25 @@
   line-height: var(--leading-relaxed);
 }
 
+.collections { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.collections-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+}
+.collection-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.collection-btn {
+  padding: 8px 14px;
+  background: var(--bg-accent);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  color: var(--text-accent);
+  font-size: 13px;
+  cursor: pointer;
+}
+.collection-btn:hover { background: var(--primary); color: var(--on-accent); }
+
 /* Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
