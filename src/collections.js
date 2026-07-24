@@ -12,16 +12,24 @@ export const COLLECTIONS = [
     id: 'petunia-anthocyanin',
     name: 'Petunia — anthocyanin pathway',
     species: 'petunia',
-    description: 'Flavonoid/anthocyanin biosynthesis structural genes (CHS→UF3GT).',
+    description: 'Flavonoid structural genes (CHS→UF3GT) plus the BLAST-identified MBW regulatory complex.',
     geneIds: [
+      // structural
       'Peaxi162Scf00047g01225', // Chalcone synthase A
       'Peaxi162Scf00164g00313', // Chalcone synthase B
       'Peaxi162Scf00080g01317', // Chalcone isomerase
-      'Peaxi162Scf00328g01214', // F3H (naringenin 3-dioxygenase)
+      'Peaxi162Scf00328g01214', // F3H
       'Peaxi162Scf00150g00218', // F3'5'H
-      'Peaxi162Scf00032g00067', // DFR-like 1
-      'Peaxi162Scf00329g00024', // DFR-like 1 (paralog)
-      'Peaxi162Scf00427g00022', // Anthocyanidin 3-O-glucosyltransferase
+      'Peaxi162Scf00032g00067', // DFR
+      'Peaxi162Scf00427g00022', // UF3GT
+      // regulators (BLAST-curated identities)
+      'Peaxi162Scf00118g00310', // AN2 (master MYB)
+      'Peaxi162Scf00338g00912', // AN1 (bHLH)
+      'Peaxi162Scf00912g00146', // AN11 (WD40)
+      'Peaxi162Scf00119g00942', // JAF13 (bHLH)
+      'Peaxi162Scf00349g00057', // PH4 (MYB)
+      'Peaxi162Scf01210g00002', // DPL (MYB)
+      'Peaxi162Scf00001g00231', // MYB12 (flavonol)
     ],
   },
   {

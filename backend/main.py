@@ -658,8 +658,13 @@ async def export_edges(request: ExportRequest):
             ext = atlas2ext.get(r["target_id"])
             if ext:
                 ext_id, assembly = ext
+                # Prefer a real curated symbol (e.g. AN2, != locus id); otherwise
+                # keep the scan-time synonym label (e.g. HYH, PIF4).
+                tf_label = (edge["source_symbol"]
+                            if edge["source_symbol"] and edge["source_symbol"] != r["source_id"]
+                            else h["tf_symbol"])
                 sites = [
-                    {"motif_id": h["motif_id"], "tf_symbol": h["tf_symbol"],
+                    {"motif_id": h["motif_id"], "tf_symbol": tf_label,
                      "window_type": h["window_type"], "chromosome": h["chromosome"],
                      "start": h["start"], "end": h["end"], "strand": h["strand"],
                      "score": h["score"], "p_value": h["p_value"],

@@ -44,6 +44,8 @@ PLAZA_ORTHOLOGS_JSON = DATA_DIR / "orthologs_plaza.json"
 PLAZA_GENES_JSON = DATA_DIR / "genome_genes_plaza.json"
 PLAZA_SYMBOLS_JSON = DATA_DIR / "gene_symbols_plaza.json"
 GO_JSON = DATA_DIR / "go_annotations.json.gz"
+# BLAST-curated gene identities (e.g. petunia AN2/AN1/AN11 …); see blast_regulators.py
+REGULATOR_MAP_JSON = DATA_DIR / "regulator_map.json"
 
 # Sequence-context ingestion bundle (Path B; optional — see the tomato SL4.0
 # ingestion plan). Each is a list of row-dicts; absent files leave the tables
@@ -513,6 +515,25 @@ def build():
     )
     n_syn = len(inferred)
 
+    # BLAST-curated identities: give these genes a real symbol (high-confidence
+    # sequence match to a characterized regulator), overriding the locus id. This
+    # is a measured identity, not an inferred synonym, so it becomes the symbol.
+    # Regulators outside the atlas subset (e.g. petunia AN1) are inserted so they
+    # are searchable/labelled, even without network/coordinate data.
+    reg_map = load_json(REGULATOR_MAP_JSON) or []
+    conn.executemany(
+        "INSERT OR IGNORE INTO genes (id, symbol, name, species, is_tf, gene_type) "
+        "VALUES (?, ?, ?, ?, 1, 'protein_coding')",
+        [(r["gene_id"], r["name"], r.get("description", r["name"]),
+          "petunia" if r["gene_id"].startswith("Peaxi") else "tomato")
+         for r in reg_map if r["gene_id"] not in valid_ids],
+    )
+    conn.executemany(
+        "UPDATE genes SET symbol = ? WHERE id = ?",
+        [(r["name"], r["gene_id"]) for r in reg_map],
+    )
+    n_curated = len(reg_map)
+
     # GO annotations (optional; for enrichment analysis).
     go_data = {}
     if GO_JSON.exists():
@@ -560,6 +581,7 @@ def build():
     if any(seqctx_counts.values()):
         print(f"  Sequence context: {seqctx_counts}")
     print(f"  Inferred Arabidopsis-symbol synonyms on {n_syn} tomato/petunia genes")
+    print(f"  BLAST-curated regulator symbols: {n_curated}")
     print(f"  Genome: {len(loc_rows)} locations, {len(orth_rows)} ortholog pairs, "
           f"{len(chrom_rows)} chromosomes")
     print(f"    by species: {dict(loc_by_species)}")
