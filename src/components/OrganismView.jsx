@@ -14,6 +14,8 @@ export default function OrganismView({ onSelectGene }) {
   const [speciesList, setSpeciesList] = useState([]);
   const [species, setSpecies] = useState('arabidopsis');
   const [includeInferred, setIncludeInferred] = useState(true);
+  const [topN, setTopN] = useState(25);
+  const [minConfidence, setMinConfidence] = useState(0);
   const [overview, setOverview] = useState(null);
   const [circuit, setCircuit] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -33,21 +35,21 @@ export default function OrganismView({ onSelectGene }) {
     setLoading(true);
     setError(null);
     setCircuit(null);
-    fetch(`/api/v1/organism/${species}/overview?top=25&include_inferred=${includeInferred}`)
+    fetch(`/api/v1/organism/${species}/overview?top=${topN}&min_confidence=${minConfidence}&include_inferred=${includeInferred}`)
       .then((r) => r.json())
       .then(async (ov) => {
         if (cancelled) return;
         setOverview(ov);
         const ids = (ov.top_regulators || []).map((r) => r.id);
         if (ids.length >= 2) {
-          const sg = await analysisAPI.subgraph(ids, { includeInferred });
+          const sg = await analysisAPI.subgraph(ids, { includeInferred, minConfidence });
           if (!cancelled) setCircuit(sg);
         }
       })
       .catch((e) => { if (!cancelled) setError(e.message); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, [species, includeInferred]);
+  }, [species, includeInferred, topN, minConfidence]);
 
   const tiles = overview ? [
     { label: 'Genes', value: fmt(overview.genes) },
@@ -66,6 +68,16 @@ export default function OrganismView({ onSelectGene }) {
           <select value={species} onChange={(e) => setSpecies(e.target.value)}>
             {speciesList.map((s) => <option key={s} value={s}>{label(s)}</option>)}
           </select>
+        </div>
+        <div className="org-picker">
+          <label>Top regulators: {topN}</label>
+          <input type="range" min={5} max={100} step={5}
+            value={topN} onChange={(e) => setTopN(Number(e.target.value))} />
+        </div>
+        <div className="org-picker">
+          <label>Min confidence: {minConfidence.toFixed(2)}</label>
+          <input type="range" min={0} max={0.95} step={0.05}
+            value={minConfidence} onChange={(e) => setMinConfidence(Number(e.target.value))} />
         </div>
         <label className="org-toggle" title="Include edges projected from Arabidopsis via orthology (not measured)">
           <input type="checkbox" checked={includeInferred}
