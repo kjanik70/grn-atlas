@@ -28,6 +28,24 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
   const [error, setError] = useState(null);
   const [subgraph, setSubgraph] = useState(null);
   const [enrichment, setEnrichment] = useState(null);
+  const [lastIds, setLastIds] = useState([]);
+
+  // Download the sequence-context export (signed edges + coords + promoter windows).
+  const exportEdges = async () => {
+    const res = await fetch('/api/v1/export/edges', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        gene_ids: lastIds, include_inferred: includeInferred, format: 'tsv',
+        promoter_upstream: 2000, promoter_downstream: 500,
+      }),
+    });
+    const text = await res.text();
+    const url = URL.createObjectURL(new Blob([text], { type: 'text/tab-separated-values' }));
+    const a = document.createElement('a');
+    a.href = url; a.download = `grn_edges_export.tsv`; a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const analyze = useCallback(async (geneIds, sp) => {
     if (!geneIds || geneIds.length < 2) {
@@ -43,6 +61,7 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
       ]);
       setSubgraph(sg);
       setEnrichment(enr);
+      setLastIds(geneIds);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -117,6 +136,10 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
             <p className="gs-metrics">
               {subgraph.nodes.length} genes · {subgraph.edges.length} interactions among them
             </p>
+            <button className="gs-export" onClick={exportEdges}
+              title="Signed edges + confidence + genomic coordinates + promoter windows (TSS −2000/+500)">
+              ⤓ Export edges + promoter windows (TSV)
+            </button>
             {hubs.length > 0 && (
               <div className="gs-hubs">
                 <span className="gs-label">Top regulators:</span>{' '}

@@ -5,6 +5,7 @@ Complete example implementation with all required endpoints
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime
@@ -506,6 +507,126 @@ async def get_subgraph(request: SubgraphRequest):
                       "regulation_type": r["regulation_type"], "confidence": r["confidence"],
                       "source_databases": sources, "inferred": inferred})
     return {"nodes": nodes, "edges": edges}
+
+
+class ExportRequest(BaseModel):
+    """Export regulatory edges with sequence-fetch context."""
+    gene_ids: List[str]
+    min_confidence: float = 0.0
+    include_inferred: bool = True
+    signed_only: bool = False        # keep only activation/repression edges
+    promoter_upstream: int = 2000    # bp 5' of TSS
+    promoter_downstream: int = 500   # bp 3' of TSS
+    format: str = "json"             # json | tsv
+
+
+# activation/repression -> the positive/negative sign; everything else is unsigned.
+_SIGN = {"activation": "positive", "repression": "negative"}
+
+
+def _promoter_window(loc, upstream: int, downstream: int, chrom_len: Optional[int]):
+    """Derive TSS and a strand-aware promoter window from a gene locus."""
+    if not loc:
+        return None, None, None
+    strand = loc["strand"] or 0
+    tss = loc["end"] if strand < 0 else loc["start"]
+    if strand < 0:
+        ws, we = tss - downstream, tss + upstream
+    else:
+        ws, we = tss - upstream, tss + downstream
+    ws = max(0, ws)
+    if chrom_len:
+        we = min(chrom_len, we)
+    return tss, ws, we
+
+
+@app.post("/api/v1/export/edges")
+async def export_edges(request: ExportRequest):
+    """Regulatory edges annotated with sign, confidence, provenance, genomic
+    coordinates for both partners, and derived promoter windows — i.e. everything
+    needed to fetch promoter sequence downstream. Sequences themselves are not
+    served (no assembly FASTA loaded); this emits window *coordinates*."""
+    ids = list(dict.fromkeys(request.gene_ids))
+    if not ids:
+        return {"edges": [], "stats": {"edges": 0}, "params": request.dict()}
+    ph = ",".join("?" * len(ids))
+
+    genes = {
+        r["id"]: r for r in db.conn.execute(
+            f"SELECT id, symbol, name, species, is_tf FROM genes WHERE id IN ({ph})", ids
+        ).fetchall()
+    }
+    locs = {
+        r["gene_id"]: r for r in db.conn.execute(
+            f"SELECT gene_id, species, chromosome, start, end, strand "
+            f"FROM gene_locations WHERE gene_id IN ({ph})", ids
+        ).fetchall()
+    }
+    chrom_len = {
+        (r["species"], r["chromosome"]): r["length"]
+        for r in db.conn.execute("SELECT species, chromosome, length FROM chromosomes").fetchall()
+    }
+
+    def side(gene_id, prefix):
+        g, loc = genes.get(gene_id), locs.get(gene_id)
+        clen = chrom_len.get((loc["species"], loc["chromosome"])) if loc else None
+        tss, ws, we = _promoter_window(loc, request.promoter_upstream, request.promoter_downstream, clen)
+        return {
+            f"{prefix}_gene_id": gene_id,
+            f"{prefix}_symbol": g["symbol"] if g else None,
+            f"{prefix}_species": g["species"] if g else None,
+            f"{prefix}_is_tf": bool(g["is_tf"]) if g else None,
+            f"{prefix}_chromosome": loc["chromosome"] if loc else None,
+            f"{prefix}_start": loc["start"] if loc else None,
+            f"{prefix}_end": loc["end"] if loc else None,
+            f"{prefix}_strand": loc["strand"] if loc else None,
+            f"{prefix}_tss": tss,
+            f"{prefix}_promoter_start": ws,
+            f"{prefix}_promoter_end": we,
+        }
+
+    rows = db.conn.execute(
+        f"SELECT source_id, target_id, regulation_type, confidence, sources, pmids "
+        f"FROM interactions WHERE source_id IN ({ph}) AND target_id IN ({ph}) AND confidence >= ?",
+        ids + ids + [request.min_confidence],
+    ).fetchall()
+
+    edges, complete = [], 0
+    for r in rows:
+        sources = json.loads(r["sources"])
+        inferred = any(s.startswith("Inferred") for s in sources)
+        if inferred and not request.include_inferred:
+            continue
+        sign = _SIGN.get(r["regulation_type"], "unsigned")
+        if request.signed_only and sign == "unsigned":
+            continue
+        edge = {**side(r["source_id"], "source"), **side(r["target_id"], "target"),
+                "regulation_type": r["regulation_type"], "sign": sign,
+                "confidence": r["confidence"], "sources": sources,
+                "pmids": json.loads(r["pmids"]) if r["pmids"] else [],
+                "inferred": inferred}
+        if edge["source_promoter_start"] is not None and edge["target_promoter_start"] is not None:
+            complete += 1
+        edges.append(edge)
+
+    stats = {
+        "edges": len(edges),
+        "edges_with_complete_coordinates": complete,
+        "signed": sum(1 for e in edges if e["sign"] != "unsigned"),
+        "unsigned": sum(1 for e in edges if e["sign"] == "unsigned"),
+        "inferred": sum(1 for e in edges if e["inferred"]),
+    }
+
+    if request.format == "tsv":
+        cols = [k for k in (edges[0].keys() if edges else [])]
+        lines = ["\t".join(cols)]
+        for e in edges:
+            lines.append("\t".join(
+                ";".join(map(str, e[c])) if isinstance(e[c], list) else
+                ("" if e[c] is None else str(e[c])) for c in cols))
+        return PlainTextResponse("\n".join(lines), media_type="text/tab-separated-values")
+
+    return {"edges": edges, "stats": stats, "params": request.dict()}
 
 
 class EnrichmentRequest(BaseModel):

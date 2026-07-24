@@ -58,6 +58,18 @@
 .gs-section h3 { font-size: var(--text-lg); margin: 0 0 var(--space-xs); }
 .gs-metrics { font-size: var(--text-sm); color: var(--text-secondary); margin: 0 0 var(--space-sm); }
 
+.gs-export {
+  margin-bottom: var(--space-sm);
+  padding: 5px 12px;
+  font-size: var(--text-sm);
+  background: var(--surface-0);
+  color: var(--text-accent);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.gs-export:hover { background: var(--bg-accent); }
+
 .subgraph-canvas {
   width: 100%;
   height: 320px;
