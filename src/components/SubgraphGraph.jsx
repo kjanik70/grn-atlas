@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import cytoscape from 'cytoscape';
 import { getCytoscapeStyle, getLayout } from './NetworkVisualization';
+import { geneLabel } from '../utils/geneLabel';
 
 // Render an arbitrary induced subgraph ({nodes, edges} from /pathways/subgraph)
 // using the same Cytoscape styling as the main network view.
@@ -13,7 +14,7 @@ export default function SubgraphGraph({ nodes, edges, onNodeClick }) {
     const elements = [
       ...nodes.map((n) => ({
         data: {
-          id: n.id, label: n.symbol, name: n.name,
+          id: n.id, label: geneLabel(n).label, symbol: n.symbol, name: n.name,
           is_tf: !!n.is_tf, species: n.species, type: 'target',
         },
       })),

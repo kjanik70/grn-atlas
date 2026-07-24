@@ -92,7 +92,8 @@
   font-size: 9px; font-weight: 700; color: var(--on-accent);
   background: var(--accent); border-radius: 2px; padding: 0 3px;
 }
-.org-hub-deg { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.org-inferred-mark { color: var(--warning-dark); font-weight: 700; cursor: help; }
+.org-hub-deg { color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .org-empty { padding: var(--space-sm); color: var(--text-muted); font-size: var(--text-sm); }
 
 .org-circuit .subgraph-canvas { flex: 1; height: auto; min-height: 380px; }

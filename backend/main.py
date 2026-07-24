@@ -485,10 +485,11 @@ async def get_subgraph(request: SubgraphRequest):
         return {"nodes": [], "edges": []}
     placeholders = ",".join("?" * len(ids))
     node_rows = db.conn.execute(
-        f"SELECT id, symbol, name, species, is_tf FROM genes WHERE id IN ({placeholders})", ids
+        f"SELECT id, symbol, name, species, is_tf, synonyms FROM genes WHERE id IN ({placeholders})", ids
     ).fetchall()
     nodes = [{"id": r["id"], "symbol": r["symbol"], "name": r["name"],
-              "species": r["species"], "is_tf": bool(r["is_tf"])} for r in node_rows]
+              "species": r["species"], "is_tf": bool(r["is_tf"]),
+              "synonyms": r["synonyms"].split("; ") if r["synonyms"] else []} for r in node_rows]
     known = {n["id"] for n in nodes}
     edge_sql = (
         f"SELECT source_id, target_id, regulation_type, confidence, sources FROM interactions "
@@ -759,7 +760,7 @@ async def organism_overview(
     inferred_clause = "" if include_inferred else " AND i.sources NOT LIKE '%Inferred%'"
     top_rows = cur(
         f"""
-        SELECT i.source_id AS id, g.symbol, g.name, g.is_tf, COUNT(*) AS out_degree
+        SELECT i.source_id AS id, g.symbol, g.name, g.is_tf, g.synonyms, COUNT(*) AS out_degree
         FROM interactions i JOIN genes g ON g.id = i.source_id
         WHERE g.species = ? AND i.confidence >= ?{inferred_clause}
         GROUP BY i.source_id ORDER BY out_degree DESC LIMIT ?
@@ -767,7 +768,8 @@ async def organism_overview(
     ).fetchall()
     top_regulators = [
         {"id": r["id"], "symbol": r["symbol"], "name": r["name"],
-         "is_tf": bool(r["is_tf"]), "out_degree": r["out_degree"]}
+         "is_tf": bool(r["is_tf"]), "out_degree": r["out_degree"],
+         "synonyms": r["synonyms"].split("; ") if r["synonyms"] else []}
         for r in top_rows
     ]
 

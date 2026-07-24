@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { analysisAPI } from '../services/apiService';
+import { geneLabel } from '../utils/geneLabel';
 import SubgraphGraph from './SubgraphGraph';
 import '../styles/OrganismView.css';
 
@@ -108,16 +109,21 @@ export default function OrganismView({ onSelectGene }) {
                 {includeInferred ? 'all' : 'measured-only'} edges.
               </p>
               <ol className="org-hub-list">
-                {(overview.top_regulators || []).map((r) => (
-                  <li key={r.id}>
-                    <button className="org-hub-btn" onClick={() => onSelectGene?.(r.symbol)}>
-                      <span className="org-hub-symbol">
-                        {r.symbol}{r.is_tf && <span className="org-tf">TF</span>}
-                      </span>
-                      <span className="org-hub-deg">{fmt(r.out_degree)} targets</span>
-                    </button>
-                  </li>
-                ))}
+                {(overview.top_regulators || []).map((r) => {
+                  const gl = geneLabel(r);
+                  return (
+                    <li key={r.id}>
+                      <button className="org-hub-btn" onClick={() => onSelectGene?.(r.symbol)}
+                        title={gl.inferred ? `${gl.id} — name inferred from Arabidopsis ortholog` : gl.id}>
+                        <span className="org-hub-symbol">
+                          {gl.label}{gl.inferred && <span className="org-inferred-mark">≈</span>}
+                          {r.is_tf && <span className="org-tf">TF</span>}
+                        </span>
+                        <span className="org-hub-deg">{fmt(r.out_degree)} targets</span>
+                      </button>
+                    </li>
+                  );
+                })}
                 {(!overview.top_regulators || overview.top_regulators.length === 0) && (
                   <li className="org-empty">No edges for this evidence setting.</li>
                 )}
@@ -134,7 +140,7 @@ export default function OrganismView({ onSelectGene }) {
                 <SubgraphGraph
                   nodes={circuit.nodes}
                   edges={circuit.edges}
-                  onNodeClick={(d) => onSelectGene?.(d.label)}
+                  onNodeClick={(d) => onSelectGene?.(d.symbol || d.label)}
                 />
               ) : (
                 <div className="org-message">

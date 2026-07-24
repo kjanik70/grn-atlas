@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { analysisAPI } from '../services/apiService';
 import SubgraphGraph from './SubgraphGraph';
+import { geneLabel } from '../utils/geneLabel';
 import '../styles/GeneSetPanel.css';
 
 const NS_LABEL = { BP: 'process', CC: 'component', MF: 'function', '': '' };
@@ -19,7 +20,7 @@ function topHubs(nodes, edges, k = 5) {
   return Object.entries(out)
     .sort((a, b) => b[1] - a[1])
     .slice(0, k)
-    .map(([id, deg]) => ({ symbol: byId[id]?.symbol || id, deg }));
+    .map(([id, deg]) => ({ symbol: byId[id] ? geneLabel(byId[id]).label : id, deg }));
 }
 
 export default function GeneSetPanel({ open, onClose, initialGeneIds, species, includeInferred }) {
