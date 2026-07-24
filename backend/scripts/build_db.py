@@ -45,6 +45,29 @@ PLAZA_GENES_JSON = DATA_DIR / "genome_genes_plaza.json"
 PLAZA_SYMBOLS_JSON = DATA_DIR / "gene_symbols_plaza.json"
 GO_JSON = DATA_DIR / "go_annotations.json.gz"
 
+# Sequence-context ingestion bundle (Path B; optional — see the tomato SL4.0
+# ingestion plan). Each is a list of row-dicts; absent files leave the tables
+# empty. Keys mirror the table columns.
+SEQCTX_FILES = {
+    "gene_id_crosswalk": (
+        DATA_DIR / "gene_id_crosswalk.json",
+        ["species", "atlas_gene_id", "ext_gene_id", "ext_assembly", "relation"],
+    ),
+    "gene_windows": (
+        DATA_DIR / "gene_windows.json",
+        ["ext_gene_id", "assembly", "window_type", "chromosome", "start", "end", "strand"],
+    ),
+    "motifs": (
+        DATA_DIR / "motifs.json",
+        ["motif_id", "source", "jaspar_id", "tf_gene_id", "tf_symbol"],
+    ),
+    "motif_hits": (
+        DATA_DIR / "motif_hits.json",
+        ["ext_gene_id", "motif_id", "assembly", "window_type", "chromosome",
+         "start", "end", "strand", "score", "p_value", "tier", "site_confidence"],
+    ),
+}
+
 # Authoritative assembly chromosome lengths (bp) for scaled ideograms.
 # Human: GRCh38; Arabidopsis: TAIR10. Falls back to max observed coordinate
 # for species/chromosomes not listed here.
@@ -247,6 +270,59 @@ def build():
         );
         CREATE INDEX idx_go_ann_gene ON go_annotations(gene_id);
         CREATE INDEX idx_go_ann_term ON go_annotations(go_id);
+
+        -- Sequence-context layer (Path B). Populated from an external ingestion
+        -- bundle (e.g. tomato SL4.0/ITAG4.1); created empty until that lands so
+        -- the export endpoint's joins are always valid. Coordinates here are on
+        -- the ingest assembly (BED 0-based half-open), joined to the atlas graph
+        -- only through gene_id_crosswalk.
+        CREATE TABLE gene_id_crosswalk (
+            species       TEXT NOT NULL,
+            atlas_gene_id TEXT NOT NULL,
+            ext_gene_id   TEXT NOT NULL,
+            ext_assembly  TEXT NOT NULL,
+            relation      TEXT NOT NULL DEFAULT '1:1',
+            PRIMARY KEY (atlas_gene_id, ext_gene_id)
+        );
+        CREATE INDEX idx_xwalk_ext ON gene_id_crosswalk(ext_gene_id);
+
+        CREATE TABLE gene_windows (
+            ext_gene_id TEXT NOT NULL,
+            assembly    TEXT NOT NULL,
+            window_type TEXT NOT NULL,
+            chromosome  TEXT NOT NULL,
+            start       INTEGER NOT NULL,
+            end         INTEGER NOT NULL,
+            strand      INTEGER NOT NULL,
+            PRIMARY KEY (ext_gene_id, assembly, window_type, chromosome, start)
+        );
+        CREATE INDEX idx_gw_ext ON gene_windows(ext_gene_id);
+
+        CREATE TABLE motifs (
+            motif_id   TEXT PRIMARY KEY,
+            source     TEXT NOT NULL,
+            jaspar_id  TEXT,
+            tf_gene_id TEXT,
+            tf_symbol  TEXT
+        );
+        CREATE INDEX idx_motifs_tf ON motifs(tf_gene_id);
+
+        CREATE TABLE motif_hits (
+            ext_gene_id     TEXT NOT NULL,
+            motif_id        TEXT NOT NULL,
+            assembly        TEXT NOT NULL,
+            window_type     TEXT NOT NULL,
+            chromosome      TEXT NOT NULL,
+            start           INTEGER NOT NULL,
+            end             INTEGER NOT NULL,
+            strand          INTEGER NOT NULL,
+            score           REAL,
+            p_value         REAL,
+            tier            TEXT,
+            site_confidence REAL
+        );
+        CREATE INDEX idx_mh_gene  ON motif_hits(ext_gene_id);
+        CREATE INDEX idx_mh_motif ON motif_hits(motif_id);
     """)
 
     # Insert human genes
@@ -435,6 +511,21 @@ def build():
             "INSERT OR IGNORE INTO go_annotations (gene_id, go_id) VALUES (?, ?)", ann_rows)
         n_go_ann = len(ann_rows)
 
+    # Sequence-context bundle (optional). Insert row-dicts into their tables,
+    # selecting the declared columns in order; missing keys become NULL.
+    seqctx_counts = {}
+    for table, (path, cols) in SEQCTX_FILES.items():
+        rows = load_json(path)
+        if not rows:
+            seqctx_counts[table] = 0
+            continue
+        conn.executemany(
+            f"INSERT OR IGNORE INTO {table} ({', '.join(cols)}) "
+            f"VALUES ({', '.join('?' * len(cols))})",
+            [tuple(r.get(c) for c in cols) for r in rows],
+        )
+        seqctx_counts[table] = len(rows)
+
     conn.commit()
 
     loc_by_species = defaultdict(int)
@@ -443,6 +534,8 @@ def build():
     conn.close()
 
     print(f"  GO: {n_go_terms} terms, {n_go_ann} annotations")
+    if any(seqctx_counts.values()):
+        print(f"  Sequence context: {seqctx_counts}")
     print(f"  Inferred Arabidopsis-symbol synonyms on {n_syn} tomato/petunia genes")
     print(f"  Genome: {len(loc_rows)} locations, {len(orth_rows)} ortholog pairs, "
           f"{len(chrom_rows)} chromosomes")

@@ -516,9 +516,19 @@ class ExportRequest(BaseModel):
     min_confidence: float = 0.0
     include_inferred: bool = True
     signed_only: bool = False        # keep only activation/repression edges
-    promoter_upstream: int = 2000    # bp 5' of TSS
+    promoter_upstream: int = 2000    # bp 5' of TSS (derived-window fallback)
     promoter_downstream: int = 500   # bp 3' of TSS
+    include_sequence_context: bool = False   # attach ingested windows + motif sites
+    window_types: List[str] = ["promoter"]   # promoter | gene_body | atac
+    max_site_pvalue: float = 1e-4
     format: str = "json"             # json | tsv
+
+
+# Assembly the atlas gene_locations coordinates live on, per species (for tagging).
+_ATLAS_ASSEMBLY = {
+    "human": "GRCh38", "mouse": "GRCm39", "arabidopsis": "TAIR10",
+    "tomato": "SL2.50", "petunia": "Peaxi162_HiC",
+}
 
 
 # activation/repression -> the positive/negative sign; everything else is unsigned.
@@ -584,7 +594,41 @@ async def export_edges(request: ExportRequest):
             f"{prefix}_tss": tss,
             f"{prefix}_promoter_start": ws,
             f"{prefix}_promoter_end": we,
+            f"{prefix}_coord_assembly": _ATLAS_ASSEMBLY.get(g["species"]) if g else None,
+            f"{prefix}_coord_system": "GFF1",
         }
+
+    # Sequence context (Path B): batch-load ingested windows + motif sites for
+    # the target genes, via the annotation-version crosswalk. Tables always
+    # exist but may be empty (no ingestion bundle yet) -> no context attached.
+    atlas2ext, xrelation, windows_by_ext, hits_by_ext = {}, {}, {}, {}
+    if request.include_sequence_context:
+        for x in db.conn.execute(
+            f"SELECT atlas_gene_id, ext_gene_id, ext_assembly, relation "
+            f"FROM gene_id_crosswalk WHERE atlas_gene_id IN ({ph})", ids
+        ).fetchall():
+            atlas2ext[x["atlas_gene_id"]] = (x["ext_gene_id"], x["ext_assembly"])
+            xrelation[x["atlas_gene_id"]] = x["relation"]
+        ext_ids = [e for (e, _) in atlas2ext.values()]
+        wt = request.window_types or []
+        if ext_ids and wt:
+            eph, wtph = ",".join("?" * len(ext_ids)), ",".join("?" * len(wt))
+            for w in db.conn.execute(
+                f"SELECT ext_gene_id, window_type, chromosome, start, end, strand "
+                f"FROM gene_windows WHERE ext_gene_id IN ({eph}) AND window_type IN ({wtph})",
+                ext_ids + wt
+            ).fetchall():
+                windows_by_ext.setdefault(w["ext_gene_id"], []).append(
+                    {"window_type": w["window_type"], "chromosome": w["chromosome"],
+                     "start": w["start"], "end": w["end"], "strand": w["strand"]})
+            for h in db.conn.execute(
+                f"SELECT h.ext_gene_id, h.motif_id, h.window_type, h.chromosome, h.start, h.end, "
+                f"h.strand, h.score, h.p_value, h.tier, h.site_confidence, m.tf_gene_id, m.tf_symbol "
+                f"FROM motif_hits h JOIN motifs m ON m.motif_id = h.motif_id "
+                f"WHERE h.ext_gene_id IN ({eph}) AND h.window_type IN ({wtph}) AND h.p_value <= ?",
+                ext_ids + wt + [request.max_site_pvalue]
+            ).fetchall():
+                hits_by_ext.setdefault(h["ext_gene_id"], []).append(dict(h))
 
     rows = db.conn.execute(
         f"SELECT source_id, target_id, regulation_type, confidence, sources, pmids "
@@ -608,6 +652,27 @@ async def export_edges(request: ExportRequest):
                 "inferred": inferred}
         if edge["source_promoter_start"] is not None and edge["target_promoter_start"] is not None:
             complete += 1
+        # Attach ingested windows + the motif sites that support THIS edge
+        # (sites in the target's promoter bound by a motif of the source TF).
+        if request.include_sequence_context:
+            ext = atlas2ext.get(r["target_id"])
+            if ext:
+                ext_id, assembly = ext
+                sites = [
+                    {"motif_id": h["motif_id"], "tf_symbol": h["tf_symbol"],
+                     "window_type": h["window_type"], "chromosome": h["chromosome"],
+                     "start": h["start"], "end": h["end"], "strand": h["strand"],
+                     "score": h["score"], "p_value": h["p_value"],
+                     "tier": h["tier"], "site_confidence": h["site_confidence"]}
+                    for h in hits_by_ext.get(ext_id, []) if h["tf_gene_id"] == r["source_id"]
+                ]
+                edge["sequence_context"] = {
+                    "assembly": assembly, "coord_system": "BED0",
+                    "target_ext_gene_id": ext_id,
+                    "crosswalk_relation": xrelation.get(r["target_id"]),
+                    "target_windows": windows_by_ext.get(ext_id, []),
+                    "supporting_sites": sites,
+                }
         edges.append(edge)
 
     stats = {
@@ -616,10 +681,14 @@ async def export_edges(request: ExportRequest):
         "signed": sum(1 for e in edges if e["sign"] != "unsigned"),
         "unsigned": sum(1 for e in edges if e["sign"] == "unsigned"),
         "inferred": sum(1 for e in edges if e["inferred"]),
+        "edges_with_sequence_context": sum(1 for e in edges if e.get("sequence_context")),
+        "edges_with_supporting_sites": sum(
+            1 for e in edges if e.get("sequence_context", {}).get("supporting_sites")),
     }
 
     if request.format == "tsv":
-        cols = [k for k in (edges[0].keys() if edges else [])]
+        # Flat table only; the nested sequence_context is JSON-only.
+        cols = [k for k in (edges[0].keys() if edges else []) if k != "sequence_context"]
         lines = ["\t".join(cols)]
         for e in edges:
             lines.append("\t".join(
