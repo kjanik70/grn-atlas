@@ -7,6 +7,7 @@ import GeneDetailPanel from './components/GeneDetailPanel';
 import ComparisonView from './components/ComparisonView';
 import GenomeComparisonView from './components/GenomeComparisonView';
 import GeneSetPanel from './components/GeneSetPanel';
+import OrganismView from './components/OrganismView';
 import InterventionDesigner from './components/InterventionDesigner';
 import PathwayView from './components/PathwayView';
 import './styles/GeneNetworkExplorer.css';
@@ -181,6 +182,8 @@ export default function GeneNetworkExplorer() {
 
           {viewMode === 'genome' ? (
             <GenomeComparisonView />
+          ) : viewMode === 'organism' ? (
+            <OrganismView onSelectGene={(symbol) => { handleGeneSearch(symbol); setViewMode('network'); }} />
           ) : !selectedGene ? (
             <div className="empty-state">
               <div className="empty-icon">🧬</div>

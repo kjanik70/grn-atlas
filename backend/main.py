@@ -725,6 +725,65 @@ async def enrichment(request: EnrichmentRequest):
             "results": results[:request.max_terms]}
 
 
+# ============= Organism overview =============
+
+@app.get("/api/v1/organism/{species}/overview")
+async def organism_overview(
+    species: str,
+    top: int = Query(25, le=100),
+    min_confidence: float = Query(0.0),
+    include_inferred: bool = Query(True),
+):
+    """Whole-organism summary: gene/coverage counts, edge counts split by
+    evidence (measured vs inferred), and the top regulators by out-degree —
+    the entry point for a network too large to render whole."""
+    cur = db.conn.execute
+    gene_count = cur("SELECT COUNT(*) FROM genes WHERE species = ?", (species,)).fetchone()[0]
+    if gene_count == 0:
+        raise HTTPException(status_code=404, detail="Unknown species")
+    located = cur("SELECT COUNT(*) FROM gene_locations WHERE species = ?", (species,)).fetchone()[0]
+    tf_count = cur("SELECT COUNT(*) FROM genes WHERE species = ? AND is_tf = 1", (species,)).fetchone()[0]
+
+    edge_rows = cur(
+        """
+        SELECT CASE WHEN i.sources LIKE '%Inferred%' THEN 'inferred' ELSE 'measured' END AS kind,
+               COUNT(*) n
+        FROM interactions i JOIN genes g ON g.id = i.source_id
+        WHERE g.species = ? GROUP BY kind
+        """, (species,)
+    ).fetchall()
+    edges = {r["kind"]: r["n"] for r in edge_rows}
+    edges = {"measured": edges.get("measured", 0), "inferred": edges.get("inferred", 0)}
+    edges["total"] = edges["measured"] + edges["inferred"]
+
+    inferred_clause = "" if include_inferred else " AND i.sources NOT LIKE '%Inferred%'"
+    top_rows = cur(
+        f"""
+        SELECT i.source_id AS id, g.symbol, g.name, g.is_tf, COUNT(*) AS out_degree
+        FROM interactions i JOIN genes g ON g.id = i.source_id
+        WHERE g.species = ? AND i.confidence >= ?{inferred_clause}
+        GROUP BY i.source_id ORDER BY out_degree DESC LIMIT ?
+        """, (species, min_confidence, top)
+    ).fetchall()
+    top_regulators = [
+        {"id": r["id"], "symbol": r["symbol"], "name": r["name"],
+         "is_tf": bool(r["is_tf"]), "out_degree": r["out_degree"]}
+        for r in top_rows
+    ]
+
+    return {
+        "species": species,
+        "genes": gene_count,
+        "transcription_factors": tf_count,
+        "genes_with_coordinates": located,
+        "regulators": cur(
+            "SELECT COUNT(DISTINCT source_id) FROM interactions i JOIN genes g ON g.id = i.source_id "
+            "WHERE g.species = ?", (species,)).fetchone()[0],
+        "edges": edges,
+        "top_regulators": top_regulators,
+    }
+
+
 # ============= Genome / Synteny Endpoints =============
 
 def _chromosome_sort_key(name: str):

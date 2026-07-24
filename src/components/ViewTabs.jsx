@@ -3,6 +3,7 @@ import '../styles/ViewTabs.css';
 
 const TABS = [
   { id: 'network', label: 'Network', icon: '🔗' },
+  { id: 'organism', label: 'Organism', icon: '🌐' },
   { id: 'pathways', label: 'Pathways', icon: '🛤️' },
   { id: 'comparison', label: 'Comparison', icon: '⚖️' },
   { id: 'genome', label: 'Genome', icon: '🧬' },
