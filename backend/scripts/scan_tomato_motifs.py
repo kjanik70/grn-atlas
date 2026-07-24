@@ -21,8 +21,8 @@ Requires the SL4.0 FASTA at the path below (≈795 MB, not committed).
 
 Usage: python backend/scripts/scan_tomato_motifs.py /tmp/sl4.fa
 """
+import gzip
 import json
-import math
 import re
 import sqlite3
 import sys
@@ -35,7 +35,7 @@ DATA_DIR = Path(__file__).parent.parent / "data"
 DB_PATH = DATA_DIR / "grn.sqlite3"
 JASPAR = Path("/tmp/jaspar_plants.jaspar")
 MOTIFS_JSON = DATA_DIR / "motifs.json"
-HITS_JSON = DATA_DIR / "motif_hits.json"
+HITS_JSON = DATA_DIR / "motif_hits.json.gz"     # large -> gzip
 
 PVAL = 1e-4
 BG = 0.25          # uniform background
@@ -152,7 +152,9 @@ def main(fasta_path):
         mats = {name_to_mid[c] for c in cands if c in name_to_mid}
         if mats:
             tf_mats[r["id"]] = mats
-            tf_symbol[r["id"]] = r["symbol"]
+            # friendly name: inferred Arabidopsis synonym, else the locus symbol
+            syns = r["synonyms"].split("; ") if r["synonyms"] else []
+            tf_symbol[r["id"]] = syns[0] if syns else r["symbol"]
     print(f"tomato TFs mapped to a JASPAR motif: {len(tf_mats)}")
 
     # measured tomato edges whose TF is mapped -> which target promoters to scan
@@ -245,7 +247,8 @@ def main(fasta_path):
                         }
 
     MOTIFS_JSON.write_text(json.dumps(list(motifs_out.values()), indent=1))
-    HITS_JSON.write_text(json.dumps(hits_out, indent=1))
+    with gzip.open(HITS_JSON, "wt", encoding="utf-8") as f:
+        json.dump(hits_out, f)
     print(f"Wrote {MOTIFS_JSON} ({len(motifs_out)} TF-motif rows)")
     print(f"Wrote {HITS_JSON} ({len(hits_out)} binding sites, p<{PVAL})")
 

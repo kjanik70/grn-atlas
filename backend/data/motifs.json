@@ -4,1679 +4,1679 @@
   "source": "JASPAR2024",
   "jaspar_id": "MA1159.2",
   "tf_gene_id": "Solyc01g005060.2",
-  "tf_symbol": "Solyc01g005060.2"
+  "tf_symbol": "IDD14"
  },
  {
   "motif_id": "MA2396.1|Solyc02g085580.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2396.1",
   "tf_gene_id": "Solyc02g085580.2",
-  "tf_symbol": "Solyc02g085580.2"
+  "tf_symbol": "IDD2"
  },
  {
   "motif_id": "MA1398.3|Solyc08g078340.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1398.3",
   "tf_gene_id": "Solyc08g078340.2",
-  "tf_symbol": "Solyc08g078340.2"
+  "tf_symbol": "KUA1"
  },
  {
   "motif_id": "MA0994.3|Solyc10g009110.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0994.3",
   "tf_gene_id": "Solyc10g009110.1",
-  "tf_symbol": "Solyc10g009110.1"
+  "tf_symbol": "ERF11"
  },
  {
   "motif_id": "MA0976.3|Solyc06g051840.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0976.3",
   "tf_gene_id": "Solyc06g051840.1",
-  "tf_symbol": "Solyc06g051840.1"
- },
- {
-  "motif_id": "MA1370.2|Solyc04g008500.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1370.2",
-  "tf_gene_id": "Solyc04g008500.2",
-  "tf_symbol": "Solyc04g008500.2"
- },
- {
-  "motif_id": "MA1371.2|Solyc04g008500.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1371.2",
-  "tf_gene_id": "Solyc04g008500.2",
-  "tf_symbol": "Solyc04g008500.2"
- },
- {
-  "motif_id": "MA1157.2|Solyc07g053570.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1157.2",
-  "tf_gene_id": "Solyc07g053570.2",
-  "tf_symbol": "Solyc07g053570.2"
- },
- {
-  "motif_id": "MA1158.2|Solyc07g053570.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1158.2",
-  "tf_gene_id": "Solyc07g053570.2",
-  "tf_symbol": "Solyc07g053570.2"
+  "tf_symbol": "CRF8"
  },
  {
   "motif_id": "MA1156.2|Solyc10g084180.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1156.2",
   "tf_gene_id": "Solyc10g084180.1",
-  "tf_symbol": "Solyc10g084180.1"
- },
- {
-  "motif_id": "MA2104.1|Solyc03g121660.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2104.1",
-  "tf_gene_id": "Solyc03g121660.2",
-  "tf_symbol": "Solyc03g121660.2"
+  "tf_symbol": "JKD"
  },
  {
   "motif_id": "MA1374.2|Solyc03g121660.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1374.2",
   "tf_gene_id": "Solyc03g121660.2",
-  "tf_symbol": "Solyc03g121660.2"
+  "tf_symbol": "IDD7"
+ },
+ {
+  "motif_id": "MA2104.1|Solyc03g121660.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2104.1",
+  "tf_gene_id": "Solyc03g121660.2",
+  "tf_symbol": "IDD7"
  },
  {
   "motif_id": "MA1158.2|Solyc03g121660.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1158.2",
   "tf_gene_id": "Solyc03g121660.2",
-  "tf_symbol": "Solyc03g121660.2"
+  "tf_symbol": "IDD7"
  },
  {
-  "motif_id": "MA1402.1|Solyc04g081170.2",
+  "motif_id": "MA1158.2|Solyc07g053570.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1402.1",
-  "tf_gene_id": "Solyc04g081170.2",
-  "tf_symbol": "Solyc04g081170.2"
+  "jaspar_id": "MA1158.2",
+  "tf_gene_id": "Solyc07g053570.2",
+  "tf_symbol": "MGP"
+ },
+ {
+  "motif_id": "MA1157.2|Solyc07g053570.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1157.2",
+  "tf_gene_id": "Solyc07g053570.2",
+  "tf_symbol": "MGP"
+ },
+ {
+  "motif_id": "MA1371.2|Solyc04g008500.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1371.2",
+  "tf_gene_id": "Solyc04g008500.2",
+  "tf_symbol": "IDD5"
+ },
+ {
+  "motif_id": "MA1370.2|Solyc04g008500.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1370.2",
+  "tf_gene_id": "Solyc04g008500.2",
+  "tf_symbol": "IDD5"
  },
  {
   "motif_id": "MA1404.1|Solyc04g008380.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1404.1",
   "tf_gene_id": "Solyc04g008380.2",
-  "tf_symbol": "Solyc04g008380.2"
+  "tf_symbol": "BPC2"
  },
  {
-  "motif_id": "MA1094.3|Solyc02g071130.2",
+  "motif_id": "MA1402.1|Solyc04g081170.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1094.3",
-  "tf_gene_id": "Solyc02g071130.2",
-  "tf_symbol": "Solyc02g071130.2"
- },
- {
-  "motif_id": "MA1316.2|Solyc02g071130.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1316.2",
-  "tf_gene_id": "Solyc02g071130.2",
-  "tf_symbol": "Solyc02g071130.2"
- },
- {
-  "motif_id": "MA1303.2|Solyc08g081610.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1303.2",
-  "tf_gene_id": "Solyc08g081610.2",
-  "tf_symbol": "Solyc08g081610.2"
+  "jaspar_id": "MA1402.1",
+  "tf_gene_id": "Solyc04g081170.2",
+  "tf_symbol": "BPC6"
  },
  {
   "motif_id": "MA1298.2|Solyc08g081610.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1298.2",
   "tf_gene_id": "Solyc08g081610.2",
-  "tf_symbol": "Solyc08g081610.2"
+  "tf_symbol": "WRKY29"
+ },
+ {
+  "motif_id": "MA1303.2|Solyc08g081610.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1303.2",
+  "tf_gene_id": "Solyc08g081610.2",
+  "tf_symbol": "WRKY29"
  },
  {
   "motif_id": "MA1308.2|Solyc03g095770.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1308.2",
   "tf_gene_id": "Solyc03g095770.2",
-  "tf_symbol": "Solyc03g095770.2"
+  "tf_symbol": "WRKY70"
  },
  {
   "motif_id": "MA1318.2|Solyc01g095100.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1318.2",
   "tf_gene_id": "Solyc01g095100.2",
-  "tf_symbol": "Solyc01g095100.2"
+  "tf_symbol": "WRKY29"
  },
  {
   "motif_id": "MA1298.2|Solyc01g095100.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1298.2",
   "tf_gene_id": "Solyc01g095100.2",
-  "tf_symbol": "Solyc01g095100.2"
+  "tf_symbol": "WRKY29"
  },
  {
   "motif_id": "MA1303.2|Solyc01g095100.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1303.2",
   "tf_gene_id": "Solyc01g095100.2",
-  "tf_symbol": "Solyc01g095100.2"
+  "tf_symbol": "WRKY29"
+ },
+ {
+  "motif_id": "MA1094.3|Solyc02g071130.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1094.3",
+  "tf_gene_id": "Solyc02g071130.2",
+  "tf_symbol": "WRKY71"
+ },
+ {
+  "motif_id": "MA1316.2|Solyc02g071130.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1316.2",
+  "tf_gene_id": "Solyc02g071130.2",
+  "tf_symbol": "WRKY71"
  },
  {
   "motif_id": "MA1079.3|Solyc09g066010.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1079.3",
   "tf_gene_id": "Solyc09g066010.2",
-  "tf_symbol": "Solyc09g066010.2"
- },
- {
-  "motif_id": "MA0931.2|Solyc09g009490.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0931.2",
-  "tf_gene_id": "Solyc09g009490.2",
-  "tf_symbol": "Solyc09g009490.2"
+  "tf_symbol": "WRKY21"
  },
  {
   "motif_id": "MA1285.2|Solyc08g080150.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1285.2",
   "tf_gene_id": "Solyc08g080150.1",
-  "tf_symbol": "Solyc08g080150.1"
- },
- {
-  "motif_id": "MA0561.1|Solyc07g043580.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0561.1",
-  "tf_gene_id": "Solyc07g043580.2",
-  "tf_symbol": "Solyc07g043580.2"
+  "tf_symbol": "TCP9"
  },
  {
   "motif_id": "MA0562.1|Solyc07g043580.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0562.1",
   "tf_gene_id": "Solyc07g043580.2",
-  "tf_symbol": "Solyc07g043580.2"
+  "tf_symbol": "PIF4"
  },
  {
-  "motif_id": "MA1338.3|Solyc10g081350.1",
+  "motif_id": "MA0561.1|Solyc07g043580.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1338.3",
-  "tf_gene_id": "Solyc10g081350.1",
-  "tf_symbol": "Solyc10g081350.1"
- },
- {
-  "motif_id": "MA1283.2|Solyc06g070900.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1283.2",
-  "tf_gene_id": "Solyc06g070900.2",
-  "tf_symbol": "Solyc06g070900.2"
- },
- {
-  "motif_id": "MA1062.3|Solyc06g070900.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1062.3",
-  "tf_gene_id": "Solyc06g070900.2",
-  "tf_symbol": "Solyc06g070900.2"
- },
- {
-  "motif_id": "MA0930.3|Solyc04g078840.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0930.3",
-  "tf_gene_id": "Solyc04g078840.2",
-  "tf_symbol": "Solyc04g078840.2"
- },
- {
-  "motif_id": "MA0941.2|Solyc04g078840.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0941.2",
-  "tf_gene_id": "Solyc04g078840.2",
-  "tf_symbol": "Solyc04g078840.2"
- },
- {
-  "motif_id": "MA0964.3|Solyc03g114720.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0964.3",
-  "tf_gene_id": "Solyc03g114720.2",
-  "tf_symbol": "Solyc03g114720.2"
+  "jaspar_id": "MA0561.1",
+  "tf_gene_id": "Solyc07g043580.2",
+  "tf_symbol": "PIF4"
  },
  {
   "motif_id": "MA0968.3|Solyc08g005290.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0968.3",
   "tf_gene_id": "Solyc08g005290.2",
-  "tf_symbol": "Solyc08g005290.2"
+  "tf_symbol": "bZIP68"
  },
  {
   "motif_id": "MA1349.2|Solyc08g005290.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1349.2",
   "tf_gene_id": "Solyc08g005290.2",
-  "tf_symbol": "Solyc08g005290.2"
+  "tf_symbol": "bZIP68"
+ },
+ {
+  "motif_id": "MA0931.2|Solyc09g009490.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0931.2",
+  "tf_gene_id": "Solyc09g009490.2",
+  "tf_symbol": "ABI5"
+ },
+ {
+  "motif_id": "MA1338.3|Solyc10g081350.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1338.3",
+  "tf_gene_id": "Solyc10g081350.1",
+  "tf_symbol": "EEL"
+ },
+ {
+  "motif_id": "MA0964.3|Solyc03g114720.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0964.3",
+  "tf_gene_id": "Solyc03g114720.2",
+  "tf_symbol": "BIM1"
+ },
+ {
+  "motif_id": "MA1062.3|Solyc06g070900.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1062.3",
+  "tf_gene_id": "Solyc06g070900.2",
+  "tf_symbol": "TCP15"
+ },
+ {
+  "motif_id": "MA1283.2|Solyc06g070900.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1283.2",
+  "tf_gene_id": "Solyc06g070900.2",
+  "tf_symbol": "TCP15"
+ },
+ {
+  "motif_id": "MA0941.2|Solyc04g078840.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0941.2",
+  "tf_gene_id": "Solyc04g078840.2",
+  "tf_symbol": "ABF2"
+ },
+ {
+  "motif_id": "MA0930.3|Solyc04g078840.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0930.3",
+  "tf_gene_id": "Solyc04g078840.2",
+  "tf_symbol": "ABF2"
  },
  {
   "motif_id": "MA1776.2|Solyc02g082040.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1776.2",
   "tf_gene_id": "Solyc02g082040.2",
-  "tf_symbol": "Solyc02g082040.2"
+  "tf_symbol": "MYB67"
  },
  {
   "motif_id": "MA0992.3|Solyc10g009110.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0992.3",
   "tf_gene_id": "Solyc10g009110.1",
-  "tf_symbol": "Solyc10g009110.1"
+  "tf_symbol": "ERF11"
  },
  {
   "motif_id": "MA1751.2|Solyc01g006650.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1751.2",
   "tf_gene_id": "Solyc01g006650.1",
-  "tf_symbol": "Solyc01g006650.1"
+  "tf_symbol": "EIL3"
  },
  {
   "motif_id": "MA1774.2|Solyc10g081490.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1774.2",
   "tf_gene_id": "Solyc10g081490.1",
-  "tf_symbol": "Solyc10g081490.1"
+  "tf_symbol": "MYB60"
  },
  {
   "motif_id": "MA2398.1|Solyc11g008830.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA2398.1",
   "tf_gene_id": "Solyc11g008830.1",
-  "tf_symbol": "Solyc11g008830.1"
- },
- {
-  "motif_id": "MA2010.2|Solyc12g017400.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2010.2",
-  "tf_gene_id": "Solyc12g017400.1",
-  "tf_symbol": "Solyc12g017400.1"
- },
- {
-  "motif_id": "MA0938.3|Solyc12g036480.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0938.3",
-  "tf_gene_id": "Solyc12g036480.1",
-  "tf_symbol": "Solyc12g036480.1"
- },
- {
-  "motif_id": "MA1789.1|Solyc08g077110.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1789.1",
-  "tf_gene_id": "Solyc08g077110.2",
-  "tf_symbol": "Solyc08g077110.2"
+  "tf_symbol": "AS2"
  },
  {
   "motif_id": "MA2037.2|Solyc08g077110.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2037.2",
   "tf_gene_id": "Solyc08g077110.2",
-  "tf_symbol": "Solyc08g077110.2"
+  "tf_symbol": "NAC011"
  },
  {
   "motif_id": "MA1784.1|Solyc08g077110.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1784.1",
   "tf_gene_id": "Solyc08g077110.2",
-  "tf_symbol": "Solyc08g077110.2"
+  "tf_symbol": "NAC011"
  },
  {
-  "motif_id": "MA2050.2|Solyc06g034340.1",
+  "motif_id": "MA1789.1|Solyc08g077110.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA2050.2",
-  "tf_gene_id": "Solyc06g034340.1",
-  "tf_symbol": "Solyc06g034340.1"
+  "jaspar_id": "MA1789.1",
+  "tf_gene_id": "Solyc08g077110.2",
+  "tf_symbol": "NAC011"
  },
  {
-  "motif_id": "MA2044.2|Solyc06g034340.1",
+  "motif_id": "MA0938.3|Solyc12g036480.1",
   "source": "JASPAR2024",
-  "jaspar_id": "MA2044.2",
-  "tf_gene_id": "Solyc06g034340.1",
-  "tf_symbol": "Solyc06g034340.1"
- },
- {
-  "motif_id": "MA1663.3|Solyc11g008000.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1663.3",
-  "tf_gene_id": "Solyc11g008000.1",
-  "tf_symbol": "Solyc11g008000.1"
- },
- {
-  "motif_id": "MA2036.2|Solyc11g008000.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2036.2",
-  "tf_gene_id": "Solyc11g008000.1",
-  "tf_symbol": "Solyc11g008000.1"
- },
- {
-  "motif_id": "MA2033.2|Solyc08g006020.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2033.2",
-  "tf_gene_id": "Solyc08g006020.2",
-  "tf_symbol": "Solyc08g006020.2"
- },
- {
-  "motif_id": "MA2005.2|Solyc04g072220.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2005.2",
-  "tf_gene_id": "Solyc04g072220.2",
-  "tf_symbol": "Solyc04g072220.2"
- },
- {
-  "motif_id": "MA2034.2|Solyc03g098190.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2034.2",
-  "tf_gene_id": "Solyc03g098190.2",
-  "tf_symbol": "Solyc03g098190.2"
+  "jaspar_id": "MA0938.3",
+  "tf_gene_id": "Solyc12g036480.1",
+  "tf_symbol": "CUC3"
  },
  {
   "motif_id": "MA1427.3|Solyc02g036430.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1427.3",
   "tf_gene_id": "Solyc02g036430.1",
-  "tf_symbol": "Solyc02g036430.1"
+  "tf_symbol": "NAC020"
  },
  {
   "motif_id": "MA2006.2|Solyc02g036430.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA2006.2",
   "tf_gene_id": "Solyc02g036430.1",
-  "tf_symbol": "Solyc02g036430.1"
+  "tf_symbol": "NAC020"
  },
  {
-  "motif_id": "MA1055.3|Solyc01g068100.2",
+  "motif_id": "MA2033.2|Solyc08g006020.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1055.3",
-  "tf_gene_id": "Solyc01g068100.2",
-  "tf_symbol": "Solyc01g068100.2"
+  "jaspar_id": "MA2033.2",
+  "tf_gene_id": "Solyc08g006020.2",
+  "tf_symbol": "NAC038"
+ },
+ {
+  "motif_id": "MA2010.2|Solyc12g017400.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2010.2",
+  "tf_gene_id": "Solyc12g017400.1",
+  "tf_symbol": "SMB"
+ },
+ {
+  "motif_id": "MA2034.2|Solyc03g098190.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2034.2",
+  "tf_gene_id": "Solyc03g098190.2",
+  "tf_symbol": "NAC057"
+ },
+ {
+  "motif_id": "MA1663.3|Solyc11g008000.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1663.3",
+  "tf_gene_id": "Solyc11g008000.1",
+  "tf_symbol": "NAC2"
+ },
+ {
+  "motif_id": "MA2036.2|Solyc11g008000.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2036.2",
+  "tf_gene_id": "Solyc11g008000.1",
+  "tf_symbol": "NAC2"
+ },
+ {
+  "motif_id": "MA2005.2|Solyc04g072220.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2005.2",
+  "tf_gene_id": "Solyc04g072220.2",
+  "tf_symbol": "NAC13"
+ },
+ {
+  "motif_id": "MA2050.2|Solyc06g034340.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2050.2",
+  "tf_gene_id": "Solyc06g034340.1",
+  "tf_symbol": "NAC007"
+ },
+ {
+  "motif_id": "MA2044.2|Solyc06g034340.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2044.2",
+  "tf_gene_id": "Solyc06g034340.1",
+  "tf_symbol": "NAC007"
  },
  {
   "motif_id": "MA0578.1|Solyc07g053810.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0578.1",
   "tf_gene_id": "Solyc07g053810.2",
-  "tf_symbol": "Solyc07g053810.2"
+  "tf_symbol": "SPL8"
+ },
+ {
+  "motif_id": "MA1055.3|Solyc01g068100.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1055.3",
+  "tf_gene_id": "Solyc01g068100.2",
+  "tf_symbol": "SPL1"
  },
  {
   "motif_id": "MA1080.1|Solyc01g079260.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1080.1",
   "tf_gene_id": "Solyc01g079260.2",
-  "tf_symbol": "Solyc01g079260.2"
- },
- {
-  "motif_id": "MA0960.1|Solyc09g089870.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0960.1",
-  "tf_gene_id": "Solyc09g089870.2",
-  "tf_symbol": "Solyc09g089870.2"
- },
- {
-  "motif_id": "MA1659.2|Solyc04g078840.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1659.2",
-  "tf_gene_id": "Solyc04g078840.2",
-  "tf_symbol": "Solyc04g078840.2"
+  "tf_symbol": "WRKY23"
  },
  {
   "motif_id": "MA2014.2|Solyc08g005780.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2014.2",
   "tf_gene_id": "Solyc08g005780.2",
-  "tf_symbol": "Solyc08g005780.2"
+  "tf_symbol": "BMY2"
  },
  {
   "motif_id": "MA2375.1|Solyc08g005780.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2375.1",
   "tf_gene_id": "Solyc08g005780.2",
-  "tf_symbol": "Solyc08g005780.2"
+  "tf_symbol": "BMY2"
  },
  {
-  "motif_id": "MA1779.2|Solyc11g065840.1",
+  "motif_id": "MA0960.1|Solyc09g089870.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1779.2",
-  "tf_gene_id": "Solyc11g065840.1",
-  "tf_symbol": "Solyc11g065840.1"
+  "jaspar_id": "MA0960.1",
+  "tf_gene_id": "Solyc09g089870.2",
+  "tf_symbol": "bHLH34"
+ },
+ {
+  "motif_id": "MA1659.2|Solyc04g078840.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1659.2",
+  "tf_gene_id": "Solyc04g078840.2",
+  "tf_symbol": "ABF2"
  },
  {
   "motif_id": "MA1258.2|Solyc06g050520.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1258.2",
   "tf_gene_id": "Solyc06g050520.1",
-  "tf_symbol": "Solyc06g050520.1"
- },
- {
-  "motif_id": "MA1768.2|Solyc03g116100.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1768.2",
-  "tf_gene_id": "Solyc03g116100.2",
-  "tf_symbol": "Solyc03g116100.2"
- },
- {
-  "motif_id": "MA1738.1|Solyc03g116100.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1738.1",
-  "tf_gene_id": "Solyc03g116100.2",
-  "tf_symbol": "Solyc03g116100.2"
+  "tf_symbol": "DREB19"
  },
  {
   "motif_id": "MA2371.1|Solyc03g116100.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2371.1",
   "tf_gene_id": "Solyc03g116100.2",
-  "tf_symbol": "Solyc03g116100.2"
+  "tf_symbol": "MYB31"
  },
  {
-  "motif_id": "MA1425.2|Solyc08g061130.2",
+  "motif_id": "MA1738.1|Solyc03g116100.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1425.2",
-  "tf_gene_id": "Solyc08g061130.2",
-  "tf_symbol": "Solyc08g061130.2"
+  "jaspar_id": "MA1738.1",
+  "tf_gene_id": "Solyc03g116100.2",
+  "tf_symbol": "MYB31"
+ },
+ {
+  "motif_id": "MA1768.2|Solyc03g116100.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1768.2",
+  "tf_gene_id": "Solyc03g116100.2",
+  "tf_symbol": "MYB31"
+ },
+ {
+  "motif_id": "MA1779.2|Solyc11g065840.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1779.2",
+  "tf_gene_id": "Solyc11g065840.1",
+  "tf_symbol": "MYB83"
  },
  {
   "motif_id": "MA1351.3|Solyc01g095460.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1351.3",
   "tf_gene_id": "Solyc01g095460.2",
-  "tf_symbol": "Solyc01g095460.2"
+  "tf_symbol": "GBF3"
  },
  {
   "motif_id": "MA1672.2|Solyc01g095460.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1672.2",
   "tf_gene_id": "Solyc01g095460.2",
-  "tf_symbol": "Solyc01g095460.2"
- },
- {
-  "motif_id": "MA1743.2|Solyc01g109880.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1743.2",
-  "tf_gene_id": "Solyc01g109880.2",
-  "tf_symbol": "Solyc01g109880.2"
- },
- {
-  "motif_id": "MA1337.2|Solyc01g109880.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1337.2",
-  "tf_gene_id": "Solyc01g109880.2",
-  "tf_symbol": "Solyc01g109880.2"
- },
- {
-  "motif_id": "MA1341.2|Solyc01g079480.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1341.2",
-  "tf_gene_id": "Solyc01g079480.2",
-  "tf_symbol": "Solyc01g079480.2"
- },
- {
-  "motif_id": "MA2039.2|Solyc03g122030.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2039.2",
-  "tf_gene_id": "Solyc03g122030.1",
-  "tf_symbol": "Solyc03g122030.1"
- },
- {
-  "motif_id": "MA1750.1|Solyc03g113760.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1750.1",
-  "tf_gene_id": "Solyc03g113760.2",
-  "tf_symbol": "Solyc03g113760.2"
- },
- {
-  "motif_id": "MA1743.2|Solyc02g084860.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1743.2",
-  "tf_gene_id": "Solyc02g084860.1",
-  "tf_symbol": "Solyc02g084860.1"
- },
- {
-  "motif_id": "MA1341.2|Solyc02g084860.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1341.2",
-  "tf_gene_id": "Solyc02g084860.1",
-  "tf_symbol": "Solyc02g084860.1"
- },
- {
-  "motif_id": "MA1340.2|Solyc02g089420.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1340.2",
-  "tf_gene_id": "Solyc02g089420.1",
-  "tf_symbol": "Solyc02g089420.1"
- },
- {
-  "motif_id": "MA1339.1|Solyc02g089420.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1339.1",
-  "tf_gene_id": "Solyc02g089420.1",
-  "tf_symbol": "Solyc02g089420.1"
+  "tf_symbol": "GBF3"
  },
  {
   "motif_id": "MA1350.1|Solyc02g089420.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1350.1",
   "tf_gene_id": "Solyc02g089420.1",
-  "tf_symbol": "Solyc02g089420.1"
+  "tf_symbol": "bZIP42"
+ },
+ {
+  "motif_id": "MA1340.2|Solyc02g089420.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1340.2",
+  "tf_gene_id": "Solyc02g089420.1",
+  "tf_symbol": "bZIP42"
+ },
+ {
+  "motif_id": "MA1339.1|Solyc02g089420.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1339.1",
+  "tf_gene_id": "Solyc02g089420.1",
+  "tf_symbol": "bZIP42"
+ },
+ {
+  "motif_id": "MA2039.2|Solyc03g122030.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2039.2",
+  "tf_gene_id": "Solyc03g122030.1",
+  "tf_symbol": "ASIL1"
+ },
+ {
+  "motif_id": "MA1341.2|Solyc01g079480.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1341.2",
+  "tf_gene_id": "Solyc01g079480.2",
+  "tf_symbol": "BZIP53"
+ },
+ {
+  "motif_id": "MA1750.1|Solyc03g113760.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1750.1",
+  "tf_gene_id": "Solyc03g113760.2",
+  "tf_symbol": "DEL3"
+ },
+ {
+  "motif_id": "MA1743.2|Solyc02g084860.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1743.2",
+  "tf_gene_id": "Solyc02g084860.1",
+  "tf_symbol": "BZIP53"
+ },
+ {
+  "motif_id": "MA1341.2|Solyc02g084860.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1341.2",
+  "tf_gene_id": "Solyc02g084860.1",
+  "tf_symbol": "BZIP53"
+ },
+ {
+  "motif_id": "MA1425.2|Solyc08g061130.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1425.2",
+  "tf_gene_id": "Solyc08g061130.2",
+  "tf_symbol": "HYH"
+ },
+ {
+  "motif_id": "MA1743.2|Solyc01g109880.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1743.2",
+  "tf_gene_id": "Solyc01g109880.2",
+  "tf_symbol": "bZIP44"
+ },
+ {
+  "motif_id": "MA1337.2|Solyc01g109880.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1337.2",
+  "tf_gene_id": "Solyc01g109880.2",
+  "tf_symbol": "bZIP44"
  },
  {
   "motif_id": "MA0551.2|Solyc08g061130.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0551.2",
   "tf_gene_id": "Solyc08g061130.2",
-  "tf_symbol": "Solyc08g061130.2"
- },
- {
-  "motif_id": "MA1746.1|Solyc06g053350.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1746.1",
-  "tf_gene_id": "Solyc06g053350.2",
-  "tf_symbol": "Solyc06g053350.2"
+  "tf_symbol": "HYH"
  },
  {
   "motif_id": "MA1803.2|Solyc06g060490.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1803.2",
   "tf_gene_id": "Solyc06g060490.2",
-  "tf_symbol": "Solyc06g060490.2"
+  "tf_symbol": "VIP1"
+ },
+ {
+  "motif_id": "MA1746.1|Solyc06g053350.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1746.1",
+  "tf_gene_id": "Solyc06g053350.2",
+  "tf_symbol": "bZIP69"
  },
  {
   "motif_id": "MA1803.2|Solyc04g071160.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1803.2",
   "tf_gene_id": "Solyc04g071160.2",
-  "tf_symbol": "Solyc04g071160.2"
- },
- {
-  "motif_id": "MA1288.2|Solyc11g020670.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1288.2",
-  "tf_gene_id": "Solyc11g020670.1",
-  "tf_symbol": "Solyc11g020670.1"
+  "tf_symbol": "VIP1"
  },
  {
   "motif_id": "MA1066.1|Solyc11g020670.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1066.1",
   "tf_gene_id": "Solyc11g020670.1",
-  "tf_symbol": "Solyc11g020670.1"
+  "tf_symbol": "AtTCP23"
+ },
+ {
+  "motif_id": "MA1288.2|Solyc11g020670.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1288.2",
+  "tf_gene_id": "Solyc11g020670.1",
+  "tf_symbol": "AtTCP23"
  },
  {
   "motif_id": "MA1063.2|Solyc03g006800.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1063.2",
   "tf_gene_id": "Solyc03g006800.1",
-  "tf_symbol": "Solyc03g006800.1"
+  "tf_symbol": "TCP19"
  },
  {
   "motif_id": "MA2035.2|Solyc05g026180.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA2035.2",
   "tf_gene_id": "Solyc05g026180.1",
-  "tf_symbol": "Solyc05g026180.1"
+  "tf_symbol": "NAC075"
  },
  {
   "motif_id": "MA1065.3|Solyc02g068200.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1065.3",
   "tf_gene_id": "Solyc02g068200.1",
-  "tf_symbol": "Solyc02g068200.1"
+  "tf_symbol": "TCP20"
  },
  {
   "motif_id": "MA0962.2|Solyc09g089870.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0962.2",
   "tf_gene_id": "Solyc09g089870.2",
-  "tf_symbol": "Solyc09g089870.2"
- },
- {
-  "motif_id": "MA0975.1|Solyc05g009450.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0975.1",
-  "tf_gene_id": "Solyc05g009450.1",
-  "tf_symbol": "Solyc05g009450.1"
+  "tf_symbol": "bHLH34"
  },
  {
   "motif_id": "MA2022.2|Solyc03g112430.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA2022.2",
   "tf_gene_id": "Solyc03g112430.1",
-  "tf_symbol": "Solyc03g112430.1"
+  "tf_symbol": "LOB"
  },
  {
-  "motif_id": "MA1184.2|Solyc02g036370.2",
+  "motif_id": "MA0975.1|Solyc05g009450.1",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1184.2",
-  "tf_gene_id": "Solyc02g036370.2",
-  "tf_symbol": "Solyc02g036370.2"
- },
- {
-  "motif_id": "MA1401.2|Solyc02g036370.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1401.2",
-  "tf_gene_id": "Solyc02g036370.2",
-  "tf_symbol": "Solyc02g036370.2"
- },
- {
-  "motif_id": "MA1182.2|Solyc10g084370.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1182.2",
-  "tf_gene_id": "Solyc10g084370.1",
-  "tf_symbol": "Solyc10g084370.1"
- },
- {
-  "motif_id": "MA1187.2|Solyc10g084370.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1187.2",
-  "tf_gene_id": "Solyc10g084370.1",
-  "tf_symbol": "Solyc10g084370.1"
- },
- {
-  "motif_id": "MA1061.2|Solyc07g043580.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1061.2",
-  "tf_gene_id": "Solyc07g043580.2",
-  "tf_symbol": "Solyc07g043580.2"
- },
- {
-  "motif_id": "MA1332.2|Solyc12g089040.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1332.2",
-  "tf_gene_id": "Solyc12g089040.1",
-  "tf_symbol": "Solyc12g089040.1"
- },
- {
-  "motif_id": "MA0550.3|Solyc12g089040.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0550.3",
-  "tf_gene_id": "Solyc12g089040.1",
-  "tf_symbol": "Solyc12g089040.1"
- },
- {
-  "motif_id": "MA0549.2|Solyc12g089040.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0549.2",
-  "tf_gene_id": "Solyc12g089040.1",
-  "tf_symbol": "Solyc12g089040.1"
+  "jaspar_id": "MA0975.1",
+  "tf_gene_id": "Solyc05g009450.1",
+  "tf_symbol": "CRF12"
  },
  {
   "motif_id": "MA1184.2|Solyc03g098320.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1184.2",
   "tf_gene_id": "Solyc03g098320.2",
-  "tf_symbol": "Solyc03g098320.2"
+  "tf_symbol": "RVE1"
  },
  {
-  "motif_id": "MA1289.2|Solyc07g062680.1",
+  "motif_id": "MA1061.2|Solyc07g043580.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1289.2",
-  "tf_gene_id": "Solyc07g062680.1",
-  "tf_symbol": "Solyc07g062680.1"
+  "jaspar_id": "MA1061.2",
+  "tf_gene_id": "Solyc07g043580.2",
+  "tf_symbol": "PIF4"
  },
  {
-  "motif_id": "MA1035.1|Solyc07g062680.1",
+  "motif_id": "MA0550.3|Solyc12g089040.1",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1035.1",
-  "tf_gene_id": "Solyc07g062680.1",
-  "tf_symbol": "Solyc07g062680.1"
+  "jaspar_id": "MA0550.3",
+  "tf_gene_id": "Solyc12g089040.1",
+  "tf_symbol": "BES1"
+ },
+ {
+  "motif_id": "MA1332.2|Solyc12g089040.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1332.2",
+  "tf_gene_id": "Solyc12g089040.1",
+  "tf_symbol": "BES1"
+ },
+ {
+  "motif_id": "MA0549.2|Solyc12g089040.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0549.2",
+  "tf_gene_id": "Solyc12g089040.1",
+  "tf_symbol": "BES1"
+ },
+ {
+  "motif_id": "MA1187.2|Solyc10g084370.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1187.2",
+  "tf_gene_id": "Solyc10g084370.1",
+  "tf_symbol": "RVE8"
+ },
+ {
+  "motif_id": "MA1182.2|Solyc10g084370.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1182.2",
+  "tf_gene_id": "Solyc10g084370.1",
+  "tf_symbol": "RVE8"
+ },
+ {
+  "motif_id": "MA1401.2|Solyc02g036370.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1401.2",
+  "tf_gene_id": "Solyc02g036370.2",
+  "tf_symbol": "EPR1"
+ },
+ {
+  "motif_id": "MA1184.2|Solyc02g036370.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1184.2",
+  "tf_gene_id": "Solyc02g036370.2",
+  "tf_symbol": "EPR1"
  },
  {
   "motif_id": "MA1282.2|Solyc03g115010.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1282.2",
   "tf_gene_id": "Solyc03g115010.1",
-  "tf_symbol": "Solyc03g115010.1"
+  "tf_symbol": "PTF1"
  },
  {
   "motif_id": "MA1290.1|Solyc03g115010.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1290.1",
   "tf_gene_id": "Solyc03g115010.1",
-  "tf_symbol": "Solyc03g115010.1"
+  "tf_symbol": "PTF1"
+ },
+ {
+  "motif_id": "MA1035.1|Solyc07g062680.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1035.1",
+  "tf_gene_id": "Solyc07g062680.1",
+  "tf_symbol": "TCP4"
+ },
+ {
+  "motif_id": "MA1289.2|Solyc07g062680.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1289.2",
+  "tf_gene_id": "Solyc07g062680.1",
+  "tf_symbol": "TCP4"
  },
  {
   "motif_id": "MA0560.2|Solyc01g102300.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0560.2",
   "tf_gene_id": "Solyc01g102300.2",
-  "tf_symbol": "Solyc01g102300.2"
- },
- {
-  "motif_id": "MA2049.2|Solyc05g055470.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2049.2",
-  "tf_gene_id": "Solyc05g055470.2",
-  "tf_symbol": "Solyc05g055470.2"
- },
- {
-  "motif_id": "MA1663.3|Solyc05g055470.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1663.3",
-  "tf_gene_id": "Solyc05g055470.2",
-  "tf_symbol": "Solyc05g055470.2"
+  "tf_symbol": "PIF3"
  },
  {
   "motif_id": "MA1333.2|Solyc03g005990.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1333.2",
   "tf_gene_id": "Solyc03g005990.2",
-  "tf_symbol": "Solyc03g005990.2"
+  "tf_symbol": "BEH3"
  },
  {
   "motif_id": "MA1331.2|Solyc03g005990.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1331.2",
   "tf_gene_id": "Solyc03g005990.2",
-  "tf_symbol": "Solyc03g005990.2"
+  "tf_symbol": "BEH3"
+ },
+ {
+  "motif_id": "MA2049.2|Solyc05g055470.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2049.2",
+  "tf_gene_id": "Solyc05g055470.2",
+  "tf_symbol": "NAC053"
+ },
+ {
+  "motif_id": "MA1663.3|Solyc05g055470.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1663.3",
+  "tf_gene_id": "Solyc05g055470.2",
+  "tf_symbol": "NAC053"
  },
  {
   "motif_id": "MA0574.1|Solyc09g090130.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0574.1",
   "tf_gene_id": "Solyc09g090130.2",
-  "tf_symbol": "Solyc09g090130.2"
+  "tf_symbol": "MYB15"
  },
  {
   "motif_id": "MA1040.1|Solyc11g065840.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1040.1",
   "tf_gene_id": "Solyc11g065840.1",
-  "tf_symbol": "Solyc11g065840.1"
+  "tf_symbol": "MYB83"
  },
  {
   "motif_id": "MA1766.2|Solyc01g094360.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1766.2",
   "tf_gene_id": "Solyc01g094360.2",
-  "tf_symbol": "Solyc01g094360.2"
+  "tf_symbol": "MYB17"
  },
  {
   "motif_id": "MA1781.2|Solyc03g116100.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1781.2",
   "tf_gene_id": "Solyc03g116100.2",
-  "tf_symbol": "Solyc03g116100.2"
- },
- {
-  "motif_id": "MA2389.1|Solyc02g062950.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2389.1",
-  "tf_gene_id": "Solyc02g062950.2",
-  "tf_symbol": "Solyc02g062950.2"
+  "tf_symbol": "MYB31"
  },
  {
   "motif_id": "MA1061.2|Solyc02g093280.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1061.2",
   "tf_gene_id": "Solyc02g093280.2",
-  "tf_symbol": "Solyc02g093280.2"
+  "tf_symbol": "PIL2"
+ },
+ {
+  "motif_id": "MA2389.1|Solyc02g062950.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2389.1",
+  "tf_gene_id": "Solyc02g062950.2",
+  "tf_symbol": "GBF1"
  },
  {
   "motif_id": "MA1346.2|Solyc10g078670.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1346.2",
   "tf_gene_id": "Solyc10g078670.1",
-  "tf_symbol": "Solyc10g078670.1"
+  "tf_symbol": "TGA10"
  },
  {
   "motif_id": "MA1765.2|Solyc02g089190.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1765.2",
   "tf_gene_id": "Solyc02g089190.1",
-  "tf_symbol": "Solyc02g089190.1"
- },
- {
-  "motif_id": "MA1199.1|Solyc01g087990.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1199.1",
-  "tf_gene_id": "Solyc01g087990.2",
-  "tf_symbol": "Solyc01g087990.2"
+  "tf_symbol": "MYB121"
  },
  {
   "motif_id": "MA0548.3|Solyc01g087990.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0548.3",
   "tf_gene_id": "Solyc01g087990.2",
-  "tf_symbol": "Solyc01g087990.2"
+  "tf_symbol": "AGL18"
  },
  {
-  "motif_id": "MA0585.2|Solyc02g071730.2",
+  "motif_id": "MA1199.1|Solyc01g087990.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA0585.2",
-  "tf_gene_id": "Solyc02g071730.2",
-  "tf_symbol": "Solyc02g071730.2"
+  "jaspar_id": "MA1199.1",
+  "tf_gene_id": "Solyc01g087990.2",
+  "tf_symbol": "AGL18"
  },
  {
   "motif_id": "MA0005.3|Solyc02g071730.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0005.3",
   "tf_gene_id": "Solyc02g071730.2",
-  "tf_symbol": "Solyc02g071730.2"
+  "tf_symbol": "SHP2"
  },
  {
-  "motif_id": "MA1295.2|Solyc12g014610.1",
+  "motif_id": "MA0585.2|Solyc02g071730.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1295.2",
-  "tf_gene_id": "Solyc12g014610.1",
-  "tf_symbol": "Solyc12g014610.1"
- },
- {
-  "motif_id": "MA1310.2|Solyc02g080890.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1310.2",
-  "tf_gene_id": "Solyc02g080890.2",
-  "tf_symbol": "Solyc02g080890.2"
- },
- {
-  "motif_id": "MA1300.2|Solyc02g080890.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1300.2",
-  "tf_gene_id": "Solyc02g080890.2",
-  "tf_symbol": "Solyc02g080890.2"
- },
- {
-  "motif_id": "MA1307.3|Solyc02g080890.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1307.3",
-  "tf_gene_id": "Solyc02g080890.2",
-  "tf_symbol": "Solyc02g080890.2"
+  "jaspar_id": "MA0585.2",
+  "tf_gene_id": "Solyc02g071730.2",
+  "tf_symbol": "SHP2"
  },
  {
   "motif_id": "MA1075.1|Solyc01g089960.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1075.1",
   "tf_gene_id": "Solyc01g089960.2",
-  "tf_symbol": "Solyc01g089960.2"
+  "tf_symbol": "WRKY12"
  },
  {
-  "motif_id": "MA1308.2|Solyc06g048870.1",
+  "motif_id": "MA1300.2|Solyc02g080890.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1308.2",
-  "tf_gene_id": "Solyc06g048870.1",
-  "tf_symbol": "Solyc06g048870.1"
+  "jaspar_id": "MA1300.2",
+  "tf_gene_id": "Solyc02g080890.2",
+  "tf_symbol": "WRKY6"
  },
  {
-  "motif_id": "MA1305.2|Solyc06g048870.1",
+  "motif_id": "MA1310.2|Solyc02g080890.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1305.2",
-  "tf_gene_id": "Solyc06g048870.1",
-  "tf_symbol": "Solyc06g048870.1"
+  "jaspar_id": "MA1310.2",
+  "tf_gene_id": "Solyc02g080890.2",
+  "tf_symbol": "WRKY6"
  },
  {
-  "motif_id": "MA1311.3|Solyc02g071130.2",
+  "motif_id": "MA1307.3|Solyc02g080890.2",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1311.3",
-  "tf_gene_id": "Solyc02g071130.2",
-  "tf_symbol": "Solyc02g071130.2"
+  "jaspar_id": "MA1307.3",
+  "tf_gene_id": "Solyc02g080890.2",
+  "tf_symbol": "WRKY6"
  },
  {
-  "motif_id": "MA1299.2|Solyc08g006320.2",
+  "motif_id": "MA1295.2|Solyc12g014610.1",
   "source": "JASPAR2024",
-  "jaspar_id": "MA1299.2",
-  "tf_gene_id": "Solyc08g006320.2",
-  "tf_symbol": "Solyc08g006320.2"
- },
- {
-  "motif_id": "MA1306.2|Solyc08g006320.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1306.2",
-  "tf_gene_id": "Solyc08g006320.2",
-  "tf_symbol": "Solyc08g006320.2"
- },
- {
-  "motif_id": "MA1076.3|Solyc04g078550.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1076.3",
-  "tf_gene_id": "Solyc04g078550.2",
-  "tf_symbol": "Solyc04g078550.2"
- },
- {
-  "motif_id": "MA1313.2|Solyc04g078550.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1313.2",
-  "tf_gene_id": "Solyc04g078550.2",
-  "tf_symbol": "Solyc04g078550.2"
- },
- {
-  "motif_id": "MA1301.2|Solyc09g014990.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1301.2",
-  "tf_gene_id": "Solyc09g014990.2",
-  "tf_symbol": "Solyc09g014990.2"
- },
- {
-  "motif_id": "MA1081.3|Solyc09g014990.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1081.3",
-  "tf_gene_id": "Solyc09g014990.2",
-  "tf_symbol": "Solyc09g014990.2"
+  "jaspar_id": "MA1295.2",
+  "tf_gene_id": "Solyc12g014610.1",
+  "tf_symbol": "ZAP1"
  },
  {
   "motif_id": "MA1297.2|Solyc09g014990.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1297.2",
   "tf_gene_id": "Solyc09g014990.2",
-  "tf_symbol": "Solyc09g014990.2"
+  "tf_symbol": "WRKY25"
+ },
+ {
+  "motif_id": "MA1081.3|Solyc09g014990.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1081.3",
+  "tf_gene_id": "Solyc09g014990.2",
+  "tf_symbol": "WRKY25"
+ },
+ {
+  "motif_id": "MA1301.2|Solyc09g014990.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1301.2",
+  "tf_gene_id": "Solyc09g014990.2",
+  "tf_symbol": "WRKY25"
+ },
+ {
+  "motif_id": "MA1308.2|Solyc06g048870.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1308.2",
+  "tf_gene_id": "Solyc06g048870.1",
+  "tf_symbol": "WRKY55"
+ },
+ {
+  "motif_id": "MA1305.2|Solyc06g048870.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1305.2",
+  "tf_gene_id": "Solyc06g048870.1",
+  "tf_symbol": "WRKY55"
+ },
+ {
+  "motif_id": "MA1306.2|Solyc08g006320.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1306.2",
+  "tf_gene_id": "Solyc08g006320.2",
+  "tf_symbol": "WRKY17"
+ },
+ {
+  "motif_id": "MA1299.2|Solyc08g006320.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1299.2",
+  "tf_gene_id": "Solyc08g006320.2",
+  "tf_symbol": "WRKY17"
+ },
+ {
+  "motif_id": "MA1311.3|Solyc02g071130.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1311.3",
+  "tf_gene_id": "Solyc02g071130.2",
+  "tf_symbol": "WRKY71"
+ },
+ {
+  "motif_id": "MA1313.2|Solyc04g078550.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1313.2",
+  "tf_gene_id": "Solyc04g078550.2",
+  "tf_symbol": "WRKY7"
+ },
+ {
+  "motif_id": "MA1076.3|Solyc04g078550.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1076.3",
+  "tf_gene_id": "Solyc04g078550.2",
+  "tf_symbol": "WRKY7"
  },
  {
   "motif_id": "MA1078.2|Solyc07g066220.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1078.2",
   "tf_gene_id": "Solyc07g066220.2",
-  "tf_symbol": "Solyc07g066220.2"
+  "tf_symbol": "WRKY34"
  },
  {
   "motif_id": "MA1074.2|Solyc01g090790.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1074.2",
   "tf_gene_id": "Solyc01g090790.2",
-  "tf_symbol": "Solyc01g090790.2"
+  "tf_symbol": "UNE10"
  },
  {
   "motif_id": "MA1376.2|Solyc04g078640.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1376.2",
   "tf_gene_id": "Solyc04g078640.1",
-  "tf_symbol": "Solyc04g078640.1"
+  "tf_symbol": "RAP2.1"
  },
  {
   "motif_id": "MA1053.1|Solyc01g108240.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1053.1",
   "tf_gene_id": "Solyc01g108240.2",
-  "tf_symbol": "Solyc01g108240.2"
- },
- {
-  "motif_id": "MA1369.2|Solyc01g091630.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1369.2",
-  "tf_gene_id": "Solyc01g091630.2",
-  "tf_symbol": "Solyc01g091630.2"
- },
- {
-  "motif_id": "MA1375.2|Solyc01g091630.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1375.2",
-  "tf_gene_id": "Solyc01g091630.2",
-  "tf_symbol": "Solyc01g091630.2"
- },
- {
-  "motif_id": "MA1757.2|Solyc01g091630.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1757.2",
-  "tf_gene_id": "Solyc01g091630.2",
-  "tf_symbol": "Solyc01g091630.2"
+  "tf_symbol": "RRTF1"
  },
  {
   "motif_id": "MA2052.2|Solyc05g055500.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA2052.2",
   "tf_gene_id": "Solyc05g055500.1",
-  "tf_symbol": "Solyc05g055500.1"
+  "tf_symbol": "ZAT6"
+ },
+ {
+  "motif_id": "MA1369.2|Solyc01g091630.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1369.2",
+  "tf_gene_id": "Solyc01g091630.2",
+  "tf_symbol": "HDG1"
+ },
+ {
+  "motif_id": "MA1375.2|Solyc01g091630.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1375.2",
+  "tf_gene_id": "Solyc01g091630.2",
+  "tf_symbol": "HDG1"
+ },
+ {
+  "motif_id": "MA1757.2|Solyc01g091630.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1757.2",
+  "tf_gene_id": "Solyc01g091630.2",
+  "tf_symbol": "HDG1"
  },
  {
   "motif_id": "MA0990.2|Solyc06g072310.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0990.2",
   "tf_gene_id": "Solyc06g072310.2",
-  "tf_symbol": "Solyc06g072310.2"
+  "tf_symbol": "HDG11"
  },
  {
   "motif_id": "MA1039.1|Solyc10g055410.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1039.1",
   "tf_gene_id": "Solyc10g055410.1",
-  "tf_symbol": "Solyc10g055410.1"
+  "tf_symbol": "HOS10"
  },
  {
   "motif_id": "MA1772.2|Solyc11g011050.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1772.2",
   "tf_gene_id": "Solyc11g011050.1",
-  "tf_symbol": "Solyc11g011050.1"
+  "tf_symbol": "MYB20"
  },
  {
   "motif_id": "MA1770.2|Solyc11g011050.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1770.2",
   "tf_gene_id": "Solyc11g011050.1",
-  "tf_symbol": "Solyc11g011050.1"
+  "tf_symbol": "MYB20"
  },
  {
   "motif_id": "MA0576.2|Solyc04g077260.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0576.2",
   "tf_gene_id": "Solyc04g077260.2",
-  "tf_symbol": "Solyc04g077260.2"
+  "tf_symbol": "MYB84"
  },
  {
   "motif_id": "MA0123.1|Solyc06g050520.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0123.1",
   "tf_gene_id": "Solyc06g050520.1",
-  "tf_symbol": "Solyc06g050520.1"
+  "tf_symbol": "DREB19"
  },
  {
   "motif_id": "MA2025.2|Solyc04g074170.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA2025.2",
   "tf_gene_id": "Solyc04g074170.1",
-  "tf_symbol": "Solyc04g074170.1"
+  "tf_symbol": "MYB93"
  },
  {
   "motif_id": "MA1093.2|Solyc05g015850.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1093.2",
   "tf_gene_id": "Solyc05g015850.2",
-  "tf_symbol": "Solyc05g015850.2"
- },
- {
-  "motif_id": "MA1286.2|Solyc08g048390.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1286.2",
-  "tf_gene_id": "Solyc08g048390.1",
-  "tf_symbol": "Solyc08g048390.1"
- },
- {
-  "motif_id": "MA1064.2|Solyc08g048390.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1064.2",
-  "tf_gene_id": "Solyc08g048390.1",
-  "tf_symbol": "Solyc08g048390.1"
+  "tf_symbol": "WRKY75"
  },
  {
   "motif_id": "MA1067.1|Solyc03g115010.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1067.1",
   "tf_gene_id": "Solyc03g115010.1",
-  "tf_symbol": "Solyc03g115010.1"
+  "tf_symbol": "PTF1"
+ },
+ {
+  "motif_id": "MA1286.2|Solyc08g048390.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1286.2",
+  "tf_gene_id": "Solyc08g048390.1",
+  "tf_symbol": "TCP24"
+ },
+ {
+  "motif_id": "MA1064.2|Solyc08g048390.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1064.2",
+  "tf_gene_id": "Solyc08g048390.1",
+  "tf_symbol": "TCP24"
  },
  {
   "motif_id": "MA0974.3|Solyc03g115940.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0974.3",
   "tf_gene_id": "Solyc03g115940.2",
-  "tf_symbol": "Solyc03g115940.2"
+  "tf_symbol": "CDF3"
  },
  {
   "motif_id": "MA0973.2|Solyc03g115940.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0973.2",
   "tf_gene_id": "Solyc03g115940.2",
-  "tf_symbol": "Solyc03g115940.2"
- },
- {
-  "motif_id": "MA1665.3|Solyc08g080540.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1665.3",
-  "tf_gene_id": "Solyc08g080540.2",
-  "tf_symbol": "Solyc08g080540.2"
+  "tf_symbol": "CDF3"
  },
  {
   "motif_id": "MA1758.2|Solyc03g097120.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1758.2",
   "tf_gene_id": "Solyc03g097120.2",
-  "tf_symbol": "Solyc03g097120.2"
+  "tf_symbol": "HSFA1E"
+ },
+ {
+  "motif_id": "MA1665.3|Solyc08g080540.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1665.3",
+  "tf_gene_id": "Solyc08g080540.2",
+  "tf_symbol": "AT-HSFB2B"
  },
  {
   "motif_id": "MA0580.1|Solyc02g079810.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0580.1",
   "tf_gene_id": "Solyc02g079810.1",
-  "tf_symbol": "Solyc02g079810.1"
+  "tf_symbol": "DYT1"
  },
  {
   "motif_id": "MA0975.1|Solyc08g081960.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0975.1",
   "tf_gene_id": "Solyc08g081960.1",
-  "tf_symbol": "Solyc08g081960.1"
- },
- {
-  "motif_id": "MA2020.2|Solyc04g078770.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2020.2",
-  "tf_gene_id": "Solyc04g078770.2",
-  "tf_symbol": "Solyc04g078770.2"
- },
- {
-  "motif_id": "MA1664.3|Solyc09g065660.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1664.3",
-  "tf_gene_id": "Solyc09g065660.2",
-  "tf_symbol": "Solyc09g065660.2"
- },
- {
-  "motif_id": "MA1760.1|Solyc09g065660.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1760.1",
-  "tf_gene_id": "Solyc09g065660.2",
-  "tf_symbol": "Solyc09g065660.2"
+  "tf_symbol": "CRF1"
  },
  {
   "motif_id": "MA1761.2|Solyc04g016000.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1761.2",
   "tf_gene_id": "Solyc04g016000.2",
-  "tf_symbol": "Solyc04g016000.2"
+  "tf_symbol": "HSFB3"
+ },
+ {
+  "motif_id": "MA2020.2|Solyc04g078770.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2020.2",
+  "tf_gene_id": "Solyc04g078770.2",
+  "tf_symbol": "HSFB4"
+ },
+ {
+  "motif_id": "MA1760.1|Solyc09g065660.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1760.1",
+  "tf_gene_id": "Solyc09g065660.2",
+  "tf_symbol": "HSFA6B"
+ },
+ {
+  "motif_id": "MA1664.3|Solyc09g065660.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1664.3",
+  "tf_gene_id": "Solyc09g065660.2",
+  "tf_symbol": "HSFA6B"
  },
  {
   "motif_id": "MA2380.1|Solyc06g062520.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA2380.1",
   "tf_gene_id": "Solyc06g062520.1",
-  "tf_symbol": "Solyc06g062520.1"
+  "tf_symbol": "DOF4.7"
  },
  {
   "motif_id": "MA1667.3|Solyc12g007070.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1667.3",
   "tf_gene_id": "Solyc12g007070.1",
-  "tf_symbol": "Solyc12g007070.1"
+  "tf_symbol": "HSFC1"
  },
  {
   "motif_id": "MA1665.3|Solyc03g026020.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1665.3",
   "tf_gene_id": "Solyc03g026020.2",
-  "tf_symbol": "Solyc03g026020.2"
- },
- {
-  "motif_id": "MA0569.2|Solyc08g076930.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0569.2",
-  "tf_gene_id": "Solyc08g076930.1",
-  "tf_symbol": "Solyc08g076930.1"
- },
- {
-  "motif_id": "MA0566.1|Solyc08g076930.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0566.1",
-  "tf_gene_id": "Solyc08g076930.1",
-  "tf_symbol": "Solyc08g076930.1"
+  "tf_symbol": "HSFB2A"
  },
  {
   "motif_id": "MA0959.1|Solyc01g096050.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0959.1",
   "tf_gene_id": "Solyc01g096050.2",
-  "tf_symbol": "Solyc01g096050.2"
+  "tf_symbol": "JAM2"
  },
  {
-  "motif_id": "MA0954.3|Solyc01g096320.2",
+  "motif_id": "MA0569.2|Solyc08g076930.1",
   "source": "JASPAR2024",
-  "jaspar_id": "MA0954.3",
-  "tf_gene_id": "Solyc01g096320.2",
-  "tf_symbol": "Solyc01g096320.2"
+  "jaspar_id": "MA0569.2",
+  "tf_gene_id": "Solyc08g076930.1",
+  "tf_symbol": "MYC2"
+ },
+ {
+  "motif_id": "MA0566.1|Solyc08g076930.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0566.1",
+  "tf_gene_id": "Solyc08g076930.1",
+  "tf_symbol": "MYC2"
  },
  {
   "motif_id": "MA0950.1|Solyc01g096320.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0950.1",
   "tf_gene_id": "Solyc01g096320.2",
-  "tf_symbol": "Solyc01g096320.2"
+  "tf_symbol": "HB-7"
+ },
+ {
+  "motif_id": "MA0954.3|Solyc01g096320.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0954.3",
+  "tf_gene_id": "Solyc01g096320.2",
+  "tf_symbol": "HB-7"
  },
  {
   "motif_id": "MA1269.2|Solyc02g090220.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1269.2",
   "tf_gene_id": "Solyc02g090220.2",
-  "tf_symbol": "Solyc02g090220.2"
+  "tf_symbol": "OBP1"
  },
  {
   "motif_id": "MA1794.2|Solyc08g082750.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1794.2",
   "tf_gene_id": "Solyc08g082750.2",
-  "tf_symbol": "Solyc08g082750.2"
+  "tf_symbol": "NLP6"
  },
  {
   "motif_id": "MA0942.2|Solyc01g103050.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0942.2",
   "tf_gene_id": "Solyc01g103050.2",
-  "tf_symbol": "Solyc01g103050.2"
+  "tf_symbol": "ARF1"
  },
  {
   "motif_id": "MA0986.1|Solyc06g050520.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0986.1",
   "tf_gene_id": "Solyc06g050520.1",
-  "tf_symbol": "Solyc06g050520.1"
+  "tf_symbol": "DREB19"
  },
  {
   "motif_id": "MA1670.2|Solyc03g026270.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1670.2",
   "tf_gene_id": "Solyc03g026270.1",
-  "tf_symbol": "Solyc03g026270.1"
+  "tf_symbol": "DDF1"
  },
  {
   "motif_id": "MA1197.2|Solyc01g105230.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1197.2",
   "tf_gene_id": "Solyc01g105230.2",
-  "tf_symbol": "Solyc01g105230.2"
+  "tf_symbol": "EICBP.B"
  },
  {
   "motif_id": "MA2017.2|Solyc07g045030.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2017.2",
   "tf_gene_id": "Solyc07g045030.2",
-  "tf_symbol": "Solyc07g045030.2"
+  "tf_symbol": "NAC042"
  },
  {
   "motif_id": "MA2388.1|Solyc05g053500.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2388.1",
   "tf_gene_id": "Solyc05g053500.2",
-  "tf_symbol": "Solyc05g053500.2"
+  "tf_symbol": "GATA1"
  },
  {
   "motif_id": "MA1742.2|Solyc06g048630.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1742.2",
   "tf_gene_id": "Solyc06g048630.2",
-  "tf_symbol": "Solyc06g048630.2"
+  "tf_symbol": "bZIP18"
  },
  {
   "motif_id": "MA2053.2|Solyc02g084350.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2053.2",
   "tf_gene_id": "Solyc02g084350.2",
-  "tf_symbol": "Solyc02g084350.2"
- },
- {
-  "motif_id": "MA2009.2|Solyc07g053590.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2009.2",
-  "tf_gene_id": "Solyc07g053590.2",
-  "tf_symbol": "Solyc07g053590.2"
+  "tf_symbol": "VND1"
  },
  {
   "motif_id": "MA1790.1|Solyc07g053590.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1790.1",
   "tf_gene_id": "Solyc07g053590.2",
-  "tf_symbol": "Solyc07g053590.2"
+  "tf_symbol": "NAC073"
+ },
+ {
+  "motif_id": "MA2009.2|Solyc07g053590.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2009.2",
+  "tf_gene_id": "Solyc07g053590.2",
+  "tf_symbol": "NAC073"
  },
  {
   "motif_id": "MA2036.2|Solyc02g084350.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2036.2",
   "tf_gene_id": "Solyc02g084350.2",
-  "tf_symbol": "Solyc02g084350.2"
+  "tf_symbol": "VND1"
  },
  {
   "motif_id": "MA0973.2|Solyc02g067230.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0973.2",
   "tf_gene_id": "Solyc02g067230.2",
-  "tf_symbol": "Solyc02g067230.2"
+  "tf_symbol": "CDF2"
  },
  {
   "motif_id": "MA1807.2|Solyc02g067310.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1807.2",
   "tf_gene_id": "Solyc02g067310.2",
-  "tf_symbol": "Solyc02g067310.2"
- },
- {
-  "motif_id": "MA0571.2|Solyc02g092050.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0571.2",
-  "tf_gene_id": "Solyc02g092050.2",
-  "tf_symbol": "Solyc02g092050.2"
- },
- {
-  "motif_id": "MA1378.1|Solyc11g010710.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1378.1",
-  "tf_gene_id": "Solyc11g010710.1",
-  "tf_symbol": "Solyc11g010710.1"
+  "tf_symbol": "HB23"
  },
  {
   "motif_id": "MA1235.1|Solyc11g010710.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1235.1",
   "tf_gene_id": "Solyc11g010710.1",
-  "tf_symbol": "Solyc11g010710.1"
+  "tf_symbol": "AIL6"
+ },
+ {
+  "motif_id": "MA1378.1|Solyc11g010710.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1378.1",
+  "tf_gene_id": "Solyc11g010710.1",
+  "tf_symbol": "AIL6"
+ },
+ {
+  "motif_id": "MA0571.2|Solyc02g092050.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0571.2",
+  "tf_gene_id": "Solyc02g092050.2",
+  "tf_symbol": "ANT"
  },
  {
   "motif_id": "MA0555.2|Solyc11g010570.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0555.2",
   "tf_gene_id": "Solyc11g010570.1",
-  "tf_symbol": "Solyc11g010570.1"
- },
- {
-  "motif_id": "MA0577.4|Solyc02g077920.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA0577.4",
-  "tf_gene_id": "Solyc02g077920.2",
-  "tf_symbol": "Solyc02g077920.2"
+  "tf_symbol": "SVP"
  },
  {
   "motif_id": "MA1059.3|Solyc02g077920.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1059.3",
   "tf_gene_id": "Solyc02g077920.2",
-  "tf_symbol": "Solyc02g077920.2"
+  "tf_symbol": "SPL4"
+ },
+ {
+  "motif_id": "MA0577.4|Solyc02g077920.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA0577.4",
+  "tf_gene_id": "Solyc02g077920.2",
+  "tf_symbol": "SPL4"
  },
  {
   "motif_id": "MA2352.1|Solyc11g071300.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA2352.1",
   "tf_gene_id": "Solyc11g071300.1",
-  "tf_symbol": "Solyc11g071300.1"
- },
- {
-  "motif_id": "MA2025.2|Solyc04g056310.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2025.2",
-  "tf_gene_id": "Solyc04g056310.2",
-  "tf_symbol": "Solyc04g056310.2"
+  "tf_symbol": "PC-MYB1"
  },
  {
   "motif_id": "MA1780.2|Solyc04g056310.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1780.2",
   "tf_gene_id": "Solyc04g056310.2",
-  "tf_symbol": "Solyc04g056310.2"
+  "tf_symbol": "MYB107"
  },
  {
   "motif_id": "MA2007.2|Solyc04g056310.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2007.2",
   "tf_gene_id": "Solyc04g056310.2",
-  "tf_symbol": "Solyc04g056310.2"
+  "tf_symbol": "MYB107"
+ },
+ {
+  "motif_id": "MA2025.2|Solyc04g056310.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2025.2",
+  "tf_gene_id": "Solyc04g056310.2",
+  "tf_symbol": "MYB107"
  },
  {
   "motif_id": "MA1326.2|Solyc02g085160.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1326.2",
   "tf_gene_id": "Solyc02g085160.1",
-  "tf_symbol": "Solyc02g085160.1"
+  "tf_symbol": "HB33"
  },
  {
   "motif_id": "MA0008.4|Solyc02g086930.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0008.4",
   "tf_gene_id": "Solyc02g086930.2",
-  "tf_symbol": "Solyc02g086930.2"
+  "tf_symbol": "HB-1"
  },
  {
   "motif_id": "MA2387.1|Solyc02g087920.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2387.1",
   "tf_gene_id": "Solyc02g087920.2",
-  "tf_symbol": "Solyc02g087920.2"
+  "tf_symbol": "NAC094"
  },
  {
   "motif_id": "MA1325.2|Solyc06g075140.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1325.2",
   "tf_gene_id": "Solyc06g075140.2",
-  "tf_symbol": "Solyc06g075140.2"
+  "tf_symbol": "GATA11"
  },
  {
   "motif_id": "MA1394.3|Solyc02g092930.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1394.3",
   "tf_gene_id": "Solyc02g092930.1",
-  "tf_symbol": "Solyc02g092930.1"
+  "tf_symbol": "MYB70"
  },
  {
   "motif_id": "MA0565.3|Solyc02g094460.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0565.3",
   "tf_gene_id": "Solyc02g094460.1",
-  "tf_symbol": "Solyc02g094460.1"
+  "tf_symbol": "FUS3"
  },
  {
   "motif_id": "MA1415.2|Solyc03g111590.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1415.2",
   "tf_gene_id": "Solyc03g111590.2",
-  "tf_symbol": "Solyc03g111590.2"
+  "tf_symbol": "REF6"
  },
  {
   "motif_id": "MA1176.2|Solyc06g076840.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1176.2",
   "tf_gene_id": "Solyc06g076840.1",
-  "tf_symbol": "Solyc06g076840.1"
+  "tf_symbol": "MYB64"
  },
  {
   "motif_id": "MA1392.3|Solyc06g071520.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1392.3",
   "tf_gene_id": "Solyc06g071520.1",
-  "tf_symbol": "Solyc06g071520.1"
- },
- {
-  "motif_id": "MA1047.3|Solyc11g064950.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1047.3",
-  "tf_gene_id": "Solyc11g064950.1",
-  "tf_symbol": "Solyc11g064950.1"
+  "tf_symbol": "MYB100"
  },
  {
   "motif_id": "MA1069.3|Solyc11g064950.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1069.3",
   "tf_gene_id": "Solyc11g064950.1",
-  "tf_symbol": "Solyc11g064950.1"
+  "tf_symbol": "TGA6"
+ },
+ {
+  "motif_id": "MA1047.3|Solyc11g064950.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1047.3",
+  "tf_gene_id": "Solyc11g064950.1",
+  "tf_symbol": "TGA6"
  },
  {
   "motif_id": "MA0590.1|Solyc03g118160.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0590.1",
   "tf_gene_id": "Solyc03g118160.1",
-  "tf_symbol": "Solyc03g118160.1"
+  "tf_symbol": "LFY"
  },
  {
   "motif_id": "MA1014.1|Solyc06g075140.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1014.1",
   "tf_gene_id": "Solyc06g075140.2",
-  "tf_symbol": "Solyc06g075140.2"
- },
- {
-  "motif_id": "MA1294.2|Solyc05g009230.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1294.2",
-  "tf_gene_id": "Solyc05g009230.1",
-  "tf_symbol": "Solyc05g009230.1"
+  "tf_symbol": "GATA11"
  },
  {
   "motif_id": "MA1764.2|Solyc05g009230.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1764.2",
   "tf_gene_id": "Solyc05g009230.1",
-  "tf_symbol": "Solyc05g009230.1"
+  "tf_symbol": "MYB116"
+ },
+ {
+  "motif_id": "MA1294.2|Solyc05g009230.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1294.2",
+  "tf_gene_id": "Solyc05g009230.1",
+  "tf_symbol": "MYB116"
  },
  {
   "motif_id": "MA0589.2|Solyc12g014610.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0589.2",
   "tf_gene_id": "Solyc12g014610.1",
-  "tf_symbol": "Solyc12g014610.1"
+  "tf_symbol": "ZAP1"
  },
  {
   "motif_id": "MA1747.2|Solyc04g070960.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1747.2",
   "tf_gene_id": "Solyc04g070960.1",
-  "tf_symbol": "Solyc04g070960.1"
+  "tf_symbol": "DOF4.3"
  },
  {
   "motif_id": "MA1685.2|Solyc09g007810.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1685.2",
   "tf_gene_id": "Solyc09g007810.2",
-  "tf_symbol": "Solyc09g007810.2"
+  "tf_symbol": "ARF16"
  },
  {
   "motif_id": "MA1348.1|Solyc06g074320.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1348.1",
   "tf_gene_id": "Solyc06g074320.2",
-  "tf_symbol": "Solyc06g074320.2"
+  "tf_symbol": "TGA9"
  },
  {
   "motif_id": "MA0943.2|Solyc04g081240.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0943.2",
   "tf_gene_id": "Solyc04g081240.2",
-  "tf_symbol": "Solyc04g081240.2"
+  "tf_symbol": "MP"
  },
  {
   "motif_id": "MA1026.3|Solyc03g120910.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1026.3",
   "tf_gene_id": "Solyc03g120910.2",
-  "tf_symbol": "Solyc03g120910.2"
+  "tf_symbol": "ATHB-15"
  },
  {
   "motif_id": "MA1169.1|Solyc05g007870.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1169.1",
   "tf_gene_id": "Solyc05g007870.1",
-  "tf_symbol": "Solyc05g007870.1"
+  "tf_symbol": "MYB117"
  },
  {
   "motif_id": "MA1171.2|Solyc04g064540.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1171.2",
   "tf_gene_id": "Solyc04g064540.2",
-  "tf_symbol": "Solyc04g064540.2"
- },
- {
-  "motif_id": "MA2052.2|Solyc04g077980.1",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA2052.2",
-  "tf_gene_id": "Solyc04g077980.1",
-  "tf_symbol": "Solyc04g077980.1"
+  "tf_symbol": "MYB52"
  },
  {
   "motif_id": "MA1372.2|Solyc04g077980.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1372.2",
   "tf_gene_id": "Solyc04g077980.1",
-  "tf_symbol": "Solyc04g077980.1"
+  "tf_symbol": "STZ"
+ },
+ {
+  "motif_id": "MA2052.2|Solyc04g077980.1",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA2052.2",
+  "tf_gene_id": "Solyc04g077980.1",
+  "tf_symbol": "STZ"
  },
  {
   "motif_id": "MA1173.2|Solyc07g052300.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1173.2",
   "tf_gene_id": "Solyc07g052300.2",
-  "tf_symbol": "Solyc07g052300.2"
+  "tf_symbol": "MYB101"
  },
  {
   "motif_id": "MA1069.3|Solyc10g078670.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1069.3",
   "tf_gene_id": "Solyc10g078670.1",
-  "tf_symbol": "Solyc10g078670.1"
+  "tf_symbol": "TGA10"
  },
  {
   "motif_id": "MA0967.1|Solyc04g082890.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA0967.1",
   "tf_gene_id": "Solyc04g082890.2",
-  "tf_symbol": "Solyc04g082890.2"
+  "tf_symbol": "BZIP60"
  },
  {
   "motif_id": "MA1387.2|Solyc05g009720.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1387.2",
   "tf_gene_id": "Solyc05g009720.2",
-  "tf_symbol": "Solyc05g009720.2"
+  "tf_symbol": "HRS1"
  },
  {
   "motif_id": "MA1167.2|Solyc12g006800.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1167.2",
   "tf_gene_id": "Solyc12g006800.1",
-  "tf_symbol": "Solyc12g006800.1"
+  "tf_symbol": "EFM"
  },
  {
   "motif_id": "MA0940.1|Solyc05g056620.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0940.1",
   "tf_gene_id": "Solyc05g056620.1",
-  "tf_symbol": "Solyc05g056620.1"
+  "tf_symbol": "CAL"
  },
  {
   "motif_id": "MA1678.3|Solyc06g074170.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1678.3",
   "tf_gene_id": "Solyc06g074170.2",
-  "tf_symbol": "Solyc06g074170.2"
+  "tf_symbol": "NTL8"
  },
  {
   "motif_id": "MA2363.1|Solyc06g075510.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA2363.1",
   "tf_gene_id": "Solyc06g075510.2",
-  "tf_symbol": "Solyc06g075510.2"
+  "tf_symbol": "AP2"
  },
  {
   "motif_id": "MA1383.2|Solyc08g005260.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1383.2",
   "tf_gene_id": "Solyc08g005260.1",
-  "tf_symbol": "Solyc08g005260.1"
+  "tf_symbol": "KAN2"
  },
  {
   "motif_id": "MA1688.2|Solyc09g007810.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1688.2",
   "tf_gene_id": "Solyc09g007810.2",
-  "tf_symbol": "Solyc09g007810.2"
+  "tf_symbol": "ARF16"
  },
  {
   "motif_id": "MA1179.2|Solyc09g011780.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1179.2",
   "tf_gene_id": "Solyc09g011780.2",
-  "tf_symbol": "Solyc09g011780.2"
- },
- {
-  "motif_id": "MA1162.1|Solyc09g082500.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1162.1",
-  "tf_gene_id": "Solyc09g082500.2",
-  "tf_symbol": "Solyc09g082500.2"
- },
- {
-  "motif_id": "MA1161.1|Solyc09g082500.2",
-  "source": "JASPAR2024",
-  "jaspar_id": "MA1161.1",
-  "tf_gene_id": "Solyc09g082500.2",
-  "tf_symbol": "Solyc09g082500.2"
+  "tf_symbol": "MYB1"
  },
  {
   "motif_id": "MA1379.1|Solyc09g082500.2",
   "source": "JASPAR2024",
   "jaspar_id": "MA1379.1",
   "tf_gene_id": "Solyc09g082500.2",
-  "tf_symbol": "Solyc09g082500.2"
+  "tf_symbol": "SOL1"
+ },
+ {
+  "motif_id": "MA1161.1|Solyc09g082500.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1161.1",
+  "tf_gene_id": "Solyc09g082500.2",
+  "tf_symbol": "SOL1"
+ },
+ {
+  "motif_id": "MA1162.1|Solyc09g082500.2",
+  "source": "JASPAR2024",
+  "jaspar_id": "MA1162.1",
+  "tf_gene_id": "Solyc09g082500.2",
+  "tf_symbol": "SOL1"
  },
  {
   "motif_id": "MA1320.2|Solyc10g078700.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA1320.2",
   "tf_gene_id": "Solyc10g078700.1",
-  "tf_symbol": "Solyc10g078700.1"
+  "tf_symbol": "SPL9"
  },
  {
   "motif_id": "MA0951.1|Solyc11g010270.1",
   "source": "JASPAR2024",
   "jaspar_id": "MA0951.1",
   "tf_gene_id": "Solyc11g010270.1",
-  "tf_symbol": "Solyc11g010270.1"
+  "tf_symbol": "HB6"
  }
 ]

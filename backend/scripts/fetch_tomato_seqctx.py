@@ -15,6 +15,7 @@ the same tables when delivered; this script deliberately does not fabricate them
 
 Usage: python backend/scripts/fetch_tomato_seqctx.py
 """
+import gzip
 import json
 import re
 import sqlite3
@@ -23,8 +24,8 @@ from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 DB_PATH = DATA_DIR / "grn.sqlite3"
-CROSSWALK_JSON = DATA_DIR / "gene_id_crosswalk.json"
-WINDOWS_JSON = DATA_DIR / "gene_windows.json"
+CROSSWALK_JSON = DATA_DIR / "gene_id_crosswalk.json.gz"
+WINDOWS_JSON = DATA_DIR / "gene_windows.json.gz"
 
 ITAG41_GFF = ("https://solgenomics.net/ftp/genomes/Solanum_lycopersicum/"
               "annotation/ITAG4.1_release/ITAG4.1_gene_models.gff")
@@ -105,8 +106,10 @@ def main():
         windows.append({"ext_gene_id": ext_id, "assembly": ASSEMBLY, "window_type": "gene_body",
                         "chromosome": chrom, "start": start - 1, "end": end, "strand": strand})
 
-    CROSSWALK_JSON.write_text(json.dumps(crosswalk, indent=1))
-    WINDOWS_JSON.write_text(json.dumps(windows, indent=1))
+    with gzip.open(CROSSWALK_JSON, "wt", encoding="utf-8") as f:
+        json.dump(crosswalk, f)
+    with gzip.open(WINDOWS_JSON, "wt", encoding="utf-8") as f:
+        json.dump(windows, f)
     print(f"ITAG4.1 genes: {n_genes}; matched to atlas: {matched}/{len(atlas)}")
     print(f"Wrote {CROSSWALK_JSON} ({len(crosswalk)} rows)")
     print(f"Wrote {WINDOWS_JSON} ({len(windows)} rows: promoter + gene_body)")

@@ -48,25 +48,39 @@ GO_JSON = DATA_DIR / "go_annotations.json.gz"
 # Sequence-context ingestion bundle (Path B; optional — see the tomato SL4.0
 # ingestion plan). Each is a list of row-dicts; absent files leave the tables
 # empty. Keys mirror the table columns.
+# Each entry: (basename, columns). The loader reads <name>.json.gz or <name>.json.
 SEQCTX_FILES = {
     "gene_id_crosswalk": (
-        DATA_DIR / "gene_id_crosswalk.json",
+        "gene_id_crosswalk",
         ["species", "atlas_gene_id", "ext_gene_id", "ext_assembly", "relation"],
     ),
     "gene_windows": (
-        DATA_DIR / "gene_windows.json",
+        "gene_windows",
         ["ext_gene_id", "assembly", "window_type", "chromosome", "start", "end", "strand"],
     ),
     "motifs": (
-        DATA_DIR / "motifs.json",
+        "motifs",
         ["motif_id", "source", "jaspar_id", "tf_gene_id", "tf_symbol"],
     ),
     "motif_hits": (
-        DATA_DIR / "motif_hits.json",
+        "motif_hits",
         ["ext_gene_id", "motif_id", "assembly", "window_type", "chromosome",
          "start", "end", "strand", "score", "p_value", "tier", "site_confidence"],
     ),
 }
+
+
+def load_rows(basename):
+    """Read a list-of-dicts cache from <basename>.json.gz or <basename>.json."""
+    gz = DATA_DIR / f"{basename}.json.gz"
+    plain = DATA_DIR / f"{basename}.json"
+    if gz.exists():
+        import gzip
+        with gzip.open(gz, "rt", encoding="utf-8") as f:
+            return json.load(f)
+    if plain.exists():
+        return json.loads(plain.read_text())
+    return []
 
 # Authoritative assembly chromosome lengths (bp) for scaled ideograms.
 # Human: GRCh38; Arabidopsis: TAIR10. Falls back to max observed coordinate
@@ -514,8 +528,8 @@ def build():
     # Sequence-context bundle (optional). Insert row-dicts into their tables,
     # selecting the declared columns in order; missing keys become NULL.
     seqctx_counts = {}
-    for table, (path, cols) in SEQCTX_FILES.items():
-        rows = load_json(path)
+    for table, (basename, cols) in SEQCTX_FILES.items():
+        rows = load_rows(basename)
         if not rows:
             seqctx_counts[table] = 0
             continue
