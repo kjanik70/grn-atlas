@@ -192,6 +192,17 @@ def build_petunia_lift():
         print(f"  ! could not load Hi-C assembly ({e}); falling back to scaffolds")
         return None, None
 
+    lift, chrom_len = build_lift_from_text(raw, PETUNIA_N_CHROMS)
+    print(f"  lifted assembly: {len(chrom_len)} chromosomes, "
+          f"{sum(chrom_len.values()) / 1e9:.2f} Gb anchored")
+    return lift, chrom_len
+
+
+def build_lift_from_text(raw, n_chroms):
+    """Parse a 3D-DNA .assembly (text) and return (lift, chrom_len):
+      lift(scaffold, pos) -> (chrom_name, chrom_pos) or None
+      chrom_len          -> {chrom_name: length}
+    The n_chroms longest super-scaffolds become chromosomes "1".."n" by length."""
     frags = {}          # cprops index -> (scaffold, length)
     scaf_frags = {}     # scaffold -> [(index, length), …] in scaffold order
     order_lines = []    # each = signed cprops indices forming a super-scaffold
@@ -205,14 +216,12 @@ def build_petunia_lift():
         elif line.strip():
             order_lines.append([int(x) for x in line.split()])
 
-    # The 7 longest super-scaffolds are the chromosomes (ranked largest first).
     ranked = sorted(
         ((sum(frags[abs(x)][1] for x in ol), li) for li, ol in enumerate(order_lines)),
-        reverse=True)[:PETUNIA_N_CHROMS]
+        reverse=True)[:n_chroms]
     chrom_of_line = {li: str(rank + 1) for rank, (_, li) in enumerate(ranked)}
     chrom_len = {str(rank + 1): L for rank, (L, _) in enumerate(ranked)}
 
-    # Placement of each fragment on its chromosome.
     place = {}          # index -> (chrom_name, chrom_offset, sign, length)
     for li, ol in enumerate(order_lines):
         chrom = chrom_of_line.get(li)
@@ -224,7 +233,6 @@ def build_petunia_lift():
             place[idx] = (chrom, off, 1 if x > 0 else -1, length)
             off += length
 
-    # Per-scaffold fragment start offsets, for position lookup.
     scaf_lookup = {}
     for scaf, fl in scaf_frags.items():
         starts, items, off = [], [], 0
@@ -248,8 +256,6 @@ def build_petunia_lift():
         off_in = pos - starts[j]
         return chrom, coff + off_in if sign > 0 else coff + (flen - off_in)
 
-    print(f"  lifted assembly: {PETUNIA_N_CHROMS} chromosomes, "
-          f"{sum(chrom_len.values()) / 1e9:.2f} Gb anchored")
     return lift, chrom_len
 
 

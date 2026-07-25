@@ -65,6 +65,12 @@ def bin_path(tool):
     return str(Path(BLAST_BIN) / tool) if BLAST_BIN else tool
 
 
+def protein_to_gene_id(protein_id):
+    """Proteome protein id -> atlas gene id (drop the transcript suffix only):
+    Solyc10g086260.2.1 -> Solyc10g086260.2 ; Peaxi162Scf00000g00013.1 -> Peaxi162Scf00000g00013"""
+    return protein_id.rsplit(".", 1)[0]
+
+
 def main(proteome, out_json, workdir="/tmp/blastwork"):
     out_json = Path(out_json)
     wd = Path(workdir); wd.mkdir(exist_ok=True)
@@ -91,7 +97,7 @@ def main(proteome, out_json, workdir="/tmp/blastwork"):
         pid, qcov, bit = float(pid), float(qcov), float(bit)
         if pid < MIN_IDENTITY or qcov < MIN_COVERAGE:
             continue
-        gene = s.rsplit(".", 1)[0]   # protein id -> atlas gene id (drop transcript suffix)
+        gene = protein_to_gene_id(s)
         if q not in best or bit > best[q][1]:
             best[q] = (gene, bit, pid)
 
