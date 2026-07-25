@@ -123,6 +123,18 @@ CHROMOSOME_LENGTHS = {
 }
 
 
+def norm_chrom(species, name):
+    """Normalize chromosome names to a canonical short form so different sources
+    and assemblies agree: OMA calls Arabidopsis chr 1 "1" but PLAZA calls it
+    "Chr1"; tomato's SL2.50 GFF names it "SL2.50ch01". Reduce both to "1"."""
+    name = str(name)
+    if species == "tomato":
+        m = re.search(r"ch0*(\d+)$", name)
+        if m:
+            return m.group(1)
+    return re.sub(r"^chr", "", name, flags=re.IGNORECASE)
+
+
 def load_human_edges():
     """Parse TRRUST, merging duplicate (tf, target) pairs across papers."""
     pair_data = defaultdict(lambda: {"Activation": set(), "Repression": set()})
@@ -440,17 +452,6 @@ def build():
     conn.executemany("UPDATE genes SET is_tf = 1 WHERE id = ?", [(t,) for t in tf_ids])
 
     # Coordinates: merge OMA (animal) + PLAZA (plant). PLAZA wins on overlap.
-    # Normalize chromosome names to a canonical short form so different sources
-    # and assemblies agree: OMA calls Arabidopsis chr 1 "1" but PLAZA calls it
-    # "Chr1"; tomato's SL2.50 GFF names it "SL2.50ch01". Reduce both to "1".
-    def norm_chrom(species, name):
-        name = str(name)
-        if species == "tomato":
-            m = re.search(r"ch0*(\d+)$", name)
-            if m:
-                return m.group(1)
-        return re.sub(r"^chr", "", name, flags=re.IGNORECASE)
-
     positions = {}
     positions.update(load_json(POSITIONS_JSON))
     positions.update(load_json(PLAZA_POSITIONS_JSON))
