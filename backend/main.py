@@ -13,6 +13,7 @@ from pathlib import Path as FilePath
 from collections import defaultdict
 import json
 import math
+import os
 import logging
 import sqlite3
 
@@ -139,7 +140,7 @@ class NeighborhoodRequest(BaseModel):
 # enriched from mygene.info at build time. See backend/scripts/build_db.py
 # and backend/scripts/fetch_gene_names.py. No network access at runtime.
 
-DB_PATH = FilePath(__file__).parent / "data" / "grn.sqlite3"
+DB_PATH = FilePath(os.environ.get("GRN_DB") or (FilePath(__file__).parent / "data" / "grn.sqlite3"))
 
 
 class GeneDatabase:
