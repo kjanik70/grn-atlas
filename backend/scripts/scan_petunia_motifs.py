@@ -42,18 +42,24 @@ def main(fasta_path):
                 name_to_mid.setdefault(tok, mid)
 
     tf_mats, tf_symbol = defaultdict(set), {}
+    seq_map = DATA_DIR / "tf_motif_map_petunia.json"
+    smap = json.loads(seq_map.read_text()) if seq_map.exists() else None
     for r in conn.execute("""SELECT DISTINCT g.id, g.symbol, g.synonyms FROM genes g
                              JOIN interactions i ON i.source_id=g.id
                              WHERE g.species='petunia'"""):
-        cands = {(r["symbol"] or "").upper()}
-        if r["synonyms"]:
-            cands |= {s.upper() for s in r["synonyms"].split("; ")}
-        mats = {name_to_mid[c] for c in cands if c in name_to_mid}
+        if smap is not None:
+            mats = set(smap.get(r["id"], []))
+        else:
+            cands = {(r["symbol"] or "").upper()}
+            if r["synonyms"]:
+                cands |= {s.upper() for s in r["synonyms"].split("; ")}
+            mats = {name_to_mid[c] for c in cands if c in name_to_mid}
         if mats:
             tf_mats[r["id"]] = mats
             syns = r["synonyms"].split("; ") if r["synonyms"] else []
             tf_symbol[r["id"]] = syns[0] if syns else r["symbol"]
-    print(f"petunia TFs mapped to a JASPAR motif: {len(tf_mats)}")
+    print(f"petunia TFs mapped to a JASPAR motif: {len(tf_mats)}"
+          + (" (sequence map)" if smap is not None else " (symbol match)"))
 
     # petunia promoter windows (identity crosswalk; keyed by atlas id)
     prom = {r["ext_gene_id"]: r for r in conn.execute(

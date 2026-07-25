@@ -28,7 +28,6 @@ import urllib.request
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data"
-OUT_JSON = DATA_DIR / "regulator_map.json"
 BLAST_BIN = os.environ.get("BLAST_BIN", "")
 UA = {"User-Agent": "grn-atlas-build/1.0"}
 MIN_IDENTITY, MIN_COVERAGE = 35.0, 50.0
@@ -48,6 +47,7 @@ REFERENCES = [
     ("AtAG",   "AG",        "AGAMOUS C-class MADS",          "gene:AG AND organism_id:3702", 2),
     ("AtAP3",  "AP3",       "APETALA3 B-class MADS",         "gene:AP3 AND organism_id:3702", 2),
     ("AtPI",   "PI",        "PISTILLATA B-class MADS",       "gene:PI AND organism_id:3702", 2),
+    ("SlANT1", "ANT1",      "tomato anthocyanin MYB",        "gene:ANT1 AND organism_id:4081", 3),
 ]
 
 
@@ -65,7 +65,8 @@ def bin_path(tool):
     return str(Path(BLAST_BIN) / tool) if BLAST_BIN else tool
 
 
-def main(proteome, workdir="/tmp/blastwork"):
+def main(proteome, out_json, workdir="/tmp/blastwork"):
+    out_json = Path(out_json)
     wd = Path(workdir); wd.mkdir(exist_ok=True)
     ref = wd / "reference.fasta"
     meta = {label: (sym, desc, prio) for label, sym, desc, _, prio in REFERENCES}
@@ -90,7 +91,7 @@ def main(proteome, workdir="/tmp/blastwork"):
         pid, qcov, bit = float(pid), float(qcov), float(bit)
         if pid < MIN_IDENTITY or qcov < MIN_COVERAGE:
             continue
-        gene = re.split(r"[.\s|]", s)[0]
+        gene = s.rsplit(".", 1)[0]   # protein id -> atlas gene id (drop transcript suffix)
         if q not in best or bit > best[q][1]:
             best[q] = (gene, bit, pid)
 
@@ -103,9 +104,9 @@ def main(proteome, workdir="/tmp/blastwork"):
     rows = [{"gene_id": g, "name": sym, "description": desc,
              "pct_identity": pid, "source": "BLAST_curated"}
             for g, (prio, sym, desc, pid) in sorted(pick.items())]
-    OUT_JSON.write_text(json.dumps(rows, indent=1))
-    print(f"Wrote {OUT_JSON} ({len(rows)} curated regulators)")
+    out_json.write_text(json.dumps(rows, indent=1))
+    print(f"Wrote {out_json} ({len(rows)} curated regulators)")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else "/tmp/blastwork")
+    main(sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "/tmp/blastwork")

@@ -520,7 +520,9 @@ def build():
     # is a measured identity, not an inferred synonym, so it becomes the symbol.
     # Regulators outside the atlas subset (e.g. petunia AN1) are inserted so they
     # are searchable/labelled, even without network/coordinate data.
-    reg_map = load_json(REGULATOR_MAP_JSON) or []
+    reg_map = []
+    for p in sorted(DATA_DIR.glob("regulator_map*.json")):
+        reg_map.extend(json.loads(p.read_text()))
     conn.executemany(
         "INSERT OR IGNORE INTO genes (id, symbol, name, species, is_tf, gene_type) "
         "VALUES (?, ?, ?, ?, 1, 'protein_coding')",

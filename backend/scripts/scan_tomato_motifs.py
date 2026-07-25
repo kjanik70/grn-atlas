@@ -143,19 +143,24 @@ def main(fasta_path):
     # tomato TF -> matrices, via symbol/synonym
     tf_mats = defaultdict(set)
     tf_symbol = {}
+    seq_map = DATA_DIR / "tf_motif_map_tomato.json"
+    smap = json.loads(seq_map.read_text()) if seq_map.exists() else None
     for r in conn.execute("""SELECT DISTINCT g.id, g.symbol, g.synonyms FROM genes g
                              JOIN interactions i ON i.source_id=g.id
                              WHERE g.species='tomato'"""):
-        cands = {(r["symbol"] or "").upper()}
-        if r["synonyms"]:
-            cands |= {s.upper() for s in r["synonyms"].split("; ")}
-        mats = {name_to_mid[c] for c in cands if c in name_to_mid}
+        if smap is not None:                      # sequence-based map (broader)
+            mats = set(smap.get(r["id"], []))
+        else:                                     # symbol/synonym fallback
+            cands = {(r["symbol"] or "").upper()}
+            if r["synonyms"]:
+                cands |= {s.upper() for s in r["synonyms"].split("; ")}
+            mats = {name_to_mid[c] for c in cands if c in name_to_mid}
         if mats:
             tf_mats[r["id"]] = mats
-            # friendly name: inferred Arabidopsis synonym, else the locus symbol
             syns = r["synonyms"].split("; ") if r["synonyms"] else []
             tf_symbol[r["id"]] = syns[0] if syns else r["symbol"]
-    print(f"tomato TFs mapped to a JASPAR motif: {len(tf_mats)}")
+    print(f"tomato TFs mapped to a JASPAR motif: {len(tf_mats)}"
+          + (" (sequence map)" if smap is not None else " (symbol match)"))
 
     # measured tomato edges whose TF is mapped -> which target promoters to scan
     atlas2ext = {r["atlas_gene_id"]: r["ext_gene_id"]
