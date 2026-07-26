@@ -1000,7 +1000,7 @@ async def enrichment(request: EnrichmentRequest):
 # ---- Motif enrichment: which TFs' predicted binding sites are over-represented
 # in a gene set's promoters, vs the scanned-promoter background ----
 
-_ASSEMBLY_OF = {"tomato": "SL4.0", "petunia": "Peaxi162v1.6.2"}
+_ASSEMBLY_OF = {"tomato": "SL4.0", "petunia": "Peaxi162v1.6.2", "arabidopsis": "TAIR10"}
 _motif_index: Dict[str, Any] = {}
 
 

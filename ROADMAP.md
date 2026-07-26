@@ -6,7 +6,7 @@
 > Iteration Log. The working loop is: _build → test → document here → find gaps →
 > plan → repeat._
 
-Last updated: 2026-07-26 · Baseline: backend 71 tests, frontend 5 tests, build clean.
+Last updated: 2026-07-26 · Baseline: backend 72 tests, frontend 5 tests, build clean.
 
 ---
 
@@ -21,8 +21,9 @@ Last updated: 2026-07-26 · Baseline: backend 71 tests, frontend 5 tests, build 
 
 ### Gene-set interpretation
 - **Functional theme of a set** — GO enrichment (hypergeometric + BH FDR).
-- **Which TFs drive a set** — motif enrichment over the scanned-promoter background
-  (e.g. AN2 top-enriched in petunia flavonoid promoters, q=4e-5).
+- **Which TFs drive a set** — motif enrichment over the scanned-promoter background,
+  now for tomato, petunia, and **arabidopsis** (e.g. AN2 top-enriched in petunia
+  flavonoid promoters q=4e-5; BPC1 targets enrich the BPC1 motif in arabidopsis q=1.9e-83).
 - **Actionable coordinates** — export of signed edges + confidence + genomic coords
   + promoter windows + predicted binding sites (tomato/petunia).
 
@@ -129,7 +130,8 @@ data-free item ships first, then the expression linchpin, then the rest.
 - ~~Static network — no time/condition axis~~ ✅ shipped (#1) for petunia: 29-sample expression profiles.
 - ~~Petunia has no data-derived network~~ ✅ shipped (#2): co-expression inference (`Inferred:Expression`).
   Follow-ups: extend expression to tomato/arabidopsis; deepen sampling; upgrade correlation → tree-based (GENIE3).
-- Sequence layer absent for human/arabidopsis (addressed by #4).
+- ~~Sequence layer absent for arabidopsis~~ ✅ shipped (#4, plant side): TAIR10 JASPAR scan (95k sites).
+  Human base-resolution binding (ReMap/JASPAR vertebrate) still pending — larger genome + peak ingest.
 - Only GO enrichment; no pathway/trait ontologies (addressed by #5).
 - Stale releases; narrow taxon set (addressed by #6).
 - Older docs (START_HERE/PROJECT_SUMMARY etc.) predate recent features — consolidate.
@@ -149,5 +151,12 @@ data-free item ships first, then the expression linchpin, then the rest.
   `expression.py` + `/api/v1/expression/{id}` (#1) and `/api/v1/coexpression` (#2,
   `Inferred:Expression`, undirected). `ExpressionPanel` in the gene detail view. +7 tests
   (71 backend / 5 frontend). Verified: AN2 pigmented-tissue-specific; co-expresses PI/AP3;
-  corroborates 3/18 projected AN2 targets. Next iteration: **#4** (base-resolution TF
-  binding for human/arabidopsis), then extend expression to tomato/arabidopsis.
+  corroborates 3/18 projected AN2 targets.
+- **2026-07-26** — Shipped **#4 (plant side)**: Arabidopsis base-resolution TF binding.
+  Reused the plant seqctx/scan machinery — PLAZA ath GFF → TAIR10 promoter windows;
+  JASPAR-plant PWM scan (symbol-mapped, 346 TFs) → 95,132 predicted sites; targeted DB
+  loader (no full rebuild); enabled arabidopsis in `_ASSEMBLY_OF` so motif enrichment +
+  sequence-context now work for it. +1 DB-invariant test (72 backend). Verified: BPC1
+  targets enrich BPC1 motif (q=1.9e-83), paralogs BPC5/6 co-enrich.
+  Next: **human** base-resolution binding (ReMap/JASPAR vertebrate), then **#5**
+  (KEGG/MapMan + trait linkage); also extend expression to tomato/arabidopsis.

@@ -38,6 +38,21 @@ def test_orthologs_reference_genes(db):
 
 def test_go_annotations_reference_genes_and_terms(db):
     assert one(db, "SELECT COUNT(*) FROM go_annotations WHERE gene_id NOT IN (SELECT id FROM genes)") == 0
+
+
+def test_arabidopsis_motif_layer_wellformed(db):
+    """#4: if the TAIR10 binding layer is loaded, it must be sane and well-joined."""
+    n = one(db, "SELECT COUNT(*) FROM motif_hits WHERE assembly='TAIR10'")
+    if n == 0:
+        pytest.skip("arabidopsis motif layer not loaded")
+    # every hit joins to a motif and is a significant predicted site
+    assert one(db, "SELECT COUNT(*) FROM motif_hits h WHERE h.assembly='TAIR10' "
+                   "AND h.motif_id NOT IN (SELECT motif_id FROM motifs)") == 0
+    assert one(db, "SELECT COUNT(*) FROM motif_hits WHERE assembly='TAIR10' AND p_value > 1e-4") == 0
+    assert one(db, "SELECT COUNT(*) FROM motif_hits WHERE assembly='TAIR10' AND tier != 'JASPAR_scan'") == 0
+    # promoters are reachable via an identity crosswalk to arabidopsis genes
+    assert one(db, "SELECT COUNT(*) FROM gene_id_crosswalk WHERE species='arabidopsis' "
+                   "AND atlas_gene_id NOT IN (SELECT id FROM genes)") == 0
     assert one(db, "SELECT COUNT(*) FROM go_annotations WHERE go_id NOT IN (SELECT go_id FROM go_terms)") == 0
 
 
