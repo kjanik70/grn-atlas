@@ -100,6 +100,22 @@ export const pathwayAPI = {
       })
     });
     return response.json();
+  },
+
+  // Signed-path propagation: predict qualitative up/down of downstream genes
+  // after a set of ko/oe perturbations.
+  perturb: async (interventions, options = {}) => {
+    const response = await fetch(`${API_BASE}/perturb`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        interventions,
+        depth: options.depth || 4,
+        min_confidence: options.minConfidence || 0.0,
+        include_inferred: options.includeInferred !== false,
+      })
+    });
+    return response.json();
   }
 };
 

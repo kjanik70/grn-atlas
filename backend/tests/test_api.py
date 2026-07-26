@@ -180,6 +180,39 @@ def test_motif_enrichment_non_plant_species(client):
     assert r["results"] == [] and "note" in r
 
 
+def test_perturb_signed_propagation(client):
+    # TF1 -| TG2 (repression): knocking out TF1 should de-repress TG2 -> up.
+    r = client.post("/api/v1/perturb",
+                    json={"interventions": [{"gene_id": "TF1", "action": "ko"}]}).json()
+    eff = {e["symbol"]: e for e in r["effects"]}
+    assert eff["TG2"]["predicted_direction"] == "up"    # ko of a repressor
+    assert eff["TG1"]["predicted_direction"] == "down"  # ko of an activator
+    assert r["stats"]["affected"] == 2
+
+    # Over-expressing TF1 flips both directions.
+    oe = client.post("/api/v1/perturb",
+                     json={"interventions": [{"gene_id": "TF1", "action": "oe"}]}).json()
+    oeff = {e["symbol"]: e["predicted_direction"] for e in oe["effects"]}
+    assert oeff["TG1"] == "up" and oeff["TG2"] == "down"
+
+
+def test_perturb_unsigned_edge_is_unknown(client):
+    # SlTF -> SlTGT is 'regulation' (unsigned) -> direction unknown.
+    r = client.post("/api/v1/perturb",
+                    json={"interventions": [{"gene_id": "SlTF", "action": "ko"}],
+                          "include_inferred": True}).json()
+    d = next(e for e in r["effects"] if e["symbol"] == "SlTGT")
+    assert d["predicted_direction"] == "unknown"
+
+
+def test_perturb_respects_include_inferred(client):
+    on = client.post("/api/v1/perturb", json={
+        "interventions": [{"gene_id": "SlTF", "action": "ko"}], "include_inferred": True}).json()
+    off = client.post("/api/v1/perturb", json={
+        "interventions": [{"gene_id": "SlTF", "action": "ko"}], "include_inferred": False}).json()
+    assert on["stats"]["affected"] > off["stats"]["affected"]
+
+
 def test_genome_endpoints(client):
     sp = client.get("/api/v1/genome/species").json()["species"]
     assert {s["species"] for s in sp} >= {"human", "tomato"}

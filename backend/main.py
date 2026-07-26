@@ -117,6 +117,17 @@ class CascadeRequest(BaseModel):
     target_gene_id: str
     interventions: List[Intervention]
     depth: int = 3
+
+class PerturbInterv(BaseModel):
+    gene_id: str
+    action: str = "ko"  # 'ko' (knock-out / down) or 'oe' (over-express / up)
+
+class PerturbRequest(BaseModel):
+    interventions: List[PerturbInterv]
+    depth: int = 4
+    min_confidence: float = 0.0
+    include_inferred: bool = True
+    min_effect: float = 0.05  # prune predicted effects weaker than this
     return_nodes: bool = True
 
 
@@ -413,6 +424,88 @@ async def predict_cascade(request: CascadeRequest):
         average_confidence=sum(e.confidence for e in cascade_effects) / len(cascade_effects) if cascade_effects else 0.0,
         affected_genes=len(cascade_effects)
     )
+
+_EDGE_SIGN = {"activation": 1, "repression": -1}
+_PERTURB_DECAY = 0.7  # per-level attenuation of predicted effect magnitude
+
+
+@app.post("/api/v1/perturb")
+async def perturb(request: PerturbRequest):
+    """Predict the qualitative direction of change of downstream genes after a
+    set of TF perturbations, by propagating signs along the regulatory network.
+
+    This is a *predicted*, qualitative model (signed-path propagation over measured/
+    inferred edges), NOT a quantitative simulation. Effect sign = product of edge
+    signs (activation +1, repression -1) times the intervention sign (ko -1, oe +1);
+    magnitude is a confidence-weighted, depth-damped heuristic. An edge with an
+    unsigned regulation type makes the downstream direction 'unknown'.
+    """
+    if not request.interventions:
+        raise HTTPException(status_code=400, detail="At least one intervention required")
+
+    seeds = {}
+    for iv in request.interventions:
+        g = db.get_gene(iv.gene_id)
+        if not g:
+            raise HTTPException(status_code=404, detail=f"Gene not found: {iv.gene_id}")
+        seeds[iv.gene_id] = (-1 if iv.action == "ko" else 1, g.symbol)
+
+    # best[gene] = dict(magnitude, sign, unknown, level, path, uses_inferred)
+    best: Dict[str, Dict[str, Any]] = {}
+    depth = max(1, min(request.depth, 6))
+    # frontier: (gene_id, sign, magnitude, level, path_symbols, uses_inferred, unknown)
+    frontier = [(gid, s, 1.0, 0, [sym], False, False) for gid, (s, sym) in seeds.items()]
+
+    while frontier:
+        gid, sign, mag, level, path, inf, unknown = frontier.pop()
+        if level >= depth:
+            continue
+        for t in db.get_targets(gid, min_confidence=request.min_confidence,
+                                include_inferred=request.include_inferred):
+            esign = _EDGE_SIGN.get(t.regulation_type, 0)
+            n_unknown = unknown or esign == 0
+            n_sign = sign * (esign if esign else 1)
+            n_mag = mag * max(t.confidence, 0.01) * _PERTURB_DECAY
+            n_inf = inf or any(str(s).startswith("Inferred") for s in t.source_databases)
+            if n_mag < request.min_effect:
+                continue
+            prev = best.get(t.id)
+            if t.id not in seeds and (prev is None or n_mag > prev["magnitude"]):
+                best[t.id] = {"symbol": t.symbol, "magnitude": round(n_mag, 4),
+                              "sign": n_sign, "unknown": n_unknown, "level": level + 1,
+                              "path": path + [t.symbol], "uses_inferred": n_inf}
+            # keep expanding as long as this route is the strongest seen for t
+            if prev is None or n_mag > prev["magnitude"]:
+                frontier.append((t.id, n_sign, n_mag, level + 1,
+                                 path + [t.symbol], n_inf, n_unknown))
+
+    def direction(e):
+        if e["unknown"]:
+            return "unknown"
+        return "up" if e["sign"] > 0 else "down"
+
+    effects = [{"gene_id": gid, "symbol": e["symbol"], "predicted_direction": direction(e),
+                "magnitude": e["magnitude"], "level": e["level"], "path": e["path"],
+                "uses_inferred": e["uses_inferred"]}
+               for gid, e in best.items()]
+    effects.sort(key=lambda e: e["magnitude"], reverse=True)
+
+    return {
+        "interventions": [{"gene_id": gid, "symbol": sym,
+                           "action": "ko" if s < 0 else "oe"}
+                          for gid, (s, sym) in seeds.items()],
+        "effects": effects,
+        "stats": {
+            "affected": len(effects),
+            "up": sum(1 for e in effects if e["predicted_direction"] == "up"),
+            "down": sum(1 for e in effects if e["predicted_direction"] == "down"),
+            "unknown": sum(1 for e in effects if e["predicted_direction"] == "unknown"),
+            "uses_inferred": any(e["uses_inferred"] for e in effects),
+        },
+        "note": "Predicted qualitative directions from signed-path propagation, "
+                "not a quantitative simulation.",
+    }
+
 
 # ============= Orthology Endpoints =============
 

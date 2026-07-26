@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { pathwayAPI } from '../services/apiService';
 import '../styles/InterventionDesigner.css';
 
 export default function InterventionDesigner({ gene, networkData }) {
@@ -47,22 +48,14 @@ export default function InterventionDesigner({ gene, networkData }) {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/v1/pathway/predict-cascade', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          target_gene_id: gene.id,
-          interventions: interventions.map(i => ({
-            tf_id: i.target_id,
-            direction: i.action === 'enhance' ? 'up' : 'down',
-            magnitude: i.strength
-          })),
-          depth: 3,
-          return_nodes: true
-        })
-      });
-
-      const data = await response.json();
+      // enhance -> over-express (oe), suppress -> knock-out (ko).
+      const data = await pathwayAPI.perturb(
+        interventions.map(i => ({
+          gene_id: i.target_id,
+          action: i.action === 'enhance' ? 'oe' : 'ko',
+        })),
+        { depth: 4 }
+      );
       setCascade(data);
     } catch (err) {
       setError(err.message);
@@ -83,7 +76,8 @@ export default function InterventionDesigner({ gene, networkData }) {
         strength: i.strength,
         confidence: i.confidence
       })),
-      predicted_cascade: cascade?.cascade || []
+      predicted_effects: cascade?.effects || [],
+      model: cascade?.note || null
     };
 
     const blob = new Blob([JSON.stringify(design, null, 2)], { type: 'application/json' });
@@ -252,66 +246,61 @@ export default function InterventionDesigner({ gene, networkData }) {
               {/* Cascade header */}
               <div className="cascade-header">
                 <div className="cascade-stat">
-                  <span className="stat-label">Affected genes</span>
-                  <span className="stat-value">{cascade.cascade?.length || 0}</span>
+                  <span className="stat-label">Affected</span>
+                  <span className="stat-value">{cascade.stats?.affected || 0}</span>
                 </div>
                 <div className="cascade-stat">
-                  <span className="stat-label">Avg confidence</span>
-                  <span className="stat-value">
-                    {cascade.average_confidence ? (cascade.average_confidence * 100).toFixed(0) + '%' : 'N/A'}
-                  </span>
+                  <span className="stat-label">↑ up</span>
+                  <span className="stat-value">{cascade.stats?.up || 0}</span>
+                </div>
+                <div className="cascade-stat">
+                  <span className="stat-label">↓ down</span>
+                  <span className="stat-value">{cascade.stats?.down || 0}</span>
+                </div>
+                <div className="cascade-stat">
+                  <span className="stat-label">? unknown</span>
+                  <span className="stat-value">{cascade.stats?.unknown || 0}</span>
                 </div>
               </div>
 
-              {/* Cascade levels */}
+              {cascade.note && <p className="cascade-note">{cascade.note}</p>}
+
+              {/* Predicted effects (strongest first) */}
               <div className="cascade-levels">
-                {cascade.cascade && cascade.cascade.length > 0 ? (
-                  cascade.cascade.map((effect, idx) => (
-                    <div key={idx} className={`cascade-item level-${effect.level || 1}`}>
+                {cascade.effects && cascade.effects.length > 0 ? (
+                  cascade.effects.slice(0, 40).map((effect, idx) => (
+                    <div key={idx} className={`cascade-item level-${effect.level || 1}`}
+                         title={effect.path?.join(' → ')}>
                       <div className="cascade-gene">
                         <span className="gene-symbol">{effect.symbol}</span>
-                        <span className="gene-level">Level {effect.level || 1}</span>
-                      </div>
-                      
-                      <div className="cascade-effect">
-                        <span className={`effect-arrow ${effect.direction}`}>
-                          {effect.direction === 'up' ? '↑' : effect.direction === 'down' ? '↓' : '→'}
-                        </span>
-                        <span className="effect-magnitude">
-                          {Math.abs(effect.magnitude || 0).toFixed(2)}×
+                        <span className="gene-level">
+                          L{effect.level}{effect.uses_inferred ? ' · inferred' : ''}
                         </span>
                       </div>
 
-                      <div className="cascade-confidence">
-                        <span className="conf-label">
-                          {(effect.confidence * 100).toFixed(0)}%
+                      <div className="cascade-effect">
+                        <span className={`effect-arrow ${effect.predicted_direction}`}>
+                          {effect.predicted_direction === 'up' ? '↑'
+                            : effect.predicted_direction === 'down' ? '↓' : '?'}
                         </span>
-                        <div className="conf-bar">
-                          <div className="conf-bar-fill" style={{ width: `${effect.confidence * 100}%` }}></div>
-                        </div>
+                        <span className="effect-magnitude">{effect.magnitude.toFixed(2)}</span>
                       </div>
                     </div>
                   ))
                 ) : (
-                  <div className="empty-cascade">No cascade effects predicted</div>
+                  <div className="empty-cascade">No effects predicted</div>
                 )}
               </div>
 
               {/* Summary statistics */}
               <div className="cascade-summary">
                 <div className="summary-item">
-                  <span className="summary-label">Primary target</span>
-                  <span className="summary-value">{gene.symbol}</span>
-                </div>
-                <div className="summary-item">
                   <span className="summary-label">Interventions</span>
                   <span className="summary-value">{interventions.length}</span>
                 </div>
                 <div className="summary-item">
-                  <span className="summary-label">Cascade depth</span>
-                  <span className="summary-value">
-                    {cascade.cascade ? Math.max(...cascade.cascade.map(e => e.level || 1)) : 0}
-                  </span>
+                  <span className="summary-label">Uses inferred edges</span>
+                  <span className="summary-value">{cascade.stats?.uses_inferred ? 'yes' : 'no'}</span>
                 </div>
               </div>
             </div>
