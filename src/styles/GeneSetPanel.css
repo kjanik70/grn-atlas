@@ -84,6 +84,22 @@
 .gs-hub { margin-right: var(--space-sm); }
 .gs-hub em { color: var(--text-muted); font-style: normal; }
 
+.gs-cons-controls { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); flex-wrap: wrap; }
+.gs-cons-controls select {
+  padding: 4px 8px; font-size: var(--text-sm);
+  border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  background: var(--surface-0); color: var(--text-primary);
+}
+.gs-run-sm {
+  padding: 4px 12px; font-size: var(--text-sm);
+  background: var(--fill-accent); color: var(--on-accent);
+  border: none; border-radius: var(--radius-sm); cursor: pointer;
+}
+.gs-run-sm:disabled { opacity: 0.5; cursor: default; }
+.gs-cons-yes { color: var(--text-success); }
+.gs-cons-no { color: var(--warning-dark); }
+.gs-cons-na { color: var(--text-muted); }
+
 .gs-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
 .gs-table th, .gs-table td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--border); }
 .gs-table th { color: var(--text-secondary); font-weight: 600; }

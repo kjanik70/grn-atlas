@@ -6,6 +6,8 @@ Complete example implementation with all required endpoints
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
+
+import provenance
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime
@@ -470,6 +472,21 @@ async def get_orthology(
 
     return result
 
+# ============= Provenance & citations =============
+
+@app.get("/api/v1/provenance")
+async def get_provenance():
+    """Machine-readable data-source versions, citations, and analysis methods —
+    for reproducibility and to cite the atlas in a publication."""
+    return provenance.manifest()
+
+
+@app.get("/api/v1/citations.bib")
+async def get_citations():
+    """BibTeX for every data source the atlas integrates."""
+    return PlainTextResponse(provenance.bibtex(), media_type="application/x-bibtex")
+
+
 # ============= Gene-set analysis: subgraph + GO enrichment =============
 
 class SubgraphRequest(BaseModel):
@@ -692,17 +709,102 @@ async def export_edges(request: ExportRequest):
             1 for e in edges if e.get("sequence_context", {}).get("supporting_sites")),
     }
 
+    prov = provenance.manifest()
+
     if request.format == "tsv":
         # Flat table only; the nested sequence_context is JSON-only.
         cols = [k for k in (edges[0].keys() if edges else []) if k != "sequence_context"]
-        lines = ["\t".join(cols)]
+        header = [f"# GRN Atlas export v{prov['atlas_version']} — generated {prov['generated']}",
+                  f"# promoter window: {prov['methods']['promoter_window']}",
+                  f"# inferred edges: {prov['methods']['inferred_edges']}",
+                  f"# motif sites: {prov['methods']['motif_scan']}",
+                  "# full provenance + citations: GET /api/v1/provenance , /api/v1/citations.bib"]
+        lines = header + ["\t".join(cols)]
         for e in edges:
             lines.append("\t".join(
                 ";".join(map(str, e[c])) if isinstance(e[c], list) else
                 ("" if e[c] is None else str(e[c])) for c in cols))
         return PlainTextResponse("\n".join(lines), media_type="text/tab-separated-values")
 
-    return {"edges": edges, "stats": stats, "params": request.dict()}
+    return {"edges": edges, "stats": stats, "params": request.dict(), "provenance": prov}
+
+
+class ConservationRequest(BaseModel):
+    gene_ids: List[str]
+    species_b: str                       # compare against this species
+    min_confidence: float = 0.0
+    include_inferred: bool = True
+
+
+@app.post("/api/v1/conservation")
+async def conservation(request: ConservationRequest):
+    """Cross-species conservation of regulatory edges: for each edge among the
+    given genes (species A), is the corresponding edge (via orthologs) present in
+    species B? Joins the ortholog map with both species' networks."""
+    ids = list(dict.fromkeys(request.gene_ids))
+    if not ids:
+        return {"species_b": request.species_b, "edges": [], "stats": {}}
+    ph = ",".join("?" * len(ids))
+    inferred_a = "" if request.include_inferred else " AND i.sources NOT LIKE '%Inferred%'"
+
+    a_edges = db.conn.execute(
+        f"SELECT source_id, target_id, regulation_type, confidence FROM interactions i "
+        f"WHERE source_id IN ({ph}) AND target_id IN ({ph}) AND confidence >= ?{inferred_a}",
+        ids + ids + [request.min_confidence]).fetchall()
+    if not a_edges:
+        return {"species_b": request.species_b, "edges": [], "stats": {"edges": 0, "conserved": 0}}
+
+    # orthologs of the involved genes in species B (either orientation)
+    orth = defaultdict(set)
+    rows = db.conn.execute(
+        f"SELECT gene_a, gene_b, species_a, species_b FROM orthologs "
+        f"WHERE (gene_a IN ({ph}) AND species_b = ?) OR (gene_b IN ({ph}) AND species_a = ?)",
+        ids + [request.species_b] + ids + [request.species_b]).fetchall()
+    for r in rows:
+        if r["species_b"] == request.species_b:
+            orth[r["gene_a"]].add(r["gene_b"])
+        else:
+            orth[r["gene_b"]].add(r["gene_a"])
+
+    # B-side edges among all candidate orthologs
+    b_ids = sorted({g for s in orth.values() for g in s})
+    b_edge = {}
+    if b_ids:
+        bph = ",".join("?" * len(b_ids))
+        inferred_b = "" if request.include_inferred else " AND i.sources NOT LIKE '%Inferred%'"
+        for r in db.conn.execute(
+            f"SELECT source_id, target_id, regulation_type, confidence FROM interactions i "
+            f"WHERE source_id IN ({bph}) AND target_id IN ({bph}){inferred_b}", b_ids + b_ids).fetchall():
+            b_edge[(r["source_id"], r["target_id"])] = (r["regulation_type"], r["confidence"])
+
+    def sym(gene_id):
+        r = db.conn.execute("SELECT symbol FROM genes WHERE id = ?", (gene_id,)).fetchone()
+        return r["symbol"] if r else gene_id
+
+    out, n_cons = [], 0
+    for e in a_edges:
+        matches = []
+        for a in orth.get(e["source_id"], ()):
+            for b in orth.get(e["target_id"], ()):
+                if (a, b) in b_edge:
+                    reg, conf = b_edge[(a, b)]
+                    matches.append({"source_ortholog": a, "source_ortholog_symbol": sym(a),
+                                    "target_ortholog": b, "target_ortholog_symbol": sym(b),
+                                    "regulation_type": reg, "confidence": conf})
+        conserved = bool(matches)
+        n_cons += conserved
+        out.append({
+            "source_gene_id": e["source_id"], "source_symbol": sym(e["source_id"]),
+            "target_gene_id": e["target_id"], "target_symbol": sym(e["target_id"]),
+            "regulation_type": e["regulation_type"], "confidence": e["confidence"],
+            "conserved": conserved,
+            "source_has_ortholog": bool(orth.get(e["source_id"])),
+            "target_has_ortholog": bool(orth.get(e["target_id"])),
+            "b_edges": matches,
+        })
+    return {"species_b": request.species_b, "edges": out,
+            "stats": {"edges": len(out), "conserved": n_cons,
+                      "both_orthologs": sum(1 for e in out if e["source_has_ortholog"] and e["target_has_ortholog"])}}
 
 
 class EnrichmentRequest(BaseModel):
@@ -796,6 +898,81 @@ async def enrichment(request: EnrichmentRequest):
             "namespace": term["namespace"] if term else "",
             "study_count": k, "background_count": K, "p_value": p, "q_value": q,
         })
+    results.sort(key=lambda r: r["p_value"])
+    return {"species": species, "background": N, "study": n,
+            "results": results[:request.max_terms]}
+
+
+# ---- Motif enrichment: which TFs' predicted binding sites are over-represented
+# in a gene set's promoters, vs the scanned-promoter background ----
+
+_ASSEMBLY_OF = {"tomato": "SL4.0", "petunia": "Peaxi162v1.6.2"}
+_motif_index: Dict[str, Any] = {}
+
+
+def _motif_index_for(species: str):
+    """(N, tf_bg_count, gene_tfs, atlas2ext, tf_symbol) for a species with a scan."""
+    if species not in _motif_index:
+        assembly = _ASSEMBLY_OF.get(species)
+        gene_tfs: Dict[str, set] = defaultdict(set)      # ext gene -> {tf_gene_id}
+        tf_symbol: Dict[str, str] = {}
+        if assembly:
+            for r in db.conn.execute(
+                "SELECT DISTINCT h.ext_gene_id, m.tf_gene_id, g.symbol "
+                "FROM motif_hits h JOIN motifs m ON m.motif_id = h.motif_id "
+                "JOIN genes g ON g.id = m.tf_gene_id WHERE h.assembly = ?", (assembly,)
+            ).fetchall():
+                gene_tfs[r["ext_gene_id"]].add(r["tf_gene_id"])
+                tf_symbol[r["tf_gene_id"]] = r["symbol"]
+        tf_bg = defaultdict(int)
+        for tfs in gene_tfs.values():
+            for tf in tfs:
+                tf_bg[tf] += 1
+        atlas2ext = {r["atlas_gene_id"]: r["ext_gene_id"]
+                     for r in db.conn.execute("SELECT atlas_gene_id, ext_gene_id FROM gene_id_crosswalk")}
+        _motif_index[species] = (len(gene_tfs), dict(tf_bg), gene_tfs, atlas2ext, tf_symbol)
+    return _motif_index[species]
+
+
+@app.post("/api/v1/motif_enrichment")
+async def motif_enrichment(request: EnrichmentRequest):
+    """Hypergeometric over-representation of each TF's predicted binding sites in
+    the promoters of a gene set, vs the scanned-promoter background (BH FDR)."""
+    ids = list(dict.fromkeys(request.gene_ids))
+    species = request.species
+    if not species and ids:
+        row = db.conn.execute("SELECT species FROM genes WHERE id = ?", (ids[0],)).fetchone()
+        species = row["species"] if row else None
+    if species not in _ASSEMBLY_OF:
+        return {"species": species, "background": 0, "study": 0, "results": [],
+                "note": "motif scan available for tomato and petunia only"}
+
+    N, tf_bg, gene_tfs, atlas2ext, tf_symbol = _motif_index_for(species)
+    if N == 0:
+        return {"species": species, "background": 0, "study": 0, "results": []}
+
+    study = [atlas2ext.get(g) for g in ids]
+    study = [e for e in study if e in gene_tfs]
+    n = len(study)
+    study_k = defaultdict(int)
+    for e in study:
+        for tf in gene_tfs[e]:
+            study_k[tf] += 1
+
+    tested = []
+    for tf, k in study_k.items():
+        if k < request.min_genes:
+            continue
+        tested.append((tf, k, tf_bg.get(tf, 0), _hypergeom_sf(k, n, tf_bg.get(tf, 0), N)))
+    tested.sort(key=lambda x: x[3])
+    m = len(tested)
+    results, prev_q = [], 1.0
+    for rank in range(m - 1, -1, -1):
+        tf, k, K, p = tested[rank]
+        q = min(prev_q, p * m / (rank + 1))
+        prev_q = q
+        results.append({"tf_gene_id": tf, "tf_symbol": tf_symbol.get(tf, tf),
+                        "study_count": k, "background_count": K, "p_value": p, "q_value": q})
     results.sort(key=lambda r: r["p_value"])
     return {"species": species, "background": N, "study": n,
             "results": results[:request.max_terms]}

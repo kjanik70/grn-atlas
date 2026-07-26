@@ -141,6 +141,45 @@ def test_organism_overview(client):
     assert any(t["symbol"] == "TF1" for t in r["top_regulators"])
 
 
+def test_provenance_manifest(client):
+    m = client.get("/api/v1/provenance").json()
+    assert m["atlas_version"] and m["sources"] and m["methods"]
+    assert all("doi" in s and "name" in s for s in m["sources"])
+
+
+def test_citations_bibtex(client):
+    bib = client.get("/api/v1/citations.bib").text
+    assert bib.count("@article") == len(client.get("/api/v1/provenance").json()["sources"])
+    assert "doi = {" in bib
+
+
+def test_export_embeds_provenance(client):
+    r = client.post("/api/v1/export/edges", json={"gene_ids": ["TF1", "TG1"]}).json()
+    assert "provenance" in r and r["provenance"]["sources"]
+
+
+def test_conservation_shape(client):
+    # fixture has no orthologs -> nothing conserved, but the contract must hold
+    r = client.post("/api/v1/conservation",
+                    json={"gene_ids": ["TF1", "TG1", "TG2"], "species_b": "mouse"}).json()
+    assert r["species_b"] == "mouse"
+    assert r["stats"]["edges"] == 2 and r["stats"]["conserved"] == 0
+    assert all(e["conserved"] is False for e in r["edges"])
+
+
+def test_motif_enrichment_shape(client):
+    r = client.post("/api/v1/motif_enrichment",
+                    json={"gene_ids": ["SlTGT"], "species": "tomato", "min_genes": 1}).json()
+    assert r["species"] == "tomato" and r["background"] >= 1
+    assert all(0.0 <= t["q_value"] <= 1.0 for t in r["results"])
+
+
+def test_motif_enrichment_non_plant_species(client):
+    r = client.post("/api/v1/motif_enrichment",
+                    json={"gene_ids": ["TF1", "TG1"], "species": "human"}).json()
+    assert r["results"] == [] and "note" in r
+
+
 def test_genome_endpoints(client):
     sp = client.get("/api/v1/genome/species").json()["species"]
     assert {s["species"] for s in sp} >= {"human", "tomato"}

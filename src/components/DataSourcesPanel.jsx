@@ -1,45 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/DataSourcesPanel.css';
 
-const SOURCES = [
-  {
-    name: 'TRRUST v2',
-    provides: 'Human TF–target regulatory interactions (literature-curated, with PubMed IDs).',
-    cite: 'Han et al. (2018), Nucleic Acids Research 46:D380.',
-    url: 'https://www.grnpedia.org/trrust/',
-  },
-  {
-    name: 'PlantRegMap / PlantTFDB',
-    provides: 'Arabidopsis and tomato TF–target regulation (FunTFBS functional binding sites).',
-    cite: 'Tian et al. (2020), Nucleic Acids Research 48:D1104.',
-    url: 'https://plantregmap.gao-lab.org/',
-  },
-  {
-    name: 'OMA (Orthologous MAtrix)',
-    provides: 'Genomic coordinates and cross-species orthologs for human, mouse, and Arabidopsis.',
-    cite: 'Altenhoff et al. (2021), Nucleic Acids Research 49:D373.',
-    url: 'https://omabrowser.org/',
-  },
-  {
-    name: 'PLAZA Dicots 4.5',
-    provides: 'Plant gene coordinates, synteny anchor points, BHIF orthology, gene descriptions (Arabidopsis, tomato, petunia).',
-    cite: 'Van Bel et al. (2018), Nucleic Acids Research 46:D1190.',
-    url: 'https://bioinformatics.psb.ugent.be/plaza/',
-  },
-  {
-    name: 'DNA Zoo — Petunia axillaris Hi-C',
-    provides: 'Chromosome-scale (7-chromosome) scaffolding of the P. axillaris v1.6.2 assembly.',
-    cite: 'Dudchenko et al. (2017), Science 356:92; DNA Zoo Consortium.',
-    url: 'https://www.dnazoo.org/',
-  },
-  {
-    name: 'mygene.info',
-    provides: 'Human/mouse gene names and identifiers.',
-    cite: 'Xin et al. (2016), Genome Biology 17:91.',
-    url: 'https://mygene.info/',
-  },
-];
-
 const GLOSSARY = [
   ['Transcription factor (TF)', 'A protein that binds DNA to switch other genes on or off.'],
   ['Regulator / target', 'A regulator (TF) controls a target gene; edges point regulator → target.'],
@@ -50,15 +11,32 @@ const GLOSSARY = [
   ['Inferred edge', 'A regulatory edge predicted for tomato/petunia by projecting the Arabidopsis network through orthology — a prediction, not a measurement.'],
 ];
 
+function download(text, filename, type) {
+  const url = URL.createObjectURL(new Blob([text], { type }));
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
 export default function DataSourcesPanel({ open, onClose }) {
   const [stats, setStats] = useState(null);
+  const [prov, setProv] = useState(null);
 
   useEffect(() => {
     if (!open) return;
     fetch('/api/v1/stats').then((r) => r.json()).then(setStats).catch(() => {});
+    fetch('/api/v1/provenance').then((r) => r.json()).then(setProv).catch(() => {});
   }, [open]);
 
   if (!open) return null;
+
+  const exportBib = async () => {
+    const bib = await fetch('/api/v1/citations.bib').then((r) => r.text());
+    download(bib, 'grn_atlas_citations.bib', 'application/x-bibtex');
+  };
+  const exportManifest = () => {
+    if (prov) download(JSON.stringify(prov, null, 2), 'grn_atlas_provenance.json', 'application/json');
+  };
 
   return (
     <div className="ds-overlay" onClick={onClose}>
@@ -72,6 +50,7 @@ export default function DataSourcesPanel({ open, onClose }) {
           <p className="ds-stats">
             {stats.species} species · {stats.genes?.toLocaleString()} genes ·{' '}
             {stats.interactions?.toLocaleString()} interactions
+            {prov && <> · atlas v{prov.atlas_version}</>}
           </p>
         )}
 
@@ -82,15 +61,39 @@ export default function DataSourcesPanel({ open, onClose }) {
           “Include inferred edges” filter. They are predictions, not measurements.
         </p>
 
+        <div className="ds-downloads">
+          <button className="ds-dl-btn" onClick={exportManifest} disabled={!prov}>⤓ Provenance manifest (JSON)</button>
+          <button className="ds-dl-btn" onClick={exportBib}>⤓ Citations (BibTeX)</button>
+        </div>
+
         <ul className="ds-list">
-          {SOURCES.map((s) => (
-            <li key={s.name} className="ds-item">
-              <a className="ds-name" href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a>
+          {(prov?.sources || []).map((s) => (
+            <li key={s.key} className="ds-item">
+              <a className="ds-name" href={s.url} target="_blank" rel="noopener noreferrer">
+                {s.name}{s.version ? ` (${s.version})` : ''}
+              </a>
               <div className="ds-provides">{s.provides}</div>
-              <div className="ds-cite">{s.cite}</div>
+              <div className="ds-cite">
+                {s.authors} ({s.year}) {s.journal}{s.volume ? ` ${s.volume}` : ''}{s.pages ? `:${s.pages}` : ''}.
+                {s.doi ? ` doi:${s.doi}` : ''}
+              </div>
             </li>
           ))}
         </ul>
+
+        {prov?.methods && (
+          <>
+            <h3 className="ds-subhead">Methods</h3>
+            <dl className="ds-glossary">
+              {Object.entries(prov.methods).map(([k, v]) => (
+                <div key={k} className="ds-term">
+                  <dt>{k.replace(/_/g, ' ')}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </>
+        )}
 
         <h3 className="ds-subhead">Glossary</h3>
         <dl className="ds-glossary">

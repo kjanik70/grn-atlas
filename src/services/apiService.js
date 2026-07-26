@@ -126,6 +126,27 @@ export const analysisAPI = {
     });
     return response.json();
   },
+
+  motifEnrich: async (geneIds, species) => {
+    const response = await fetch(`${API_BASE}/motif_enrichment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ gene_ids: geneIds, species }),
+    });
+    return response.json();
+  },
+
+  conservation: async (geneIds, speciesB, options = {}) => {
+    const response = await fetch(`${API_BASE}/conservation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        gene_ids: geneIds, species_b: speciesB,
+        include_inferred: options.includeInferred !== false,
+      }),
+    });
+    return response.json();
+  },
 };
 
 // Genome / synteny comparison
