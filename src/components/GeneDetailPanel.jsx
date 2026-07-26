@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import ExpressionPanel from './ExpressionPanel';
 import '../styles/GeneDetailPanel.css';
 
 export default function GeneDetailPanel({ gene, data }) {
@@ -125,6 +126,9 @@ export default function GeneDetailPanel({ gene, data }) {
       </div>
 
       <hr className="detail-divider" />
+
+      {/* Expression (petunia; self-hides otherwise) */}
+      <ExpressionPanel geneId={gene.id} />
 
       {/* Regulators Section */}
       <div className="detail-section">

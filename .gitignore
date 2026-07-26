@@ -28,3 +28,7 @@ backend/data/.oma_cache.json
 
 # OS
 .DS_Store
+
+# Expression pipeline working files (keep only the final matrix artifact)
+tools/
+backend/data/expr/

@@ -34,6 +34,11 @@ export const geneAPI = {
     return response.json();
   },
 
+  getExpression: async (geneId) => {
+    const response = await fetch(`${API_BASE}/expression/${geneId}`);
+    return response.json();
+  },
+
   getOrthology: async (geneId, species = null) => {
     const params = species ? `?species=${species.join(',')}` : '';
     const response = await fetch(`${API_BASE}/genes/orthology/${geneId}${params}`);
@@ -148,6 +153,21 @@ export const analysisAPI = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ gene_ids: geneIds, species }),
+    });
+    return response.json();
+  },
+
+  // Predicted co-expression partners of a gene (petunia) across the RNA-seq panel.
+  coexpression: async (geneId, options = {}) => {
+    const response = await fetch(`${API_BASE}/coexpression`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        gene_id: geneId,
+        top: options.top || 25,
+        min_abs_r: options.minAbsR ?? 0.7,
+        tf_only: options.tfOnly || false,
+      }),
     });
     return response.json();
   },

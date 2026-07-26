@@ -180,6 +180,36 @@ def test_motif_enrichment_non_plant_species(client):
     assert r["results"] == [] and "note" in r
 
 
+def _inject_expr(client):
+    import expression
+    expression._cache[str(expression.DEFAULT_PATH)] = expression.ExpressionMatrix({
+        "meta": {"unit": "TPM", "label": "test"},
+        "samples": [{"run": f"s{i}", "tissue": t} for i, t in
+                    enumerate(["leaf", "petal", "bud", "style"])],
+        "genes": {"GX": [1.0, 10.0, 100.0, 1000.0],
+                  "GY": [2.0, 11.0, 105.0, 1050.0],
+                  "GZ": [0.1, 0.1, 0.2, 0.1]},
+    })
+
+
+def test_expression_profile(client):
+    _inject_expr(client)
+    r = client.get("/api/v1/expression/GX").json()
+    assert r["available"] and len(r["samples"]) == 4
+    assert r["samples"][1]["tissue"] == "petal" and r["samples"][1]["tpm"] == 10.0
+    miss = client.get("/api/v1/expression/NOPE").json()
+    assert miss["available"] is False
+
+
+def test_coexpression_labeled_inferred(client):
+    _inject_expr(client)
+    r = client.post("/api/v1/coexpression",
+                    json={"gene_id": "GX", "min_abs_r": 0.7, "min_expr": 1.0}).json()
+    assert r["available"]
+    gy = next(h for h in r["results"] if h["gene_id"] == "GY")
+    assert gy["source"] == "Inferred:Expression" and gy["r"] > 0.9
+
+
 def test_perturb_signed_propagation(client):
     # TF1 -| TG2 (repression): knocking out TF1 should de-repress TG2 -> up.
     r = client.post("/api/v1/perturb",

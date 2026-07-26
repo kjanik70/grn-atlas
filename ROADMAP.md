@@ -6,7 +6,7 @@
 > Iteration Log. The working loop is: _build → test → document here → find gaps →
 > plan → repeat._
 
-Last updated: 2026-07-26 · Baseline: backend 64 tests, frontend 5 tests, build clean.
+Last updated: 2026-07-26 · Baseline: backend 71 tests, frontend 5 tests, build clean.
 
 ---
 
@@ -25,6 +25,17 @@ Last updated: 2026-07-26 · Baseline: backend 64 tests, frontend 5 tests, build 
   (e.g. AN2 top-enriched in petunia flavonoid promoters, q=4e-5).
 - **Actionable coordinates** — export of signed edges + confidence + genomic coords
   + promoter windows + predicted binding sites (tomato/petunia).
+
+### Expression & co-expression (petunia)
+- **Per-tissue expression profile** — `GET /api/v1/expression/{gene_id}`: TPM across a
+  29-sample P. axillaris RNA-seq panel (vegetative + floral/pigmentation tissues),
+  quantified with kallisto vs PLAZA pax CDS (Peaxi162 IDs). Predicted/shallow (subsampled).
+- **Predicted co-expression** — `POST /api/v1/coexpression`: Pearson on log2(TPM+1),
+  labeled `Inferred:Expression`, undirected (not causal, not measured regulation).
+  `tf_only` restricts partners to candidate TF regulators. Shown in the gene detail panel.
+- Verified: AN2 peaks in flower/corolla/petal-limb; co-expresses with petal-identity
+  genes (PI/AP3); 3 of AN2's 18 network targets are independently co-expressed —
+  expression corroborating a subset of projected edges.
 
 ### Perturbation prediction
 - **Predict downstream effects of a TF knockout/over-expression** — `POST /api/v1/perturb`
@@ -55,8 +66,9 @@ Last updated: 2026-07-26 · Baseline: backend 64 tests, frontend 5 tests, build 
 
 ## 2. Honest boundaries (what bounds rigor today)
 
-- **No expression / condition data** — network is static; can't ask "active in petals
-  vs. leaves / under stress?"
+- **Expression exists for petunia only, and is shallow** — 29 subsampled samples, one
+  species; use for relative/co-expression signal, not absolute levels. Other species
+  still have no expression axis.
 - **No dynamics** — the cascade/intervention view is a toy, not a quantitative model.
 - **Petunia edges are inferred** — hypotheses, not evidence; no measured petunia GRN.
 - **No accessibility (ATAC), PPI/complexes, or phenotype/QTL linkage.**
@@ -114,8 +126,9 @@ data-free item ships first, then the expression linchpin, then the rest.
 
 ## 4. Known gaps / backlog (revisit each iteration)
 - ~~Perturbation model is a toy~~ ✅ shipped (#3): signed-path propagation, honest unknown/inferred labels.
-- Static network — no time/condition axis (addressed by #1).
-- Petunia has no data-derived network (addressed by #2).
+- ~~Static network — no time/condition axis~~ ✅ shipped (#1) for petunia: 29-sample expression profiles.
+- ~~Petunia has no data-derived network~~ ✅ shipped (#2): co-expression inference (`Inferred:Expression`).
+  Follow-ups: extend expression to tomato/arabidopsis; deepen sampling; upgrade correlation → tree-based (GENIE3).
 - Sequence layer absent for human/arabidopsis (addressed by #4).
 - Only GO enrichment; no pathway/trait ontologies (addressed by #5).
 - Stale releases; narrow taxon set (addressed by #6).
@@ -130,3 +143,11 @@ data-free item ships first, then the expression linchpin, then the rest.
   Next: **#1 + #2** — expression integration + network inference (the linchpin). This
   needs external RNA-seq; first step is a data-availability check + a fetch script
   (cache to committed JSON like other fetchers, runtime stays offline).
+- **2026-07-26** — Shipped **#1 + #2 (petunia)**. Reference unblocked via PLAZA pax CDS
+  (SGN was down). Built `fetch_petunia_expression.py`: streams subsampled reads for a
+  curated 29-sample panel from ENA, kallisto-quantifies to Peaxi162 TPM. New
+  `expression.py` + `/api/v1/expression/{id}` (#1) and `/api/v1/coexpression` (#2,
+  `Inferred:Expression`, undirected). `ExpressionPanel` in the gene detail view. +7 tests
+  (71 backend / 5 frontend). Verified: AN2 pigmented-tissue-specific; co-expresses PI/AP3;
+  corroborates 3/18 projected AN2 targets. Next iteration: **#4** (base-resolution TF
+  binding for human/arabidopsis), then extend expression to tomato/arabidopsis.

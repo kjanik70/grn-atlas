@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 
 import provenance
+import expression
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime
@@ -1069,6 +1070,76 @@ async def motif_enrichment(request: EnrichmentRequest):
     results.sort(key=lambda r: r["p_value"])
     return {"species": species, "background": N, "study": n,
             "results": results[:request.max_terms]}
+
+
+# ============= Expression + co-expression (petunia) =============
+
+class CoexpRequest(BaseModel):
+    gene_id: str
+    top: int = 25
+    min_abs_r: float = 0.7
+    min_expr: float = 5.0
+    tf_only: bool = False  # restrict partners to transcription factors (regulator candidates)
+
+
+def _gene_meta(gene_ids):
+    """symbol + is_tf for a list of gene ids, in one query."""
+    if not gene_ids:
+        return {}
+    ph = ",".join("?" * len(gene_ids))
+    return {r["id"]: {"symbol": r["symbol"], "is_tf": bool(r["is_tf"])}
+            for r in db.conn.execute(
+                f"SELECT id, symbol, is_tf FROM genes WHERE id IN ({ph})", list(gene_ids))}
+
+
+@app.get("/api/v1/expression/{gene_id}")
+async def gene_expression(gene_id: str):
+    """Per-sample TPM profile for a petunia gene across the RNA-seq panel (#1).
+
+    Predicted from subsampled public reads (kallisto vs PLAZA pax CDS); relative,
+    not absolute. Returns 404-style note if expression is unavailable for the gene.
+    """
+    mx = expression.get_matrix()
+    if mx is None:
+        return {"gene_id": gene_id, "available": False,
+                "note": "expression matrix not built (petunia only)"}
+    prof = mx.profile(gene_id)
+    if prof is None:
+        return {"gene_id": gene_id, "available": False,
+                "note": "no expression for this gene in the panel"}
+    meta = _gene_meta([gene_id]).get(gene_id, {})
+    return {"available": True, "symbol": meta.get("symbol"), "is_tf": meta.get("is_tf"),
+            "matrix_meta": mx.meta, **prof}
+
+
+@app.post("/api/v1/coexpression")
+async def coexpression(request: CoexpRequest):
+    """Predicted co-expression partners of a gene across the petunia panel (#2).
+
+    Pearson correlation on log2(TPM+1). This is an inferred, UNDIRECTED association
+    (labelled Inferred:Expression) — not measured regulation and not a causal
+    direction. With tf_only=True, restricts partners to TFs (candidate regulators).
+    """
+    mx = expression.get_matrix()
+    if mx is None:
+        return {"gene_id": request.gene_id, "available": False,
+                "results": [], "note": "expression matrix not built (petunia only)"}
+
+    candidates = None
+    if request.tf_only:
+        candidates = [r["id"] for r in db.conn.execute(
+            "SELECT id FROM genes WHERE is_tf = 1 AND species = 'petunia'").fetchall()]
+    hits = mx.coexpressed(request.gene_id, top=request.top, min_abs_r=request.min_abs_r,
+                          min_expr=request.min_expr, candidates=candidates)
+    meta = _gene_meta([h["gene_id"] for h in hits])
+    for h in hits:
+        m = meta.get(h["gene_id"], {})
+        h["symbol"] = m.get("symbol", h["gene_id"])
+        h["is_tf"] = m.get("is_tf", False)
+        h["source"] = "Inferred:Expression"
+    return {"gene_id": request.gene_id, "available": True,
+            "n_samples": mx.n, "results": hits,
+            "note": "Predicted co-expression (undirected), not measured regulation."}
 
 
 # ============= Organism overview =============
