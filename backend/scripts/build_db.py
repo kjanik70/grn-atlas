@@ -69,6 +69,14 @@ SEQCTX_FILES = {
         ["ext_gene_id", "motif_id", "assembly", "window_type", "chromosome",
          "start", "end", "strand", "score", "p_value", "tier", "site_confidence"],
     ),
+    "pathways": (
+        "pathways",
+        ["pathway_id", "name", "source"],
+    ),
+    "pathway_annotations": (
+        "pathway_annotations",
+        ["gene_id", "pathway_id"],
+    ),
 }
 
 
@@ -360,6 +368,18 @@ def build():
         );
         CREATE INDEX idx_mh_gene  ON motif_hits(ext_gene_id);
         CREATE INDEX idx_mh_motif ON motif_hits(motif_id);
+
+        CREATE TABLE pathways (
+            pathway_id TEXT PRIMARY KEY,
+            name       TEXT NOT NULL,
+            source     TEXT NOT NULL
+        );
+        CREATE TABLE pathway_annotations (
+            gene_id    TEXT NOT NULL,
+            pathway_id TEXT NOT NULL,
+            PRIMARY KEY (gene_id, pathway_id)
+        );
+        CREATE INDEX idx_pathway_anno_gene ON pathway_annotations(gene_id);
     """)
 
     # Insert human genes

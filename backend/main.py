@@ -997,6 +997,75 @@ async def enrichment(request: EnrichmentRequest):
             "results": results[:request.max_terms]}
 
 
+_pathway_index: Dict[str, Any] = {}
+
+
+def _pathway_index_for(species: str):
+    """(N annotated genes, pathway_k background counts, gene_pathways) for a species."""
+    if species not in _pathway_index:
+        gene_pathways: Dict[str, set] = {}
+        pw_k: Dict[str, int] = defaultdict(int)
+        try:
+            rows = db.conn.execute(
+                "SELECT a.gene_id, a.pathway_id FROM pathway_annotations a "
+                "JOIN genes g ON g.id = a.gene_id WHERE g.species = ?", (species,)).fetchall()
+        except sqlite3.OperationalError:
+            rows = []  # pathway tables not loaded
+        for gid, pid in rows:
+            gene_pathways.setdefault(gid, set()).add(pid)
+        for pids in gene_pathways.values():
+            for p in pids:
+                pw_k[p] += 1
+        _pathway_index[species] = (len(gene_pathways), dict(pw_k), gene_pathways)
+    return _pathway_index[species]
+
+
+@app.post("/api/v1/pathway_enrichment")
+async def pathway_enrichment(request: EnrichmentRequest):
+    """Reactome pathway over-representation for a gene set (hypergeometric + BH FDR).
+
+    Curated pathway membership (Plant Reactome). Currently plant species
+    (arabidopsis, tomato); returns an empty result + note otherwise.
+    """
+    ids = list(dict.fromkeys(request.gene_ids))
+    species = request.species
+    if not species and ids:
+        row = db.conn.execute("SELECT species FROM genes WHERE id = ?", (ids[0],)).fetchone()
+        species = row["species"] if row else None
+
+    N, pw_k, gene_pathways = _pathway_index_for(species)
+    if N == 0:
+        return {"species": species, "background": 0, "study": 0, "results": [],
+                "note": "pathway annotations available for arabidopsis and tomato"}
+
+    study = [g for g in ids if g in gene_pathways]
+    n = len(study)
+    study_k: Dict[str, int] = defaultdict(int)
+    for g in study:
+        for p in gene_pathways[g]:
+            study_k[p] += 1
+
+    tested = []
+    for pid, k in study_k.items():
+        if k < request.min_genes:
+            continue
+        tested.append((pid, k, pw_k.get(pid, 0), _hypergeom_sf(k, n, pw_k.get(pid, 0), N)))
+    tested.sort(key=lambda x: x[3])
+    m = len(tested)
+    results, prev_q = [], 1.0
+    for rank in range(m - 1, -1, -1):
+        pid, k, K, p = tested[rank]
+        q = min(prev_q, p * m / (rank + 1))
+        prev_q = q
+        term = db.conn.execute("SELECT name, source FROM pathways WHERE pathway_id = ?", (pid,)).fetchone()
+        results.append({"pathway_id": pid, "name": term["name"] if term else pid,
+                        "source": term["source"] if term else "",
+                        "study_count": k, "background_count": K, "p_value": p, "q_value": q})
+    results.sort(key=lambda r: r["p_value"])
+    return {"species": species, "background": N, "study": n,
+            "results": results[:request.max_terms]}
+
+
 # ---- Motif enrichment: which TFs' predicted binding sites are over-represented
 # in a gene set's promoters, vs the scanned-promoter background ----
 

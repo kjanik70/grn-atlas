@@ -29,6 +29,7 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
   const [error, setError] = useState(null);
   const [subgraph, setSubgraph] = useState(null);
   const [enrichment, setEnrichment] = useState(null);
+  const [pathwayEnr, setPathwayEnr] = useState(null);
   const [motifEnr, setMotifEnr] = useState(null);
   const [lastIds, setLastIds] = useState([]);
   const [lastSpecies, setLastSpecies] = useState(null);
@@ -69,13 +70,15 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
     setError(null);
     setConservation(null);
     try {
-      const [sg, enr, menr] = await Promise.all([
+      const [sg, enr, penr, menr] = await Promise.all([
         analysisAPI.subgraph(geneIds, { includeInferred }),
         analysisAPI.enrich(geneIds, sp),
+        analysisAPI.pathwayEnrich(geneIds, sp),
         analysisAPI.motifEnrich(geneIds, sp),
       ]);
       setSubgraph(sg);
       setEnrichment(enr);
+      setPathwayEnr(penr);
       setMotifEnr(menr);
       setLastIds(geneIds);
       setLastSpecies(sp);
@@ -241,6 +244,35 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
                   {motifEnr.results.map((r) => (
                     <tr key={r.tf_gene_id}>
                       <td>{r.tf_symbol}</td>
+                      <td className="gs-num">{r.study_count}/{r.background_count}</td>
+                      <td className="gs-num">{fmtP(r.q_value)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        )}
+
+        {pathwayEnr && pathwayEnr.background > 0 && (
+          <div className="gs-section">
+            <h3>Pathway enrichment <span className="gs-ns">Reactome</span></h3>
+            <p className="gs-metrics">
+              {pathwayEnr.study} of the genes in pathways · background {pathwayEnr.background} ·{' '}
+              {pathwayEnr.results.length} enriched pathways (FDR)
+            </p>
+            {pathwayEnr.results.length === 0 ? (
+              <p className="gs-metrics">No significantly enriched pathways.</p>
+            ) : (
+              <table className="gs-table">
+                <thead><tr><th>Pathway</th><th>genes</th><th>q-value</th></tr></thead>
+                <tbody>
+                  {pathwayEnr.results.map((r) => (
+                    <tr key={r.pathway_id}>
+                      <td>
+                        <a href={`https://plantreactome.gramene.org/PathwayBrowser/#/${r.pathway_id}`}
+                           target="_blank" rel="noopener noreferrer">{r.name}</a>
+                      </td>
                       <td className="gs-num">{r.study_count}/{r.background_count}</td>
                       <td className="gs-num">{fmtP(r.q_value)}</td>
                     </tr>

@@ -53,6 +53,11 @@ def _build_fixture(path):
         ("GO:1", "process one", "BP"), ("GO:2", "process two", "BP")])
     db.executemany("INSERT INTO go_annotations VALUES (?,?)", [
         ("TF1", "GO:1"), ("TG1", "GO:1"), ("TG1", "GO:2"), ("TG2", "GO:2")])
+    db.executemany("INSERT INTO pathways VALUES (?,?,?)", [
+        ("R-SLY-1", "Flavonoid biosynthesis", "PlantReactome"),
+        ("R-SLY-2", "Photosynthesis", "PlantReactome")])
+    db.executemany("INSERT INTO pathway_annotations VALUES (?,?)", [
+        ("SlTGT", "R-SLY-1"), ("SlTGT2", "R-SLY-1"), ("SlTGT2", "R-SLY-2")])
     # sequence context for the tomato target (SL4.0 crosswalk + window + motif hit)
     db.execute("INSERT INTO gene_id_crosswalk VALUES ('tomato','SlTGT','SlTGT.4','SL4.0','1:1')")
     db.execute("INSERT INTO gene_windows VALUES ('SlTGT.4','SL4.0','promoter','1',6000,8500,1)")
@@ -208,6 +213,21 @@ def test_coexpression_labeled_inferred(client):
     assert r["available"]
     gy = next(h for h in r["results"] if h["gene_id"] == "GY")
     assert gy["source"] == "Inferred:Expression" and gy["r"] > 0.9
+
+
+def test_pathway_enrichment(client):
+    r = client.post("/api/v1/pathway_enrichment",
+                    json={"gene_ids": ["SlTGT", "SlTGT2"], "species": "tomato", "min_genes": 2}).json()
+    assert r["species"] == "tomato" and r["background"] == 2
+    top = r["results"][0]
+    assert top["name"] == "Flavonoid biosynthesis" and top["study_count"] == 2
+    assert 0.0 <= top["q_value"] <= 1.0
+
+
+def test_pathway_enrichment_species_without_annotations(client):
+    r = client.post("/api/v1/pathway_enrichment",
+                    json={"gene_ids": ["TF1", "TG1"], "species": "human"}).json()
+    assert r["results"] == [] and "note" in r
 
 
 def test_perturb_signed_propagation(client):

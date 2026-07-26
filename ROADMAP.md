@@ -6,7 +6,7 @@
 > Iteration Log. The working loop is: _build → test → document here → find gaps →
 > plan → repeat._
 
-Last updated: 2026-07-26 · Baseline: backend 72 tests, frontend 5 tests, build clean.
+Last updated: 2026-07-26 · Baseline: backend 74 tests, frontend 5 tests, build clean.
 
 ---
 
@@ -21,6 +21,8 @@ Last updated: 2026-07-26 · Baseline: backend 72 tests, frontend 5 tests, build 
 
 ### Gene-set interpretation
 - **Functional theme of a set** — GO enrichment (hypergeometric + BH FDR).
+- **Pathway membership of a set** — Reactome pathway enrichment (`/api/v1/pathway_enrichment`),
+  Plant Reactome for arabidopsis + tomato; same hypergeometric+BH machinery. In the gene-set panel.
 - **Which TFs drive a set** — motif enrichment over the scanned-promoter background,
   now for tomato, petunia, and **arabidopsis** (e.g. AN2 top-enriched in petunia
   flavonoid promoters q=4e-5; BPC1 targets enrich the BPC1 motif in arabidopsis q=1.9e-83).
@@ -132,7 +134,8 @@ data-free item ships first, then the expression linchpin, then the rest.
   Follow-ups: extend expression to tomato/arabidopsis; deepen sampling; upgrade correlation → tree-based (GENIE3).
 - ~~Sequence layer absent for arabidopsis~~ ✅ shipped (#4, plant side): TAIR10 JASPAR scan (95k sites).
   Human base-resolution binding (ReMap/JASPAR vertebrate) still pending — larger genome + peak ingest.
-- Only GO enrichment; no pathway/trait ontologies (addressed by #5).
+- ~~Only GO enrichment~~ ✅ pathway enrichment shipped (#5, plant side, Plant Reactome).
+  Pending: human/mouse pathways (Reactome, needs ENSG→symbol map); **trait linkage (QTL/GWAS→gene)** not started.
 - Stale releases; narrow taxon set (addressed by #6).
 - Older docs (START_HERE/PROJECT_SUMMARY etc.) predate recent features — consolidate.
 
@@ -160,3 +163,11 @@ data-free item ships first, then the expression linchpin, then the rest.
   targets enrich BPC1 motif (q=1.9e-83), paralogs BPC5/6 co-enrich.
   Next: **human** base-resolution binding (ReMap/JASPAR vertebrate), then **#5**
   (KEGG/MapMan + trait linkage); also extend expression to tomato/arabidopsis.
+- **2026-07-26** — Shipped **#5 (pathway half, plant side)**: Reactome pathway enrichment.
+  `fetch_pathways.py` (Plant Reactome → arabidopsis + tomato, version-tolerant tomato match,
+  523 pathways / 8,108 annotations) + `load_pathways.py` (targeted) + build_db durability
+  (schema + glob). `POST /api/v1/pathway_enrichment` mirrors GO enrichment (hypergeometric+BH);
+  gene-set panel gains a Reactome section; Plant Reactome added to provenance/citations.
+  +2 API tests (74 backend). Verified: a metabolism gene set enriches Homoserine/Lysine
+  biosynthesis (q=0.012). Next: **trait linkage (QTL/GWAS→gene)** to finish #5, then **#6**
+  (freshness/scope); human pathways + expression need an ENSG→symbol map / more fetches.
