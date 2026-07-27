@@ -33,11 +33,12 @@ Last updated: 2026-07-26 · Baseline: backend 78 tests, frontend 5 tests, build 
 - **Actionable coordinates** — export of signed edges + confidence + genomic coords
   + promoter windows + predicted binding sites (tomato/petunia).
 
-### Expression & co-expression (petunia, tomato)
+### Expression & co-expression (all three plant species)
 - **Per-tissue expression profile** — `GET /api/v1/expression/{gene_id}`: TPM across a
   species' RNA-seq panel, quantified with kallisto vs PLAZA CDS. Petunia (29 samples,
-  floral/pigmentation) and tomato (20 samples: leaf/root/stem/flower/bud/fruit/apex/
-  cotyledon). Predicted/shallow (subsampled); the endpoint auto-selects by gene species.
+  floral/pigmentation), tomato (20: leaf/root/stem/flower/bud/fruit/apex/cotyledon),
+  arabidopsis (18: shoot/inflorescence/root/seedling). Predicted/shallow (subsampled);
+  the endpoint auto-selects by gene species.
 - **Predicted co-expression** — `POST /api/v1/coexpression`: Pearson on log2(TPM+1),
   labeled `Inferred:Expression`, undirected (not causal, not measured regulation).
   `tf_only` restricts partners to candidate TF regulators. Shown in the gene detail panel.
@@ -77,10 +78,10 @@ Last updated: 2026-07-26 · Baseline: backend 78 tests, frontend 5 tests, build 
 
 ## 2. Honest boundaries (what bounds rigor today)
 
-- **Expression covers petunia + tomato only, and is shallow** — subsampled panels
-  (29 + 20 samples); relative/co-expression signal, not absolute. Human/mouse/arabidopsis
-  still have no expression axis. (Tomato: only atlas genes whose PLAZA CDS version matches
-  get expression.)
+- **Expression covers the three plant species only, and is shallow** — subsampled panels
+  (petunia 29, tomato 20, arabidopsis 18); relative/co-expression signal, not absolute.
+  Human/mouse have no expression axis. (Tomato: only atlas genes whose PLAZA CDS version
+  matches get expression.)
 - **No dynamics** — the cascade/intervention view is a toy, not a quantitative model.
 - **Petunia edges are inferred** — hypotheses, not evidence; no measured petunia GRN.
 - **No accessibility (ATAC), PPI/complexes, or phenotype/QTL linkage.**
@@ -208,3 +209,14 @@ data-free item ships first, then the expression linchpin, then the rest.
   gene (leaf 48k vs root 52 TPM) co-expresses r≥0.93 with a coherent leaf/photosynthesis module.
   Next backlog options: arabidopsis expression; tree-based co-expression (GENIE3); human
   binding/pathways (ENSG→symbol map).
+- **2026-07-26** — Backlog: **arabidopsis expression** (completes the plant expression stack).
+  `fetch_arabidopsis_expression.py` (18-sample panel: vegetative shoot / inflorescence / root
+  / seedling) vs PLAZA ath CDS → `expression_arabidopsis.json.gz` (27,655 genes). No backend
+  changes needed — the multi-species machinery handled it. Verified: floral organ-identity
+  genes AP3/AG/AP1 are inflorescence-specific (0 TPM in vegetative shoot); AP3 co-expresses
+  with MYB21 + floral genes. **All three plant species now have expression + binding + pathways.**
+- **NEXT LOOP → Dahlia onboarding** (real data incoming from Alex/Zach; see
+  [memory] grn-atlas-dahlia-collaboration): make new-species onboarding turnkey.
+  (1) config-driven generic fetchers (seqctx/scan/expression), (2) generalize trait linkage
+  to any species (for Zach's ~400-cultivar GWAS), (3) `GET /api/v1/species` capability
+  registry, (4) docs/ONBOARDING_SPECIES.md runbook.
