@@ -332,7 +332,7 @@ def test_dsrna_design_mode(client):
     _inject_transcripts(client)
     r = client.post("/api/v1/dsrna", json={
         "target_gene_id": "GX", "species": "petunia",
-        "design_window": 20, "predict_effect": False}).json()
+        "design_window": 40, "predict_effect": False}).json()
     assert r["mode"] == "design" and r["design"]["target_gene"] == "GX"
     assert "sequence" in r["design"]
 
@@ -341,7 +341,7 @@ def test_dsrna_screen_gene_set(client):
     _inject_transcripts(client)
     r = client.post("/api/v1/dsrna/screen", json={
         "gene_ids": ["GX", "GY", "GZ"], "species": "petunia",
-        "design_window": 20, "predict_effect": False}).json()
+        "design_window": 40, "predict_effect": False}).json()
     assert r["available"] and r["n_genes"] == 3
     by = {d["gene_id"]: d for d in r["results"]}
     # GX and GY share a 21-mer -> each is an off-target of the other; GZ is clean
@@ -365,6 +365,30 @@ def test_http_exception_returns_json_status(client):
     # the custom HTTPException handler must return a real JSONResponse with the status
     r = client.post("/api/v1/perturb", json={"interventions": [{"gene_id": "NOPE", "action": "ko"}]})
     assert r.status_code == 404 and r.json()["error"]
+
+
+def test_dsrna_rejects_bad_sequence(client):
+    _inject_transcripts(client)
+    r = client.post("/api/v1/dsrna", json={"sequence": "ACGT XYZ 123", "species": "petunia"})
+    assert r.status_code == 400 and "non-nucleotide" in r.json()["error"]
+
+
+def test_dsrna_rejects_overlong_sequence(client):
+    _inject_transcripts(client)
+    r = client.post("/api/v1/dsrna", json={"sequence": "A" * 6000, "species": "petunia"})
+    assert r.status_code == 400 and "too long" in r.json()["error"]
+
+
+def test_dsrna_rejects_too_short(client):
+    _inject_transcripts(client)
+    r = client.post("/api/v1/dsrna", json={"sequence": "ACGT", "species": "petunia", "k": 21})
+    assert r.status_code == 400
+
+
+def test_dsrna_out_of_range_k(client):
+    # pydantic Field bounds -> 422
+    r = client.post("/api/v1/dsrna", json={"sequence": "ACGT" * 10, "species": "petunia", "k": 5})
+    assert r.status_code == 422
 
 
 def test_dsrna_no_transcripts_for_species(client):

@@ -10,7 +10,7 @@ from fastapi.responses import PlainTextResponse, JSONResponse
 import provenance
 import expression
 import rnai
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 from pathlib import Path as FilePath
@@ -1364,13 +1364,32 @@ async def coexpression(request: CoexpRequest):
 
 # ============= dsRNA / RNAi design + off-target analysis =============
 
+_MAX_DSRNA_LEN = 5000
+
+
+def clean_dsrna(seq: str, k: int) -> str:
+    """Sanitise + validate a pasted dsRNA: keep letters, uppercase, require A/C/G/T/N,
+    and bound the length. Raises HTTPException(400) on invalid input."""
+    s = "".join(seq.split()).upper()
+    if not s:
+        raise HTTPException(status_code=400, detail="Empty dsRNA sequence")
+    if not set(s) <= set("ACGTN"):
+        bad = "".join(sorted(set(s) - set("ACGTN")))[:10]
+        raise HTTPException(status_code=400, detail=f"dsRNA has non-nucleotide characters: {bad}")
+    if len(s) < k:
+        raise HTTPException(status_code=400, detail=f"dsRNA shorter than the siRNA size (k={k})")
+    if len(s) > _MAX_DSRNA_LEN:
+        raise HTTPException(status_code=400, detail=f"dsRNA too long (max {_MAX_DSRNA_LEN} bp)")
+    return s
+
+
 class DsRnaRequest(BaseModel):
     sequence: Optional[str] = None       # the dsRNA to test (analyze mode)
     target_gene_id: Optional[str] = None  # intended target (design mode if no sequence)
     species: Optional[str] = None
-    k: int = 21                          # siRNA length
-    max_off_targets: int = 50
-    design_window: int = 250
+    k: int = Field(21, ge=15, le=28)     # siRNA length
+    max_off_targets: int = Field(50, ge=1, le=500)
+    design_window: int = Field(250, ge=40, le=1000)
     predict_effect: bool = True          # summarise downstream effect of the silenced genes
 
 
@@ -1395,7 +1414,7 @@ async def dsrna_analysis(request: DsRnaRequest):
                 "note": f"no transcript store for {species} (add transcripts_{species}.fasta.gz)"}
 
     design = None
-    dsrna = request.sequence
+    dsrna = clean_dsrna(request.sequence, request.k) if request.sequence else None
     if not dsrna:
         if not request.target_gene_id:
             raise HTTPException(status_code=400, detail="provide a sequence or a target_gene_id")
@@ -1453,12 +1472,15 @@ async def dsrna_analysis(request: DsRnaRequest):
                     "the full downstream cascade."}
 
 
+_MAX_SCREEN_GENES = 300
+
+
 class DsRnaScreenRequest(BaseModel):
     gene_ids: Optional[List[str]] = None
     pathway_id: Optional[str] = None     # screen every gene in a pathway
     species: Optional[str] = None
-    k: int = 21
-    design_window: int = 250
+    k: int = Field(21, ge=15, le=28)
+    design_window: int = Field(250, ge=40, le=1000)
     predict_effect: bool = True
 
 
@@ -1480,6 +1502,9 @@ async def dsrna_screen(request: DsRnaScreenRequest):
     genes = list(dict.fromkeys(genes))
     if not genes:
         raise HTTPException(status_code=400, detail="provide gene_ids or a pathway_id")
+    if len(genes) > _MAX_SCREEN_GENES:
+        raise HTTPException(status_code=400,
+                            detail=f"too many genes to screen ({len(genes)}; max {_MAX_SCREEN_GENES})")
     if not species:
         species = _species_of(genes[0])
 
