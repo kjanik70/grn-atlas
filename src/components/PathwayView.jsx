@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { geneLabel } from '../utils/geneLabel';
 import PathwayGraph from './PathwayGraph';
 import '../styles/PathwayView.css';
 
@@ -193,7 +194,7 @@ export default function PathwayView({ gene, filters, onCyInit, onNodeAction, ini
                   <div className="suggestions">
                     {sourceSuggestions.map((sug) => (
                       <div key={sug.id} className="suggestion" onClick={() => handleSelectSource(sug)}>
-                        <span className="sug-symbol">{sug.symbol}</span>
+                        <span className="sug-symbol">{geneLabel(sug).label}</span>
                         <span className="species-badge">{sug.species}</span>
                         <span className="sug-name">{sug.name}</span>
                       </div>
@@ -226,7 +227,7 @@ export default function PathwayView({ gene, filters, onCyInit, onNodeAction, ini
                   <div className="suggestions">
                     {targetSuggestions.map((sug) => (
                       <div key={sug.id} className="suggestion" onClick={() => handleSelectTarget(sug.symbol)}>
-                        <span className="sug-symbol">{sug.symbol}</span>
+                        <span className="sug-symbol">{geneLabel(sug).label}</span>
                         <span className="species-badge">{sug.species}</span>
                         <span className="sug-name">{sug.name}</span>
                       </div>

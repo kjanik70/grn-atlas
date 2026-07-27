@@ -395,7 +395,7 @@ def test_perturb_unsigned_edge_is_unknown(client):
     r = client.post("/api/v1/perturb",
                     json={"interventions": [{"gene_id": "SlTF", "action": "ko"}],
                           "include_inferred": True}).json()
-    d = next(e for e in r["effects"] if e["symbol"] == "SlTGT")
+    d = next(e for e in r["effects"] if e["gene_id"] == "SlTGT")
     assert d["predicted_direction"] == "unknown"
 
 

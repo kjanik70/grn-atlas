@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { geneLabel } from '../utils/geneLabel';
 import { pathwayAPI } from '../services/apiService';
 import '../styles/InterventionDesigner.css';
 
@@ -95,7 +96,7 @@ export default function InterventionDesigner({ gene, networkData }) {
       <div className="designer-header">
         <div>
           <h2>Intervention Designer</h2>
-          <p>Design regulatory changes to modify {gene.symbol}'s phenotype</p>
+          <p>Design regulatory changes to modify {geneLabel(gene).label}'s phenotype</p>
         </div>
         {interventions.length > 0 && (
           <button className="download-button" onClick={downloadDesign}>

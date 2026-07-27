@@ -110,6 +110,8 @@ class GeneInteraction(BaseModel):
     source_databases: List[str]
     pmids: List[str] = []
     inferred: bool = False  # True when projected from another species' network
+    label_inferred: bool = False   # True when `symbol` is an inferred ortholog name
+    symbol_source: Optional[str] = None
 
 class NetworkData(BaseModel):
     gene: Gene
@@ -250,11 +252,17 @@ class GeneDatabase:
     def _row_to_interaction(row) -> GeneInteraction:
         sources = json.loads(row["sources"])
         pmids = json.loads(row["pmids"]) if "pmids" in row.keys() and row["pmids"] else []
+        keys = row.keys()
+        raw_syn = row["synonyms"] if "synonyms" in keys else None
+        syns = [s for s in raw_syn.split("; ") if s] if raw_syn else None
+        label, label_inf = friendly_label(row["symbol"], row["id"], syns)
         return GeneInteraction(
-            id=row["id"], symbol=row["symbol"], name=row["name"], species=row["species"],
+            id=row["id"], symbol=label, name=row["name"], species=row["species"],
             is_tf=bool(row["is_tf"]), confidence=row["confidence"],
             regulation_type=row["regulation_type"], source_databases=sources,
             pmids=pmids, inferred=any(s.startswith("Inferred") for s in sources),
+            label_inferred=label_inf,
+            symbol_source=row["symbol_source"] if "symbol_source" in keys else None,
         )
 
     def get_regulators(self, gene_id: str, min_confidence: float = 0.0,
@@ -396,7 +404,8 @@ async def find_paths(request: PathFindingRequest):
         current_id, current_path, regulations, confidences, edge_sources, path_visited = queue.pop(0)
 
         if current_id == target_gene.id:
-            path_genes = [PathGene(id=g.id, symbol=g.symbol, name=g.name) for g in current_path]
+            path_genes = [PathGene(id=g.id, symbol=(getattr(g, "label", None) or g.symbol), name=g.name)
+                          for g in current_path]
             paths.append(Path(
                 genes=path_genes,
                 regulation_types=regulations,

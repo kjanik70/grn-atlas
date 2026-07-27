@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { geneLabel } from '../utils/geneLabel';
 import '../styles/Toolbar.css';
 
 export default function Toolbar({ gene, stats, cyRef }) {
@@ -109,7 +110,7 @@ export default function Toolbar({ gene, stats, cyRef }) {
   return (
     <div className="toolbar">
       <div className="toolbar-gene-info">
-        <h2 className="gene-symbol">{gene.symbol}</h2>
+        <h2 className="gene-symbol">{geneLabel(gene).label}</h2>
         <span className="gene-name">{gene.name}</span>
       </div>
 

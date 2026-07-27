@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { geneLabel } from '../utils/geneLabel';
 import DataSourcesPanel from './DataSourcesPanel';
 import '../styles/Sidebar.css';
 
@@ -238,7 +239,7 @@ export default function Sidebar({ filters, onFilterChange, onGeneSearch, loading
                   onClick={() => handleSearch(gene)}
                 >
                   <div className="suggestion-main">
-                    <span className="suggestion-symbol">{gene.symbol}</span>
+                    <span className="suggestion-symbol">{geneLabel(gene).label}</span>
                     {gene.is_tf && <span className="tf-badge">TF</span>}
                     <span className="species-badge">{gene.species}</span>
                   </div>

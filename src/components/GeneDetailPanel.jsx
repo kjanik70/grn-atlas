@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { geneLabel } from '../utils/geneLabel';
 import ExpressionPanel from './ExpressionPanel';
 import '../styles/GeneDetailPanel.css';
 
@@ -56,7 +57,7 @@ export default function GeneDetailPanel({ gene, data, onDesignDsRna }) {
         <div className="info-grid">
           <div className="info-item">
             <label>Symbol</label>
-            <value className="value-primary">{gene.symbol}</value>
+            <value className="value-primary">{geneLabel(gene).label}</value>
           </div>
           
           <div className="info-item">
@@ -129,7 +130,7 @@ export default function GeneDetailPanel({ gene, data, onDesignDsRna }) {
         <button className="gs-export" style={{ marginTop: 'var(--space-sm)' }}
           onClick={onDesignDsRna}
           title="Design a specific dsRNA to silence this gene (RNAi)">
-          🧬 Design dsRNA for {gene.symbol}
+          🧬 Design dsRNA for {geneLabel(gene).label}
         </button>
       )}
 
