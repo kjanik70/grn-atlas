@@ -57,6 +57,8 @@ class Gene(BaseModel):
     # than a native symbol. Populated by friendly_label(); never fabricated.
     label: Optional[str] = None
     label_inferred: bool = False
+    # provenance when `symbol` is a curated real name (e.g. 'UniProt', 'UniProt:homology')
+    symbol_source: Optional[str] = None
 
     class Config:
         json_schema_extra = {
@@ -205,6 +207,7 @@ class GeneDatabase:
         raw_syn = row["synonyms"] if "synonyms" in keys else None
         syns = [s for s in raw_syn.split("; ") if s] if raw_syn else None
         label, inferred = friendly_label(row["symbol"], row["id"], syns)
+        sym_src = row["symbol_source"] if "symbol_source" in keys else None
         return Gene(
             id=row["id"],
             symbol=row["symbol"],
@@ -215,6 +218,7 @@ class GeneDatabase:
             synonyms=syns,
             label=label,
             label_inferred=inferred,
+            symbol_source=sym_src,
         )
 
     def search_genes(self, query: str, limit: int = 10, species: Optional[str] = None) -> List[Gene]:

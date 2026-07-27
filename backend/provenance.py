@@ -39,6 +39,11 @@ SOURCES = [
      "provides": "Plant gene coordinates, synteny, BHIF orthology, descriptions, GO (Arabidopsis, tomato, petunia)",
      "authors": "Van Bel et al.", "year": 2018, "journal": "Nucleic Acids Research", "volume": "46", "pages": "D1190",
      "doi": "10.1093/nar/gkx1002", "url": "https://bioinformatics.psb.ugent.be/plaza/"},
+    {"key": "uniprot", "name": "UniProt / Swiss-Prot", "version": "2024",
+     "provides": "Curated gene symbols for tomato (via EnsemblPlants xref) and petunia "
+                 "(P. hybrida, mapped to P. axillaris loci by homology)",
+     "authors": "The UniProt Consortium", "year": 2023, "journal": "Nucleic Acids Research",
+     "volume": "51", "pages": "D523", "doi": "10.1093/nar/gkac1052", "url": "https://www.uniprot.org/"},
     {"key": "plantreactome", "name": "Plant Reactome (Gramene)", "version": "current",
      "provides": "Curated pathway membership for enrichment (Arabidopsis, tomato)",
      "authors": "Naithani et al.", "year": 2020, "journal": "Nucleic Acids Research", "volume": "48", "pages": "D1093",

@@ -258,7 +258,8 @@ def build():
             species TEXT NOT NULL,
             is_tf INTEGER NOT NULL,
             gene_type TEXT,
-            synonyms TEXT          -- inferred names (e.g. Arabidopsis ortholog symbols); '; '-joined
+            synonyms TEXT,         -- inferred names (e.g. Arabidopsis ortholog symbols); '; '-joined
+            symbol_source TEXT     -- provenance when symbol is a curated real name (e.g. 'UniProt')
         );
         CREATE INDEX idx_genes_symbol ON genes(symbol COLLATE NOCASE);
         CREATE INDEX idx_genes_name ON genes(name COLLATE NOCASE);
@@ -569,6 +570,14 @@ def build():
         [(r["name"], r["gene_id"]) for r in reg_map],
     )
     n_curated = len(reg_map)
+
+    # Curated UniProt symbols (real gene names), only where no native symbol exists yet.
+    for p in sorted(DATA_DIR.glob("curated_symbols_*.json")):
+        sp = p.stem.replace("curated_symbols_", "")
+        curated = json.loads(p.read_text())
+        conn.executemany(
+            "UPDATE genes SET symbol = ?, symbol_source = ? WHERE id = ? AND species = ? AND symbol = id",
+            [(info["symbol"], info["source"], gid, sp) for gid, info in curated.items()])
 
     # GO annotations (optional; for enrichment analysis).
     go_data = {}

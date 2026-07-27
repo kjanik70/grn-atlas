@@ -167,6 +167,17 @@ data-free item ships first, then the expression linchpin, then the rest.
 - Older docs (START_HERE/PROJECT_SUMMARY etc.) predate recent features — consolidate.
 
 ## 5. Iteration Log
+
+- **2026-07-27** — Replaced inferred labels with **real curated symbols** where an authoritative
+  source exists. `fetch_curated_symbols.py`: tomato from UniProt Swiss-Prot via EnsemblPlants
+  Solyc xref (direct); petunia from UniProt *P. hybrida* reviewed proteins tblastn-mapped to
+  Peaxi162 loci at ≥90% identity (`UniProt:homology`). `load_curated_symbols.py` + build_db
+  durability promote them into `genes.symbol` only where no native symbol existed (AN2 etc.
+  preserved), recording a new `symbol_source` column. **155 loci now show real names**
+  (PHYB1, ACS2, CCOAOMT1…) instead of loci/inferred; surfaced via `symbol_source` +
+  `label_inferred=False`. UniProt added to provenance. +1 API test (94 backend). Arabidopsis
+  already mygene-annotated; dahlia will arrive with its own annotation.
+
 - **2026-07-26** — Established this roadmap + baseline (61 backend / 5 frontend green).
   Prior shipped: provenance/citations, cross-species conservation, motif enrichment.
 - **2026-07-26** — Shipped **#3 perturbation**: `/api/v1/perturb` signed-path propagation

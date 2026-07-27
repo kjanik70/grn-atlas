@@ -37,6 +37,8 @@ def _build_fixture(path):
     ]
     db.executemany("INSERT INTO genes (id,symbol,name,species,is_tf,gene_type,synonyms) "
                    "VALUES (?,?,?,?,?,?,?)", genes)
+    if "symbol_source" in [r[1] for r in db.execute("PRAGMA table_info(genes)")]:
+        db.execute("UPDATE genes SET symbol_source='UniProt' WHERE id='SlTF'")
     db.executemany("INSERT INTO interactions (source_id,target_id,regulation_type,confidence,sources,pmids) "
                    "VALUES (?,?,?,?,?,?)", [
         ("TF1", "TG1", "activation", 0.9, '["TRRUST"]', '["12345"]'),
@@ -104,6 +106,8 @@ def test_friendly_label_inferred_and_native(client):
     # human TF1: id IS the symbol -> label is the id, not inferred
     r3 = client.get("/api/v1/genes/search?q=TF1&species=human").json()["results"][0]
     assert r3["label"] == "TF1" and r3["label_inferred"] is False
+    # curated real symbol carries provenance
+    assert r2["symbol_source"] == "UniProt"
 
 
 def test_neighborhood_targets_and_pmids(client):
