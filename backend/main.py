@@ -5,7 +5,7 @@ Complete example implementation with all required endpoints
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import PlainTextResponse, JSONResponse
 
 import provenance
 import expression
@@ -1378,10 +1378,17 @@ async def dsrna_analysis(request: DsRnaRequest):
 
     # optional: predicted downstream effect of the silenced set (feeds the perturb model)
     effect = None
-    if request.predict_effect and result["silenced_genes"]:
+    # off-targets are scanned against the full transcriptome; only genes present in the
+    # network can be propagated, so filter before perturbation.
+    silenced = result["silenced_genes"][:10]
+    if silenced:
+        ph = ",".join("?" * len(silenced))
+        in_net = {r[0] for r in db.conn.execute(
+            f"SELECT id FROM genes WHERE id IN ({ph})", silenced)}
+        silenced = [g for g in silenced if g in in_net]
+    if request.predict_effect and silenced:
         pr = await perturb(PerturbRequest(
-            interventions=[PerturbInterv(gene_id=g, action="ko")
-                           for g in result["silenced_genes"][:10]], depth=3))
+            interventions=[PerturbInterv(gene_id=g, action="ko") for g in silenced], depth=3))
         effect = {"affected": pr["stats"]["affected"], "up": pr["stats"]["up"],
                   "down": pr["stats"]["down"], "unknown": pr["stats"]["unknown"],
                   "top": pr["effects"][:8]}
@@ -1716,10 +1723,8 @@ async def get_species_stats(species: str):
 
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request, exc):
-    return {
-        "error": exc.detail,
-        "status_code": exc.status_code
-    }
+    return JSONResponse(status_code=exc.status_code,
+                        content={"error": exc.detail, "status_code": exc.status_code})
 
 # ============= Startup Events =============
 

@@ -293,9 +293,10 @@ def _inject_transcripts(client):
     import rnai
     shared = "ACGTACGTACGTACGTACGTA"   # 21-mer shared by target + off-target
     rnai._cache["petunia"] = {
-        "GX": shared + "GGGGCCCCTTTTAAAAGGGGCCCC",   # target
-        "GY": "TTTT" + shared + "CCCC",              # off-target (shares the 21-mer)
+        "GX": shared + "GGGGCCCCTTTTAAAAGGGGCCCC",   # target (in network)
+        "GY": "TTTT" + shared + "CCCC",              # off-target (shares the 21-mer, in network)
         "GZ": "GC" * 60,                              # unrelated
+        "GHOST": "AA" + shared + "AA",               # off-target NOT in the genes table
     }
 
 
@@ -330,6 +331,24 @@ def test_dsrna_screen_gene_set(client):
     # GX and GY share a 21-mer -> each is an off-target of the other; GZ is clean
     assert by["GZ"]["designable"] is True
     assert by["GX"]["transcript_off_targets"] >= 1
+
+
+def test_dsrna_predict_effect_ignores_nonnetwork_offtargets(client):
+    # GHOST is an off-target in the transcriptome but not in the genes table; the
+    # predicted-effect perturbation must skip it rather than 500.
+    _inject_transcripts(client)
+    r = client.post("/api/v1/dsrna", json={
+        "sequence": "ACGTACGTACGTACGTACGTA", "target_gene_id": "GX",
+        "species": "petunia", "predict_effect": True})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["available"] and "GHOST" in body["silenced_genes"]
+
+
+def test_http_exception_returns_json_status(client):
+    # the custom HTTPException handler must return a real JSONResponse with the status
+    r = client.post("/api/v1/perturb", json={"interventions": [{"gene_id": "NOPE", "action": "ko"}]})
+    assert r.status_code == 404 and r.json()["error"]
 
 
 def test_dsrna_no_transcripts_for_species(client):
