@@ -8,11 +8,23 @@ export default function DsRnaPanel({ open, onClose }) {
   const [seq, setSeq] = useState('');
   const [target, setTarget] = useState('');
   const [species, setSpecies] = useState('petunia');
+  const [setText, setSetText] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [res, setRes] = useState(null);
+  const [screen, setScreen] = useState(null);
 
   if (!open) return null;
+
+  const runScreen = async () => {
+    const ids = setText.split(/[\s,]+/).map((t) => t.trim()).filter(Boolean);
+    if (ids.length < 1) { setError('Provide gene ids to screen.'); return; }
+    setLoading(true); setError(null); setScreen(null);
+    try {
+      const r = await analysisAPI.dsrnaScreen(ids, species);
+      if (r.available === false) setError(r.note); else setScreen(r);
+    } catch (e) { setError(e.message); } finally { setLoading(false); }
+  };
 
   const run = async () => {
     if (!seq.trim() && !target.trim()) { setError('Provide a dsRNA sequence or a target gene id.'); return; }
@@ -58,6 +70,38 @@ export default function DsRnaPanel({ open, onClose }) {
           {loading ? 'Analyzing…' : (seq.trim() ? 'Analyze dsRNA' : 'Design dsRNA')}
         </button>
         {error && <div className="gs-error">{error}</div>}
+
+        <div className="gs-section">
+          <h3>Screen a gene set / pathway</h3>
+          <p className="gs-hint">Rank genes by how cleanly a specific dsRNA can be designed (fewest off-targets).</p>
+          <textarea className="gs-input" rows={2} value={setText}
+            placeholder="gene ids to screen (e.g. anthocyanin pathway genes), space/comma separated"
+            onChange={(e) => setSetText(e.target.value)} />
+          <button className="gs-run" onClick={runScreen} disabled={loading}>
+            {loading ? 'Screening…' : 'Screen set'}
+          </button>
+          {screen && (
+            <>
+              <p className="gs-metrics">
+                {screen.designable}/{screen.n_genes} genes have a fully-specific window
+                {screen.predicted_effect && ` · silencing all → ↓${screen.predicted_effect.down} down`}
+              </p>
+              <table className="gs-table">
+                <thead><tr><th>Gene</th><th>best-window off</th><th>transcript off</th><th>mean TPM</th></tr></thead>
+                <tbody>
+                  {screen.results.map((r) => (
+                    <tr key={r.gene_id}>
+                      <td>{r.symbol}{r.designable && <span className="gs-cons-yes"> ✓</span>}</td>
+                      <td className="gs-num">{r.best_window_off_targets}</td>
+                      <td className="gs-num">{r.transcript_off_targets}</td>
+                      <td className="gs-num">{r.mean_tpm != null ? r.mean_tpm : '—'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
+        </div>
 
         {res && (
           <>

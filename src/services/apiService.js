@@ -163,6 +163,19 @@ export const analysisAPI = {
     return response.json();
   },
 
+  // Batch dsRNA-designability screen across a gene set (or a pathway).
+  dsrnaScreen: async (geneIds, species, options = {}) => {
+    const response = await fetch(`${API_BASE}/dsrna/screen`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        gene_ids: geneIds, pathway_id: options.pathwayId || null, species,
+        design_window: options.designWindow || 250,
+      }),
+    });
+    return response.json();
+  },
+
   traitEnrich: async (geneIds, species) => {
     const response = await fetch(`${API_BASE}/trait_enrichment`, {
       method: 'POST',

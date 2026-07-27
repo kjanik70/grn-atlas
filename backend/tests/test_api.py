@@ -320,6 +320,18 @@ def test_dsrna_design_mode(client):
     assert "sequence" in r["design"]
 
 
+def test_dsrna_screen_gene_set(client):
+    _inject_transcripts(client)
+    r = client.post("/api/v1/dsrna/screen", json={
+        "gene_ids": ["GX", "GY", "GZ"], "species": "petunia",
+        "design_window": 20, "predict_effect": False}).json()
+    assert r["available"] and r["n_genes"] == 3
+    by = {d["gene_id"]: d for d in r["results"]}
+    # GX and GY share a 21-mer -> each is an off-target of the other; GZ is clean
+    assert by["GZ"]["designable"] is True
+    assert by["GX"]["transcript_off_targets"] >= 1
+
+
 def test_dsrna_no_transcripts_for_species(client):
     import rnai
     rnai._cache["human"] = None

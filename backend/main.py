@@ -1393,6 +1393,66 @@ async def dsrna_analysis(request: DsRnaRequest):
                     "the full downstream cascade."}
 
 
+class DsRnaScreenRequest(BaseModel):
+    gene_ids: Optional[List[str]] = None
+    pathway_id: Optional[str] = None     # screen every gene in a pathway
+    species: Optional[str] = None
+    k: int = 21
+    design_window: int = 250
+    predict_effect: bool = True
+
+
+@app.post("/api/v1/dsrna/screen")
+async def dsrna_screen(request: DsRnaScreenRequest):
+    """Batch dsRNA-designability screen across a gene set or a whole pathway: for each
+    gene, the off-target burden of its most-specific window (one transcriptome pass),
+    ranked cleanest-first — so you can choose the best RNAi target(s) to alter a pathway.
+    Optionally reports the predicted downstream effect of silencing the whole set.
+    """
+    species = request.species
+    genes = list(request.gene_ids or [])
+    if request.pathway_id:
+        rows = db.conn.execute(
+            "SELECT a.gene_id FROM pathway_annotations a JOIN genes g ON g.id=a.gene_id "
+            "WHERE a.pathway_id=?" + ("" if not species else " AND g.species=?"),
+            (request.pathway_id, species) if species else (request.pathway_id,)).fetchall()
+        genes += [r["gene_id"] for r in rows]
+    genes = list(dict.fromkeys(genes))
+    if not genes:
+        raise HTTPException(status_code=400, detail="provide gene_ids or a pathway_id")
+    if not species:
+        species = _species_of(genes[0])
+
+    transcripts = rnai.get_transcripts(species, DATA_DIR)
+    if transcripts is None:
+        return {"species": species, "available": False, "results": [],
+                "note": f"no transcript store for {species}"}
+
+    ranked = rnai.screen(genes, transcripts, k=request.k, window=request.design_window)
+    meta = _gene_meta([r["gene_id"] for r in ranked])
+    emx = expression.get_matrix(species) if species in set(expression.species_with_expression()) else None
+    for r in ranked:
+        m = meta.get(r["gene_id"], {})
+        r["symbol"] = m.get("symbol", r["gene_id"])
+        prof = emx.profile(r["gene_id"]) if emx else None
+        r["mean_tpm"] = prof["mean_tpm"] if prof else None
+
+    effect = None
+    if request.predict_effect and ranked:
+        pr = await perturb(PerturbRequest(
+            interventions=[PerturbInterv(gene_id=r["gene_id"], action="ko") for r in ranked[:15]],
+            depth=3))
+        effect = {"affected": pr["stats"]["affected"], "up": pr["stats"]["up"],
+                  "down": pr["stats"]["down"], "unknown": pr["stats"]["unknown"],
+                  "top": pr["effects"][:8]}
+
+    return {"species": species, "available": True, "n_genes": len(ranked),
+            "designable": sum(1 for r in ranked if r["designable"]),
+            "results": ranked, "predicted_effect": effect,
+            "note": "Predicted dsRNA designability (fewest off-target genes in the best "
+                    "window). Verify a chosen gene with /dsrna design mode."}
+
+
 # ============= Organism overview =============
 
 @app.get("/api/v1/organism/{species}/overview")

@@ -138,6 +138,54 @@ def design(target_gene: str, transcripts: Dict[str, str], k: int = 21,
     return best
 
 
+def screen(target_genes: List[str], transcripts: Dict[str, str], k: int = 21,
+           window: int = 250, step: int = 25) -> List[dict]:
+    """Batch dsRNA-designability screen for a gene set (e.g. a whole pathway) in ONE
+    transcriptome pass. For each target gene, find its most-specific window and report
+    how many other genes it would hit — so you can pick the cleanest RNAi target(s).
+
+    Ranks genes by designability (fewest off-targets in the best window first).
+    """
+    targets = [g for g in dict.fromkeys(target_genes) if g in transcripts]
+    # union of all target k-mers -> which target(s) each belongs to (for reference)
+    tk_by_gene = {g: {w: i for i, w in kmers(transcripts[g], k)} for g in targets}
+    union = set()
+    for m in tk_by_gene.values():
+        union |= set(m)
+    # single pass: for each union k-mer, which genes contain it
+    genes_with: Dict[str, set] = {w: set() for w in union}
+    for gid, seq in transcripts.items():
+        for _, w in kmers(seq, k):
+            s = genes_with.get(w)
+            if s is not None:
+                s.add(gid)
+
+    out = []
+    for g in targets:
+        tseq = transcripts[g]
+        # off-target genes per k-mer of this target
+        off_by_pos = [(i, genes_with.get(w, set()) - {g}) for i, w in kmers(tseq, k)]
+        best = None
+        L = len(tseq)
+        win = min(window, L)
+        for start in range(0, max(1, L - win + 1), step):
+            hit = set()
+            for i, off in off_by_pos:
+                if start <= i < start + win:
+                    hit |= off
+            if best is None or len(hit) < best:
+                best = len(hit)
+        # also whole-transcript off-target burden
+        all_off = set()
+        for _, off in off_by_pos:
+            all_off |= off
+        out.append({"gene_id": g, "best_window_off_targets": best if best is not None else 0,
+                    "transcript_off_targets": len(all_off),
+                    "designable": (best == 0)})
+    out.sort(key=lambda d: (d["best_window_off_targets"], d["transcript_off_targets"]))
+    return out
+
+
 _cache: Dict[str, Optional[Dict[str, str]]] = {}
 
 

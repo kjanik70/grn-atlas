@@ -53,6 +53,22 @@ def test_design_prefers_specific_window():
     assert "sequence" in d and d["off_target_gene_count"] == 0
 
 
+def test_screen_ranks_by_designability():
+    shared = "ACGTACGTACGTACGTACGTA"
+    unique = "TTAGGCCTTAGGCCTTAGGCCTTAGGCC" * 4
+    tx = {
+        "CLEAN": unique,                 # no shared k-mers -> designable
+        "DIRTY": shared + "AAAACCCCGGGG",  # shares 21-mer with OTHER
+        "OTHER": "GG" + shared + "GG",
+    }
+    r = rnai.screen(["CLEAN", "DIRTY"], tx, k=21, window=25, step=5)
+    by = {d["gene_id"]: d for d in r}
+    assert by["CLEAN"]["designable"] is True
+    assert by["DIRTY"]["transcript_off_targets"] >= 1
+    # cleanest-first ordering
+    assert r[0]["gene_id"] == "CLEAN"
+
+
 def test_load_transcripts_gene_aggregation(tmp_path):
     import gzip
     fa = tmp_path / "transcripts_x.fasta.gz"

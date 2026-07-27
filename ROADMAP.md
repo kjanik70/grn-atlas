@@ -53,8 +53,11 @@ Last updated: 2026-07-26 · Baseline: backend 78 tests, frontend 5 tests, build 
   `silenced_genes` → `/perturb` for the predicted downstream phenotype, and annotates
   off-targets with tissue expression. Predicted, not measured (labelled). `🧬 dsRNA` panel.
   Verified: a designed 250 nt dsRNA vs petunia AN2 → 0 off-targets (specificity 100%),
-  230 on-target sites, → predicted anthocyanin-target down-regulation. Petunia now;
-  turnkey for any species with a `transcripts_<species>.fasta.gz` (dahlia-ready).
+  230 on-target sites, → predicted anthocyanin-target down-regulation.
+- **Batch pathway screen** — `POST /api/v1/dsrna/screen`: rank a gene set / Reactome pathway
+  by dsRNA-designability (fewest off-targets in the best window; one transcriptome pass) +
+  the combined-silencing predicted effect. Available for petunia, tomato, arabidopsis
+  (transcript stores committed); turnkey for any species with `transcripts_<species>.fasta.gz`.
 
 ### Perturbation prediction
 - **Predict downstream effects of a TF knockout/over-expression** — `POST /api/v1/perturb`
@@ -253,3 +256,8 @@ data-free item ships first, then the expression linchpin, then the rest.
   3 API) → 89 backend / 5 frontend. Verified: designed dsRNA vs AN2 is fully specific
   (0 off-targets) and predicts anthocyanin-target knockdown. Dahlia-ready (drop in its
   transcript store) — polyploid homeolog off-targets will surface once its transcriptome lands.
+- **2026-07-27** — Extended dsRNA to **tomato + arabidopsis** (committed transcript stores;
+  verified a tomato design is fully specific) and added **batch pathway screening**
+  (`/api/v1/dsrna/screen` + `rnai.screen`, one transcriptome pass, ranked by designability
+  + combined effect) with a screen mode in the 🧬 panel. +2 tests → 91 backend / 5 frontend.
+  Verified: petunia anthocyanin set (AN2/JAF13/AN1) all designable; silencing all → 14 down.
