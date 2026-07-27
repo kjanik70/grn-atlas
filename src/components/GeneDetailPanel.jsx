@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import ExpressionPanel from './ExpressionPanel';
 import '../styles/GeneDetailPanel.css';
 
-export default function GeneDetailPanel({ gene, data }) {
+export default function GeneDetailPanel({ gene, data, onDesignDsRna }) {
   const [expandedRegulators, setExpandedRegulators] = useState(false);
   const [expandedTargets, setExpandedTargets] = useState(false);
   const [sortBy, setSortBy] = useState('confidence');
@@ -124,6 +124,14 @@ export default function GeneDetailPanel({ gene, data }) {
           </div>
         </div>
       </div>
+
+      {onDesignDsRna && ['petunia', 'tomato', 'arabidopsis', 'dahlia'].includes(gene.species) && (
+        <button className="gs-export" style={{ marginTop: 'var(--space-sm)' }}
+          onClick={onDesignDsRna}
+          title="Design a specific dsRNA to silence this gene (RNAi)">
+          🧬 Design dsRNA for {gene.symbol}
+        </button>
+      )}
 
       <hr className="detail-divider" />
 

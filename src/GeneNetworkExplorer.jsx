@@ -103,6 +103,7 @@ export default function GeneNetworkExplorer() {
 
   const [showGeneSet, setShowGeneSet] = useState(false);
   const [showDsRna, setShowDsRna] = useState(false);
+  const [dsRnaTarget, setDsRnaTarget] = useState(null);
   const [collection, setCollection] = useState(null);
   const openCollection = useCallback((col) => {
     setCollection(col);
@@ -174,7 +175,7 @@ export default function GeneNetworkExplorer() {
               title="GO enrichment and network metrics for a gene set">
               📊 Analyze
             </button>
-            <button className="copy-link-btn" onClick={() => setShowDsRna(true)}
+            <button className="copy-link-btn" onClick={() => { setDsRnaTarget(null); setShowDsRna(true); }}
               title="Design a dsRNA / predict RNAi silencing + off-targets">
               🧬 dsRNA
             </button>
@@ -245,9 +246,10 @@ export default function GeneNetworkExplorer() {
                     onCyInit={handleCyInit}
                     onNodeAction={handleNodeAction}
                   />
-                  <GeneDetailPanel 
+                  <GeneDetailPanel
                     gene={selectedGene}
                     data={networkData}
+                    onDesignDsRna={() => { setDsRnaTarget(selectedGene); setShowDsRna(true); }}
                   />
                 </>
               )}
@@ -281,7 +283,8 @@ export default function GeneNetworkExplorer() {
         </div>
       </div>
 
-      <DsRnaPanel open={showDsRna} onClose={() => setShowDsRna(false)} />
+      <DsRnaPanel open={showDsRna} onClose={() => setShowDsRna(false)}
+        initialTarget={dsRnaTarget?.symbol} initialSpecies={dsRnaTarget?.species} />
 
       <GeneSetPanel
         open={showGeneSet}
