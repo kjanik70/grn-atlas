@@ -1,6 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { analysisAPI, geneAPI } from '../services/apiService';
+import GeneSearchInput from './GeneSearchInput';
 import '../styles/GeneSetPanel.css';
+
+// Transcript off-target map: shows the off-target density along the target transcript
+// and highlights the chosen (clean) dsRNA window.
+function TranscriptMap({ design }) {
+  const prof = design.offtarget_profile;
+  if (!prof || !design.transcript_length) return null;
+  const W = 460, H = 46, n = prof.length;
+  const max = Math.max(1, ...prof);
+  const bw = W / n;
+  const L = design.transcript_length;
+  const wx = (design.start / L) * W;
+  const ww = Math.max(2, ((design.end - design.start) / L) * W);
+  return (
+    <div className="txmap-wrap">
+      <svg width={W} height={H} role="img" aria-label="off-target density along transcript">
+        <rect className="txmap-track" x={0} y={H - 14} width={W} height={10} rx={2} />
+        {prof.map((v, i) => v > 0 && (
+          <rect key={i} className="txmap-bar" x={i * bw} y={(H - 18) * (1 - v / max)}
+            width={Math.max(1, bw - 0.5)} height={(H - 18) * (v / max)} />
+        ))}
+        <rect className="txmap-win" x={wx} y={0} width={ww} height={H - 2} rx={2} />
+      </svg>
+      <div className="txmap-legend">
+        Bars = off-target density along the {L} bp transcript; shaded band = the chosen
+        dsRNA window ({design.start}–{design.end} bp), placed where off-targets are fewest.
+      </div>
+    </div>
+  );
+}
 
 const EXAMPLES = {
   petunia: ['AN2', 'DFR', 'JAF13'],
@@ -103,10 +133,8 @@ export default function DsRnaPanel({ open, onClose, initialTarget, initialSpecie
             <option value="arabidopsis">arabidopsis</option>
             <option value="dahlia">dahlia</option>
           </select>
-          <input className="gs-input" style={{ width: 'auto', flex: 1 }}
-            placeholder="target gene — name or id (e.g. AN2)"
-            value={target} onChange={(e) => setTarget(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && run()} />
+          <GeneSearchInput species={species} value={target} onChange={setTarget}
+            placeholder="target gene — type a name (e.g. AN2)" style={{ flex: 1 }} />
         </div>
         {examples.length > 0 && (
           <p className="gs-hint">
@@ -138,6 +166,7 @@ export default function DsRnaPanel({ open, onClose, initialTarget, initialSpecie
               </p>
               {res.design && (
                 <>
+                  <TranscriptMap design={res.design} />
                   <button className="gs-export" onClick={copySeq}>{copied ? '✓ Copied' : '⧉ Copy sequence'}</button>
                   <textarea className="gs-input" rows={3} readOnly value={res.design.sequence}
                     title={`transcript window ${res.design.start}-${res.design.end}`} />

@@ -134,6 +134,18 @@ def design(target_gene: str, transcripts: Dict[str, str], k: int = 21,
                     "off_target_genes": sorted(hit)[:50]}
     best["target_gene"] = target_gene
     best["window"] = win
+    best["transcript_length"] = L
+    # off-target density along the transcript (how many other genes each k-mer hits),
+    # binned for a compact map that shows WHY the chosen window is clean.
+    n_bins = 120
+    bins = [0] * n_bins
+    span = max(1, L - k + 1)
+    for i, w in kmers(tseq, k):
+        b = min(n_bins - 1, i * n_bins // span)
+        c = len(off_by_kmer.get(w, ()))
+        if c > bins[b]:
+            bins[b] = c
+    best["offtarget_profile"] = bins
     best["note"] = "Predicted most-specific window (fewest off-target genes); verify with scan()."
     return best
 
