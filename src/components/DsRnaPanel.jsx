@@ -45,6 +45,11 @@ async function resolveGene(token, species) {
   return d.results && d.results[0] ? d.results[0] : null;
 }
 
+// gene label with an inferred-ortholog marker (° = not a native symbol)
+function GLabel({ symbol, inferred }) {
+  return <>{symbol}{inferred && <span className="gs-ns" title="inferred from ortholog — not a native symbol">°</span>}</>;
+}
+
 function Verdict({ offCount }) {
   if (offCount === 0) return <span className="gs-cons-yes">✓ Fully specific (no off-targets)</span>;
   return <span className="gs-cons-no">⚠ predicted to also hit {offCount} other gene{offCount === 1 ? '' : 's'}</span>;
@@ -182,7 +187,7 @@ export default function DsRnaPanel({ open, onClose, initialTarget, initialSpecie
                   <tbody>
                     {res.off_targets.map((o) => (
                       <tr key={o.gene_id}>
-                        <td>{o.symbol}{o.is_tf && <span className="gs-ns"> TF</span>}</td>
+                        <td><GLabel symbol={o.symbol} inferred={o.label_inferred} />{o.is_tf && <span className="gs-ns"> TF</span>}</td>
                         <td className="gs-num">{o.sites}</td>
                         <td className="gs-num">{o.mean_tpm != null ? o.mean_tpm : '—'}</td>
                       </tr>
@@ -242,7 +247,7 @@ export default function DsRnaPanel({ open, onClose, initialTarget, initialSpecie
                 <tbody>
                   {screen.results.map((r) => (
                     <tr key={r.gene_id}>
-                      <td>{r.symbol}{r.designable && <span className="gs-cons-yes"> ✓</span>}</td>
+                      <td><GLabel symbol={r.symbol} inferred={r.label_inferred} />{r.designable && <span className="gs-cons-yes"> ✓</span>}</td>
                       <td className="gs-num">{r.best_window_off_targets}</td>
                       <td className="gs-num">{r.transcript_off_targets}</td>
                       <td className="gs-num">{r.mean_tpm != null ? r.mean_tpm : '—'}</td>

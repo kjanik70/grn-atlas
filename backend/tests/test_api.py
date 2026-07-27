@@ -94,6 +94,18 @@ def test_search(client):
     assert r["results"][0]["id"] == "SlTF"
 
 
+def test_friendly_label_inferred_and_native(client):
+    # SlTGT has no native symbol (symbol==id) but synonym CHS -> inferred label
+    r = client.get("/api/v1/genes/search?q=CHS&species=tomato").json()["results"][0]
+    assert r["id"] == "SlTGT" and r["label"] == "CHS" and r["label_inferred"] is True
+    # SlTF has a native symbol MYB1 -> not inferred
+    r2 = client.get("/api/v1/genes/search?q=MYB1&species=tomato").json()["results"][0]
+    assert r2["label"] == "MYB1" and r2["label_inferred"] is False
+    # human TF1: id IS the symbol -> label is the id, not inferred
+    r3 = client.get("/api/v1/genes/search?q=TF1&species=human").json()["results"][0]
+    assert r3["label"] == "TF1" and r3["label_inferred"] is False
+
+
 def test_neighborhood_targets_and_pmids(client):
     r = client.post("/api/v1/pathways/neighborhood/TF1",
                     json={"direction": "targets", "regulation_type": ["activation", "repression"],

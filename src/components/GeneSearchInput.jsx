@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { geneAPI } from '../services/apiService';
+import { geneLabel } from '../utils/geneLabel';
 
 // Debounced gene autocomplete. Resolves symbols/synonyms/ids for a species.
 // value/onChange keep the raw text in the parent; onSelect(gene) fires on pick.
@@ -30,7 +31,7 @@ export default function GeneSearchInput({ value, onChange, onSelect, species, pl
   };
 
   const pick = (g) => {
-    onChange(g.symbol && g.symbol !== g.id ? g.symbol : g.id);
+    onChange(geneLabel(g).label);
     if (onSelect) onSelect(g);
     setOpen(false);
   };
@@ -54,14 +55,19 @@ export default function GeneSearchInput({ value, onChange, onSelect, species, pl
       />
       {open && (
         <ul className="gene-suggest">
-          {suggestions.map((g, i) => (
-            <li key={g.id} className={i === active ? 'active' : ''}
-                onMouseDown={() => pick(g)} onMouseEnter={() => setActive(i)}>
-              <strong>{g.symbol && g.symbol !== g.id ? g.symbol : g.id}</strong>
-              {g.is_tf && <span className="gs-ns"> TF</span>}
-              {g.name && <span className="gene-suggest-name"> — {g.name.slice(0, 48)}</span>}
-            </li>
-          ))}
+          {suggestions.map((g, i) => {
+            const gl = geneLabel(g);
+            return (
+              <li key={g.id} className={i === active ? 'active' : ''}
+                  onMouseDown={() => pick(g)} onMouseEnter={() => setActive(i)}>
+                <strong>{gl.label}</strong>
+                {gl.inferred && <span className="gs-ns" title="inferred from ortholog">°</span>}
+                {g.is_tf && <span className="gs-ns"> TF</span>}
+                {gl.label !== g.id && <span className="gene-suggest-name"> · {g.id}</span>}
+                {g.name && <span className="gene-suggest-name"> — {g.name.slice(0, 40)}</span>}
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

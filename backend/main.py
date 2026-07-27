@@ -53,7 +53,11 @@ class Gene(BaseModel):
     # Inferred alternative names (e.g. Arabidopsis ortholog symbols for
     # tomato/petunia). Approximate — surfaced separately from the real symbol.
     synonyms: Optional[List[str]] = None
-    
+    # Friendliest display label + whether it is an inferred (ortholog) name rather
+    # than a native symbol. Populated by friendly_label(); never fabricated.
+    label: Optional[str] = None
+    label_inferred: bool = False
+
     class Config:
         json_schema_extra = {
             "example": {
@@ -66,6 +70,32 @@ class Gene(BaseModel):
                 "gene_type": "protein_coding"
             }
         }
+
+def _rank_synonym(syns):
+    """Pick the most symbol-like synonym for display: prefer short, mostly-alphabetic
+    tokens (e.g. 'DFR' over 'BEN1'/'M318'/'TT3'). Returns None if none usable."""
+    best, best_key = None, None
+    for s in syns or []:
+        s = s.strip()
+        if not (2 <= len(s) <= 10):
+            continue
+        alpha = sum(c.isalpha() for c in s) / len(s)
+        key = (round(alpha, 2), -len(s))           # more alphabetic, then shorter
+        if best_key is None or key > best_key:
+            best, best_key = s, key
+    return best
+
+
+def friendly_label(symbol, gene_id, synonyms):
+    """(label, inferred). Native symbol if present; else the best inferred ortholog
+    synonym (flagged inferred); else the locus id. Never invents a symbol."""
+    if symbol and symbol != gene_id:
+        return symbol, False
+    best = _rank_synonym(synonyms)
+    if best:
+        return best, True
+    return symbol or gene_id, False
+
 
 class GeneInteraction(BaseModel):
     id: str
@@ -173,6 +203,8 @@ class GeneDatabase:
     def _row_to_gene(self, row) -> Gene:
         keys = row.keys()
         raw_syn = row["synonyms"] if "synonyms" in keys else None
+        syns = [s for s in raw_syn.split("; ") if s] if raw_syn else None
+        label, inferred = friendly_label(row["symbol"], row["id"], syns)
         return Gene(
             id=row["id"],
             symbol=row["symbol"],
@@ -180,7 +212,9 @@ class GeneDatabase:
             species=row["species"],
             is_tf=bool(row["is_tf"]),
             gene_type=row["gene_type"],
-            synonyms=[s for s in raw_syn.split("; ") if s] if raw_syn else None,
+            synonyms=syns,
+            label=label,
+            label_inferred=inferred,
         )
 
     def search_genes(self, query: str, limit: int = 10, species: Optional[str] = None) -> List[Gene]:
@@ -1245,13 +1279,17 @@ class CoexpRequest(BaseModel):
 
 
 def _gene_meta(gene_ids):
-    """symbol + is_tf for a list of gene ids, in one query."""
+    """friendly label + symbol + is_tf for a list of gene ids, in one query."""
     if not gene_ids:
         return {}
     ph = ",".join("?" * len(gene_ids))
-    return {r["id"]: {"symbol": r["symbol"], "is_tf": bool(r["is_tf"])}
-            for r in db.conn.execute(
-                f"SELECT id, symbol, is_tf FROM genes WHERE id IN ({ph})", list(gene_ids))}
+    out = {}
+    for r in db.conn.execute(
+            f"SELECT id, symbol, is_tf, synonyms FROM genes WHERE id IN ({ph})", list(gene_ids)):
+        syns = [s for s in (r["synonyms"] or "").split("; ") if s]
+        label, inferred = friendly_label(r["symbol"], r["id"], syns)
+        out[r["id"]] = {"symbol": label, "is_tf": bool(r["is_tf"]), "label_inferred": inferred}
+    return out
 
 
 def _species_of(gene_id: str) -> Optional[str]:
@@ -1365,6 +1403,7 @@ async def dsrna_analysis(request: DsRnaRequest):
         m = meta.get(o["gene_id"], {})
         o["symbol"] = m.get("symbol", o["gene_id"])
         o["is_tf"] = m.get("is_tf", False)
+        o["label_inferred"] = m.get("label_inferred", False)
         prof = emx.profile(o["gene_id"]) if emx else None
         o["mean_tpm"] = prof["mean_tpm"] if prof else None
     result["off_targets"] = shown
@@ -1373,6 +1412,7 @@ async def dsrna_analysis(request: DsRnaRequest):
         tm = meta.get(request.target_gene_id, {})
         tprof = emx.profile(request.target_gene_id) if emx else None
         result["on_target"] = {"gene_id": request.target_gene_id, "symbol": tm.get("symbol"),
+                               "label_inferred": tm.get("label_inferred", False),
                                "sites": result["on_target_sites"],
                                "mean_tpm": tprof["mean_tpm"] if tprof else None}
 
@@ -1441,6 +1481,7 @@ async def dsrna_screen(request: DsRnaScreenRequest):
     for r in ranked:
         m = meta.get(r["gene_id"], {})
         r["symbol"] = m.get("symbol", r["gene_id"])
+        r["label_inferred"] = m.get("label_inferred", False)
         prof = emx.profile(r["gene_id"]) if emx else None
         r["mean_tpm"] = prof["mean_tpm"] if prof else None
 
