@@ -22,6 +22,25 @@ from typing import Dict, List, Optional
 _COMP = str.maketrans("ACGTacgt", "TGCAtgca")
 
 
+MAX_DSRNA_LEN = 5000
+
+
+def validate_dsrna(seq: str, k: int, max_len: int = MAX_DSRNA_LEN) -> str:
+    """Sanitise + validate a pasted dsRNA (pure: raises ValueError, no HTTP coupling).
+    Keeps letters, uppercases, requires A/C/G/T/N, bounds length."""
+    s = "".join(seq.split()).upper()
+    if not s:
+        raise ValueError("Empty dsRNA sequence")
+    bad = set(s) - set("ACGTN")
+    if bad:
+        raise ValueError(f"dsRNA has non-nucleotide characters: {''.join(sorted(bad))[:10]}")
+    if len(s) < k:
+        raise ValueError(f"dsRNA shorter than the siRNA size (k={k})")
+    if len(s) > max_len:
+        raise ValueError(f"dsRNA too long (max {max_len} bp)")
+    return s
+
+
 def revcomp(seq: str) -> str:
     return seq.translate(_COMP)[::-1]
 

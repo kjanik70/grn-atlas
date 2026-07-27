@@ -73,30 +73,7 @@ class Gene(BaseModel):
             }
         }
 
-def _rank_synonym(syns):
-    """Pick the most symbol-like synonym for display: prefer short, mostly-alphabetic
-    tokens (e.g. 'DFR' over 'BEN1'/'M318'/'TT3'). Returns None if none usable."""
-    best, best_key = None, None
-    for s in syns or []:
-        s = s.strip()
-        if not (2 <= len(s) <= 10):
-            continue
-        alpha = sum(c.isalpha() for c in s) / len(s)
-        key = (round(alpha, 2), -len(s))           # more alphabetic, then shorter
-        if best_key is None or key > best_key:
-            best, best_key = s, key
-    return best
-
-
-def friendly_label(symbol, gene_id, synonyms):
-    """(label, inferred). Native symbol if present; else the best inferred ortholog
-    synonym (flagged inferred); else the locus id. Never invents a symbol."""
-    if symbol and symbol != gene_id:
-        return symbol, False
-    best = _rank_synonym(synonyms)
-    if best:
-        return best, True
-    return symbol or gene_id, False
+from genelabels import friendly_label  # noqa: E402  (pure, unit-tested separately)
 
 
 class GeneInteraction(BaseModel):
@@ -1364,23 +1341,12 @@ async def coexpression(request: CoexpRequest):
 
 # ============= dsRNA / RNAi design + off-target analysis =============
 
-_MAX_DSRNA_LEN = 5000
-
-
 def clean_dsrna(seq: str, k: int) -> str:
-    """Sanitise + validate a pasted dsRNA: keep letters, uppercase, require A/C/G/T/N,
-    and bound the length. Raises HTTPException(400) on invalid input."""
-    s = "".join(seq.split()).upper()
-    if not s:
-        raise HTTPException(status_code=400, detail="Empty dsRNA sequence")
-    if not set(s) <= set("ACGTN"):
-        bad = "".join(sorted(set(s) - set("ACGTN")))[:10]
-        raise HTTPException(status_code=400, detail=f"dsRNA has non-nucleotide characters: {bad}")
-    if len(s) < k:
-        raise HTTPException(status_code=400, detail=f"dsRNA shorter than the siRNA size (k={k})")
-    if len(s) > _MAX_DSRNA_LEN:
-        raise HTTPException(status_code=400, detail=f"dsRNA too long (max {_MAX_DSRNA_LEN} bp)")
-    return s
+    """Validate a pasted dsRNA via rnai.validate_dsrna; surface errors as HTTP 400."""
+    try:
+        return rnai.validate_dsrna(seq, k)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 class DsRnaRequest(BaseModel):

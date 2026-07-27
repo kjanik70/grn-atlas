@@ -10,6 +10,22 @@ def test_revcomp():
     assert rnai.revcomp("AAAACGT") == "ACGTTTT"
 
 
+def test_validate_dsrna_cleans_and_uppercases():
+    assert rnai.validate_dsrna("acgt\n acgt", k=4) == "ACGTACGT"
+
+
+def test_validate_dsrna_rejects_bad_and_bounds():
+    import pytest
+    with pytest.raises(ValueError):
+        rnai.validate_dsrna("ACGTX", k=4)            # non-nucleotide
+    with pytest.raises(ValueError):
+        rnai.validate_dsrna("ACGT", k=21)            # shorter than k
+    with pytest.raises(ValueError):
+        rnai.validate_dsrna("A" * 6000, k=21)        # too long
+    with pytest.raises(ValueError):
+        rnai.validate_dsrna("   ", k=4)              # empty after cleaning
+
+
 def test_query_kmers_both_strands():
     s = "A" * 21
     qk = rnai.query_kmers(s, k=21)
