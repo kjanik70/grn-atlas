@@ -46,6 +46,16 @@ Last updated: 2026-07-26 · Baseline: backend 78 tests, frontend 5 tests, build 
   genes (PI/AP3); 3 of AN2's 18 network targets are independently co-expressed —
   expression corroborating a subset of projected edges.
 
+### dsRNA / RNAi design (in-silico gene silencing)
+- **Design a dsRNA or predict its silencing** — `POST /api/v1/dsrna`: analyze mode (given a
+  dsRNA → on-target coverage + ranked off-target genes + specificity, both strands, exact
+  siRNA k-mer match) or design mode (given a target gene → most-specific window). Chains
+  `silenced_genes` → `/perturb` for the predicted downstream phenotype, and annotates
+  off-targets with tissue expression. Predicted, not measured (labelled). `🧬 dsRNA` panel.
+  Verified: a designed 250 nt dsRNA vs petunia AN2 → 0 off-targets (specificity 100%),
+  230 on-target sites, → predicted anthocyanin-target down-regulation. Petunia now;
+  turnkey for any species with a `transcripts_<species>.fasta.gz` (dahlia-ready).
+
 ### Perturbation prediction
 - **Predict downstream effects of a TF knockout/over-expression** — `POST /api/v1/perturb`
   propagates signs along the network (activation +1 / repression −1 × intervention sign),
@@ -235,3 +245,11 @@ data-free item ships first, then the expression linchpin, then the rest.
   Cleanup: removed dead unimported `backend/app/` scaffold; standardized tomato motif caches
   to `_tomato` suffix; repointed `test_science.py` to the generic modules. 80 backend / 5
   frontend green. Adding Dahlia is now: config entry + drop-in refs + run the generic scripts.
+- **2026-07-27** — Shipped **dsRNA / RNAi design + off-target analysis** (for spraying dsRNA
+  on petunia/dahlia). New `rnai.py` (pure: dice→siRNA k-mers both strands, transcriptome
+  scan, specificity, design-window search) + committed `transcripts_petunia.fasta.gz` store;
+  `POST /api/v1/dsrna` (analyze + design), chaining silenced genes → `/perturb` and
+  annotating off-targets with expression; `🧬 dsRNA` frontend panel. +9 tests (6 unit,
+  3 API) → 89 backend / 5 frontend. Verified: designed dsRNA vs AN2 is fully specific
+  (0 off-targets) and predicts anthocyanin-target knockdown. Dahlia-ready (drop in its
+  transcript store) — polyploid homeolog off-targets will surface once its transcriptome lands.

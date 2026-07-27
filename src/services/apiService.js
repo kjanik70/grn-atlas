@@ -148,6 +148,21 @@ export const analysisAPI = {
     return response.json();
   },
 
+  // Predicted dsRNA/RNAi silencing: analyze (sequence) or design (target gene).
+  dsrna: async (options = {}) => {
+    const response = await fetch(`${API_BASE}/dsrna`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sequence: options.sequence || null,
+        target_gene_id: options.targetGeneId || null,
+        species: options.species || null,
+        design_window: options.designWindow || 250,
+      }),
+    });
+    return response.json();
+  },
+
   traitEnrich: async (geneIds, species) => {
     const response = await fetch(`${API_BASE}/trait_enrichment`, {
       method: 'POST',

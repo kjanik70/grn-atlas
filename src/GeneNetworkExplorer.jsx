@@ -7,6 +7,7 @@ import GeneDetailPanel from './components/GeneDetailPanel';
 import ComparisonView from './components/ComparisonView';
 import GenomeComparisonView from './components/GenomeComparisonView';
 import GeneSetPanel from './components/GeneSetPanel';
+import DsRnaPanel from './components/DsRnaPanel';
 import OrganismView from './components/OrganismView';
 import { COLLECTIONS } from './collections';
 import InterventionDesigner from './components/InterventionDesigner';
@@ -101,6 +102,7 @@ export default function GeneNetworkExplorer() {
   }, [selectedGene, viewMode, filters]);
 
   const [showGeneSet, setShowGeneSet] = useState(false);
+  const [showDsRna, setShowDsRna] = useState(false);
   const [collection, setCollection] = useState(null);
   const openCollection = useCallback((col) => {
     setCollection(col);
@@ -171,6 +173,10 @@ export default function GeneNetworkExplorer() {
             <button className="copy-link-btn" onClick={() => setShowGeneSet(true)}
               title="GO enrichment and network metrics for a gene set">
               📊 Analyze
+            </button>
+            <button className="copy-link-btn" onClick={() => setShowDsRna(true)}
+              title="Design a dsRNA / predict RNAi silencing + off-targets">
+              🧬 dsRNA
             </button>
             <button className="copy-link-btn" onClick={copyLink} title="Copy a shareable link to this view">
               {linkCopied ? '✓ Copied' : '🔗 Copy link'}
@@ -274,6 +280,8 @@ export default function GeneNetworkExplorer() {
           )}
         </div>
       </div>
+
+      <DsRnaPanel open={showDsRna} onClose={() => setShowDsRna(false)} />
 
       <GeneSetPanel
         open={showGeneSet}

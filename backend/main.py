@@ -9,6 +9,7 @@ from fastapi.responses import PlainTextResponse
 
 import provenance
 import expression
+import rnai
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime
@@ -155,6 +156,7 @@ class NeighborhoodRequest(BaseModel):
 # and backend/scripts/fetch_gene_names.py. No network access at runtime.
 
 DB_PATH = FilePath(os.environ.get("GRN_DB") or (FilePath(__file__).parent / "data" / "grn.sqlite3"))
+DATA_DIR = DB_PATH.parent
 
 
 class GeneDatabase:
@@ -1307,6 +1309,88 @@ async def coexpression(request: CoexpRequest):
     return {"gene_id": request.gene_id, "available": True,
             "n_samples": mx.n, "results": hits,
             "note": "Predicted co-expression (undirected), not measured regulation."}
+
+
+# ============= dsRNA / RNAi design + off-target analysis =============
+
+class DsRnaRequest(BaseModel):
+    sequence: Optional[str] = None       # the dsRNA to test (analyze mode)
+    target_gene_id: Optional[str] = None  # intended target (design mode if no sequence)
+    species: Optional[str] = None
+    k: int = 21                          # siRNA length
+    max_off_targets: int = 50
+    design_window: int = 250
+    predict_effect: bool = True          # summarise downstream effect of the silenced genes
+
+
+@app.post("/api/v1/dsrna")
+async def dsrna_analysis(request: DsRnaRequest):
+    """Predict which genes a dsRNA would silence (on-target + off-target) and, in
+    design mode, propose the most specific dsRNA window for a target gene.
+
+    PREDICTED, NOT MEASURED: exact k-mer (siRNA) matching is a specificity heuristic;
+    real RNAi knockdown also depends on dicing, delivery/SIGS uptake, target
+    accessibility, and plant transitivity/amplification (not modelled).
+    """
+    species = request.species
+    if not species and request.target_gene_id:
+        species = _species_of(request.target_gene_id)
+    if not species:
+        raise HTTPException(status_code=400, detail="species (or a target_gene_id) required")
+
+    transcripts = rnai.get_transcripts(species, DATA_DIR)
+    if transcripts is None:
+        return {"species": species, "available": False,
+                "note": f"no transcript store for {species} (add transcripts_{species}.fasta.gz)"}
+
+    design = None
+    dsrna = request.sequence
+    if not dsrna:
+        if not request.target_gene_id:
+            raise HTTPException(status_code=400, detail="provide a sequence or a target_gene_id")
+        design = rnai.design(request.target_gene_id, transcripts, k=request.k,
+                             window=request.design_window)
+        if "error" in design:
+            raise HTTPException(status_code=404, detail=design["error"])
+        dsrna = design["sequence"]
+
+    result = rnai.scan(dsrna, transcripts, k=request.k, target_gene=request.target_gene_id)
+
+    # annotate genes with symbol + tissue expression context
+    shown = result["off_targets"][:request.max_off_targets]
+    ids = [g for g in [request.target_gene_id] if g] + [o["gene_id"] for o in shown]
+    meta = _gene_meta(ids)
+    emx = expression.get_matrix(species) if species in set(expression.species_with_expression()) else None
+    for o in shown:
+        m = meta.get(o["gene_id"], {})
+        o["symbol"] = m.get("symbol", o["gene_id"])
+        o["is_tf"] = m.get("is_tf", False)
+        prof = emx.profile(o["gene_id"]) if emx else None
+        o["mean_tpm"] = prof["mean_tpm"] if prof else None
+    result["off_targets"] = shown
+
+    if request.target_gene_id:
+        tm = meta.get(request.target_gene_id, {})
+        tprof = emx.profile(request.target_gene_id) if emx else None
+        result["on_target"] = {"gene_id": request.target_gene_id, "symbol": tm.get("symbol"),
+                               "sites": result["on_target_sites"],
+                               "mean_tpm": tprof["mean_tpm"] if tprof else None}
+
+    # optional: predicted downstream effect of the silenced set (feeds the perturb model)
+    effect = None
+    if request.predict_effect and result["silenced_genes"]:
+        pr = await perturb(PerturbRequest(
+            interventions=[PerturbInterv(gene_id=g, action="ko")
+                           for g in result["silenced_genes"][:10]], depth=3))
+        effect = {"affected": pr["stats"]["affected"], "up": pr["stats"]["up"],
+                  "down": pr["stats"]["down"], "unknown": pr["stats"]["unknown"],
+                  "top": pr["effects"][:8]}
+
+    return {"species": species, "available": True, "mode": "design" if design else "analyze",
+            "design": design, "predicted_effect": effect, **result,
+            "note": "Predicted silencing from exact siRNA k-mer matches (both strands); "
+                    "not a guarantee of knockdown. Feed 'silenced_genes' to /perturb for "
+                    "the full downstream cascade."}
 
 
 # ============= Organism overview =============

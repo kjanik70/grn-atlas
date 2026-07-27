@@ -289,6 +289,44 @@ def test_species_capabilities(client):
     assert by["human"]["layers"]["network"]["measured_edges"] > 0
 
 
+def _inject_transcripts(client):
+    import rnai
+    shared = "ACGTACGTACGTACGTACGTA"   # 21-mer shared by target + off-target
+    rnai._cache["petunia"] = {
+        "GX": shared + "GGGGCCCCTTTTAAAAGGGGCCCC",   # target
+        "GY": "TTTT" + shared + "CCCC",              # off-target (shares the 21-mer)
+        "GZ": "GC" * 60,                              # unrelated
+    }
+
+
+def test_dsrna_analyze_on_and_off_target(client):
+    _inject_transcripts(client)
+    r = client.post("/api/v1/dsrna", json={
+        "sequence": "ACGTACGTACGTACGTACGTA", "target_gene_id": "GX",
+        "species": "petunia", "predict_effect": False}).json()
+    assert r["available"] and r["mode"] == "analyze"
+    assert r["on_target_sites"] >= 1
+    offs = {o["gene_id"] for o in r["off_targets"]}
+    assert "GY" in offs and "GZ" not in offs
+    assert "GX" in r["silenced_genes"] and "GY" in r["silenced_genes"]
+
+
+def test_dsrna_design_mode(client):
+    _inject_transcripts(client)
+    r = client.post("/api/v1/dsrna", json={
+        "target_gene_id": "GX", "species": "petunia",
+        "design_window": 20, "predict_effect": False}).json()
+    assert r["mode"] == "design" and r["design"]["target_gene"] == "GX"
+    assert "sequence" in r["design"]
+
+
+def test_dsrna_no_transcripts_for_species(client):
+    import rnai
+    rnai._cache["human"] = None
+    r = client.post("/api/v1/dsrna", json={"sequence": "ACGT" * 6, "species": "human"}).json()
+    assert r["available"] is False and "note" in r
+
+
 def test_perturb_signed_propagation(client):
     # TF1 -| TG2 (repression): knocking out TF1 should de-repress TG2 -> up.
     r = client.post("/api/v1/perturb",

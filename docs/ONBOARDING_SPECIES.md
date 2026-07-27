@@ -52,6 +52,13 @@ the remaining onboarding steps.
    Gene ids must match atlas ids for the species; non-matching rows are skipped and
    reported. `/trait_enrichment` then works for that species automatically.
 
+7. **dsRNA / RNAi silencing** (needs a transcript store): drop the species' CDS/transcript
+   FASTA at `backend/data/transcripts_<species>.fasta.gz` (headers start with a transcript
+   id). `POST /api/v1/dsrna` then works for that species — analyze a dsRNA (on-/off-target)
+   or design the most specific window for a target gene; `silenced_genes` feeds `/perturb`.
+   For polyploids (e.g. Dahlia) this is the key specificity check: include all homeolog
+   transcripts so off-target/homeolog coverage is visible.
+
 ## Dahlia specifics (fill in when data lands)
 - Genome/annotation: from the G3 paper / NCBI BioProject (bioRxiv link pending from Alex).
 - Expression: the paper's RNA-seq on SRA → step 3.
