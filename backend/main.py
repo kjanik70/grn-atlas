@@ -1066,6 +1066,88 @@ async def pathway_enrichment(request: EnrichmentRequest):
             "results": results[:request.max_terms]}
 
 
+_trait_index: Dict[str, Any] = {}
+
+
+def _trait_index_for(species: str):
+    """(N annotated genes, trait_k background, gene_traits) — GWAS trait associations."""
+    if species not in _trait_index:
+        gene_traits: Dict[str, set] = {}
+        trait_k: Dict[str, int] = defaultdict(int)
+        try:
+            rows = db.conn.execute(
+                "SELECT a.gene_id, a.trait FROM trait_associations a "
+                "JOIN genes g ON g.id = a.gene_id WHERE g.species = ?", (species,)).fetchall()
+        except sqlite3.OperationalError:
+            rows = []
+        for gid, trait in rows:
+            gene_traits.setdefault(gid, set()).add(trait)
+        for traits in gene_traits.values():
+            for t in traits:
+                trait_k[t] += 1
+        _trait_index[species] = (len(gene_traits), dict(trait_k), gene_traits)
+    return _trait_index[species]
+
+
+@app.get("/api/v1/traits/{gene_id}")
+async def gene_traits(gene_id: str):
+    """GWAS Catalog trait associations for a gene (statistical, not mechanistic)."""
+    try:
+        rows = db.conn.execute(
+            "SELECT trait, pubmed_id, source FROM trait_associations WHERE gene_id = ? "
+            "ORDER BY trait", (gene_id,)).fetchall()
+    except sqlite3.OperationalError:
+        rows = []
+    return {"gene_id": gene_id,
+            "traits": [{"trait": r["trait"], "pubmed_id": r["pubmed_id"], "source": r["source"]}
+                       for r in rows],
+            "note": "GWAS associations (SNP→mapped gene→trait), not mechanistic regulation."}
+
+
+@app.post("/api/v1/trait_enrichment")
+async def trait_enrichment(request: EnrichmentRequest):
+    """GWAS trait over-representation for a gene set (hypergeometric + BH FDR).
+
+    Answers "which phenotypes are this set / this regulon's targets enriched for".
+    Human only (GWAS Catalog); returns [] + note otherwise.
+    """
+    ids = list(dict.fromkeys(request.gene_ids))
+    species = request.species
+    if not species and ids:
+        row = db.conn.execute("SELECT species FROM genes WHERE id = ?", (ids[0],)).fetchone()
+        species = row["species"] if row else None
+
+    N, trait_k, gene_traits = _trait_index_for(species)
+    if N == 0:
+        return {"species": species, "background": 0, "study": 0, "results": [],
+                "note": "trait associations available for human only"}
+
+    study = [g for g in ids if g in gene_traits]
+    n = len(study)
+    study_k: Dict[str, int] = defaultdict(int)
+    for g in study:
+        for t in gene_traits[g]:
+            study_k[t] += 1
+
+    tested = []
+    for trait, k in study_k.items():
+        if k < request.min_genes:
+            continue
+        tested.append((trait, k, trait_k.get(trait, 0), _hypergeom_sf(k, n, trait_k.get(trait, 0), N)))
+    tested.sort(key=lambda x: x[3])
+    m = len(tested)
+    results, prev_q = [], 1.0
+    for rank in range(m - 1, -1, -1):
+        trait, k, K, p = tested[rank]
+        q = min(prev_q, p * m / (rank + 1))
+        prev_q = q
+        results.append({"trait": trait, "study_count": k, "background_count": K,
+                        "p_value": p, "q_value": q})
+    results.sort(key=lambda r: r["p_value"])
+    return {"species": species, "background": N, "study": n,
+            "results": results[:request.max_terms]}
+
+
 # ---- Motif enrichment: which TFs' predicted binding sites are over-represented
 # in a gene set's promoters, vs the scanned-promoter background ----
 

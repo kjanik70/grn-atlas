@@ -77,6 +77,10 @@ SEQCTX_FILES = {
         "pathway_annotations",
         ["gene_id", "pathway_id"],
     ),
+    "trait_associations": (
+        "trait_associations",
+        ["gene_id", "trait", "pubmed_id"],
+    ),
 }
 
 
@@ -380,6 +384,15 @@ def build():
             PRIMARY KEY (gene_id, pathway_id)
         );
         CREATE INDEX idx_pathway_anno_gene ON pathway_annotations(gene_id);
+
+        CREATE TABLE trait_associations (
+            gene_id   TEXT NOT NULL,
+            trait     TEXT NOT NULL,
+            pubmed_id TEXT,
+            source    TEXT NOT NULL DEFAULT 'GWAS Catalog',
+            PRIMARY KEY (gene_id, trait)
+        );
+        CREATE INDEX idx_trait_gene ON trait_associations(gene_id);
     """)
 
     # Insert human genes

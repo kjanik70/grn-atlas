@@ -6,7 +6,7 @@
 > Iteration Log. The working loop is: _build → test → document here → find gaps →
 > plan → repeat._
 
-Last updated: 2026-07-26 · Baseline: backend 74 tests, frontend 5 tests, build clean.
+Last updated: 2026-07-26 · Baseline: backend 77 tests, frontend 5 tests, build clean.
 
 ---
 
@@ -23,6 +23,10 @@ Last updated: 2026-07-26 · Baseline: backend 74 tests, frontend 5 tests, build 
 - **Functional theme of a set** — GO enrichment (hypergeometric + BH FDR).
 - **Pathway membership of a set** — Reactome pathway enrichment (`/api/v1/pathway_enrichment`),
   Plant Reactome for arabidopsis + tomato; same hypergeometric+BH machinery. In the gene-set panel.
+- **Phenotype/trait linkage (human)** — GWAS Catalog associations: per-gene traits
+  (`/api/v1/traits/{id}`) and trait enrichment for a gene set / regulon
+  (`/api/v1/trait_enrichment`). Statistical (SNP→mapped gene→trait), not mechanistic.
+  Verified: SP1's targets enrich for Alzheimer's disease (q=0.043) + HDL/lipid traits.
 - **Which TFs drive a set** — motif enrichment over the scanned-promoter background,
   now for tomato, petunia, and **arabidopsis** (e.g. AN2 top-enriched in petunia
   flavonoid promoters q=4e-5; BPC1 targets enrich the BPC1 motif in arabidopsis q=1.9e-83).
@@ -134,8 +138,9 @@ data-free item ships first, then the expression linchpin, then the rest.
   Follow-ups: extend expression to tomato/arabidopsis; deepen sampling; upgrade correlation → tree-based (GENIE3).
 - ~~Sequence layer absent for arabidopsis~~ ✅ shipped (#4, plant side): TAIR10 JASPAR scan (95k sites).
   Human base-resolution binding (ReMap/JASPAR vertebrate) still pending — larger genome + peak ingest.
-- ~~Only GO enrichment~~ ✅ pathway enrichment shipped (#5, plant side, Plant Reactome).
-  Pending: human/mouse pathways (Reactome, needs ENSG→symbol map); **trait linkage (QTL/GWAS→gene)** not started.
+- ~~Only GO enrichment~~ ✅ #5 shipped: pathway enrichment (Plant Reactome, plant side) +
+  trait linkage (GWAS Catalog, human). Pending: human/mouse pathways (Reactome, needs
+  ENSG→symbol map); plant QTL trait data (sparse, no clean gene-mapped source).
 - Stale releases; narrow taxon set (addressed by #6).
 - Older docs (START_HERE/PROJECT_SUMMARY etc.) predate recent features — consolidate.
 
@@ -169,5 +174,13 @@ data-free item ships first, then the expression linchpin, then the rest.
   (schema + glob). `POST /api/v1/pathway_enrichment` mirrors GO enrichment (hypergeometric+BH);
   gene-set panel gains a Reactome section; Plant Reactome added to provenance/citations.
   +2 API tests (74 backend). Verified: a metabolism gene set enriches Homoserine/Lysine
-  biosynthesis (q=0.012). Next: **trait linkage (QTL/GWAS→gene)** to finish #5, then **#6**
-  (freshness/scope); human pathways + expression need an ENSG→symbol map / more fetches.
+  biosynthesis (q=0.012).
+- **2026-07-26** — Finished **#5** with **trait linkage (human, GWAS Catalog)**:
+  `fetch_traits.py` matches GWAS MAPPED_GENE symbols to atlas human IDs → 108,485
+  associations (1,977 genes, 21,391 traits); `load_traits.py` + build_db durability.
+  `GET /api/v1/traits/{id}` + `POST /api/v1/trait_enrichment` (hypergeometric+BH); gene-set
+  panel gains a GWAS trait section; GWAS Catalog added to provenance. +3 API tests (77 backend).
+  Verified: SP1 targets enrich Alzheimer's (q=0.043) + HDL/lipid traits.
+  **1–6 core plan now complete.** Remaining follow-ups: #6 freshness/scope; human
+  base-resolution binding + human/mouse pathways (ENSG→symbol map); extend expression
+  to tomato/arabidopsis; upgrade co-expression to tree-based (GENIE3).

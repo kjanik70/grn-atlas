@@ -148,6 +148,15 @@ export const analysisAPI = {
     return response.json();
   },
 
+  traitEnrich: async (geneIds, species) => {
+    const response = await fetch(`${API_BASE}/trait_enrichment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ gene_ids: geneIds, species }),
+    });
+    return response.json();
+  },
+
   pathwayEnrich: async (geneIds, species) => {
     const response = await fetch(`${API_BASE}/pathway_enrichment`, {
       method: 'POST',

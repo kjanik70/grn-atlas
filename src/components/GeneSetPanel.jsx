@@ -30,6 +30,7 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
   const [subgraph, setSubgraph] = useState(null);
   const [enrichment, setEnrichment] = useState(null);
   const [pathwayEnr, setPathwayEnr] = useState(null);
+  const [traitEnr, setTraitEnr] = useState(null);
   const [motifEnr, setMotifEnr] = useState(null);
   const [lastIds, setLastIds] = useState([]);
   const [lastSpecies, setLastSpecies] = useState(null);
@@ -70,15 +71,17 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
     setError(null);
     setConservation(null);
     try {
-      const [sg, enr, penr, menr] = await Promise.all([
+      const [sg, enr, penr, tenr, menr] = await Promise.all([
         analysisAPI.subgraph(geneIds, { includeInferred }),
         analysisAPI.enrich(geneIds, sp),
         analysisAPI.pathwayEnrich(geneIds, sp),
+        analysisAPI.traitEnrich(geneIds, sp),
         analysisAPI.motifEnrich(geneIds, sp),
       ]);
       setSubgraph(sg);
       setEnrichment(enr);
       setPathwayEnr(penr);
+      setTraitEnr(tenr);
       setMotifEnr(menr);
       setLastIds(geneIds);
       setLastSpecies(sp);
@@ -280,6 +283,28 @@ export default function GeneSetPanel({ open, onClose, initialGeneIds, species, i
                 </tbody>
               </table>
             )}
+          </div>
+        )}
+
+        {traitEnr && traitEnr.background > 0 && traitEnr.results.length > 0 && (
+          <div className="gs-section">
+            <h3>Trait associations <span className="gs-ns">GWAS Catalog</span></h3>
+            <p className="gs-metrics">
+              {traitEnr.study} of the genes have GWAS traits · background {traitEnr.background} ·{' '}
+              {traitEnr.results.length} enriched traits (FDR). Statistical associations, not regulation.
+            </p>
+            <table className="gs-table">
+              <thead><tr><th>Trait</th><th>genes</th><th>q-value</th></tr></thead>
+              <tbody>
+                {traitEnr.results.map((r, i) => (
+                  <tr key={i}>
+                    <td>{r.trait}</td>
+                    <td className="gs-num">{r.study_count}/{r.background_count}</td>
+                    <td className="gs-num">{fmtP(r.q_value)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
 

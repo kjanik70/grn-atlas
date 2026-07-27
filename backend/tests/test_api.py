@@ -58,6 +58,8 @@ def _build_fixture(path):
         ("R-SLY-2", "Photosynthesis", "PlantReactome")])
     db.executemany("INSERT INTO pathway_annotations VALUES (?,?)", [
         ("SlTGT", "R-SLY-1"), ("SlTGT2", "R-SLY-1"), ("SlTGT2", "R-SLY-2")])
+    db.executemany("INSERT INTO trait_associations (gene_id, trait, pubmed_id) VALUES (?,?,?)", [
+        ("TG1", "Trait A", "111"), ("TG2", "Trait A", "222"), ("TF1", "Trait B", "333")])
     # sequence context for the tomato target (SL4.0 crosswalk + window + motif hit)
     db.execute("INSERT INTO gene_id_crosswalk VALUES ('tomato','SlTGT','SlTGT.4','SL4.0','1:1')")
     db.execute("INSERT INTO gene_windows VALUES ('SlTGT.4','SL4.0','promoter','1',6000,8500,1)")
@@ -227,6 +229,26 @@ def test_pathway_enrichment(client):
 def test_pathway_enrichment_species_without_annotations(client):
     r = client.post("/api/v1/pathway_enrichment",
                     json={"gene_ids": ["TF1", "TG1"], "species": "human"}).json()
+    assert r["results"] == [] and "note" in r
+
+
+def test_gene_traits_lookup(client):
+    r = client.get("/api/v1/traits/TG1").json()
+    assert r["gene_id"] == "TG1"
+    assert any(t["trait"] == "Trait A" and t["pubmed_id"] == "111" for t in r["traits"])
+
+
+def test_trait_enrichment(client):
+    r = client.post("/api/v1/trait_enrichment",
+                    json={"gene_ids": ["TG1", "TG2"], "species": "human", "min_genes": 2}).json()
+    assert r["species"] == "human" and r["background"] == 3
+    top = r["results"][0]
+    assert top["trait"] == "Trait A" and top["study_count"] == 2 and 0.0 <= top["q_value"] <= 1.0
+
+
+def test_trait_enrichment_species_without_data(client):
+    r = client.post("/api/v1/trait_enrichment",
+                    json={"gene_ids": ["SlTF", "SlTGT"], "species": "tomato"}).json()
     assert r["results"] == [] and "note" in r
 
 
