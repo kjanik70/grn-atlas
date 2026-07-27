@@ -31,6 +31,9 @@ def _build_fixture(path):
         ("SlTF", "MYB1", "tomato MYB", "tomato", 1, "protein_coding", "MYB1"),
         ("SlTGT", "SlTGT", "tomato target", "tomato", 0, "protein_coding", "CHS"),
         ("SlTGT2", "SlTGT2", "tomato target 2", "tomato", 0, "protein_coding", None),
+        ("GX", "GX", "petunia expr gene x", "petunia", 1, "protein_coding", None),
+        ("GY", "GY", "petunia expr gene y", "petunia", 0, "protein_coding", None),
+        ("GZ", "GZ", "petunia expr gene z", "petunia", 0, "protein_coding", None),
     ]
     db.executemany("INSERT INTO genes (id,symbol,name,species,is_tf,gene_type,synonyms) "
                    "VALUES (?,?,?,?,?,?,?)", genes)
@@ -216,6 +219,19 @@ def test_expression_profile(client):
     assert r["samples"][1]["tissue"] == "petal" and r["samples"][1]["tpm"] == 10.0
     miss = client.get("/api/v1/expression/NOPE").json()
     assert miss["available"] is False
+
+
+def test_expression_resolves_species(client):
+    # inject a *tomato* matrix; the endpoint must pick it for a tomato gene id
+    import expression
+    expression._cache[str(expression.path_for("tomato"))] = expression.ExpressionMatrix({
+        "meta": {"unit": "TPM"},
+        "samples": [{"run": "r1", "tissue": "leaf"}, {"run": "r2", "tissue": "fruit"}],
+        "genes": {"SlTGT": [3.0, 40.0], "SlTGT2": [1.0, 1.0]},
+    })
+    r = client.get("/api/v1/expression/SlTGT").json()
+    assert r["available"] and r["species"] == "tomato"
+    assert r["samples"][1]["tissue"] == "fruit" and r["samples"][1]["tpm"] == 40.0
 
 
 def test_coexpression_labeled_inferred(client):

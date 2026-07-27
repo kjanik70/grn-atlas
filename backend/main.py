@@ -1250,43 +1250,50 @@ def _gene_meta(gene_ids):
                 f"SELECT id, symbol, is_tf FROM genes WHERE id IN ({ph})", list(gene_ids))}
 
 
+def _species_of(gene_id: str) -> Optional[str]:
+    row = db.conn.execute("SELECT species FROM genes WHERE id = ?", (gene_id,)).fetchone()
+    return row["species"] if row else None
+
+
 @app.get("/api/v1/expression/{gene_id}")
 async def gene_expression(gene_id: str):
-    """Per-sample TPM profile for a petunia gene across the RNA-seq panel (#1).
+    """Per-sample TPM profile for a gene across its species' RNA-seq panel (#1).
 
-    Predicted from subsampled public reads (kallisto vs PLAZA pax CDS); relative,
-    not absolute. Returns 404-style note if expression is unavailable for the gene.
+    Predicted from subsampled public reads (kallisto vs PLAZA CDS); relative,
+    not absolute. Available where an expression panel is built (petunia, tomato).
     """
-    mx = expression.get_matrix()
+    species = _species_of(gene_id)
+    mx = expression.get_matrix(species) if species else None
     if mx is None:
         return {"gene_id": gene_id, "available": False,
-                "note": "expression matrix not built (petunia only)"}
+                "note": f"no expression panel for {species or 'this gene'}"}
     prof = mx.profile(gene_id)
     if prof is None:
         return {"gene_id": gene_id, "available": False,
                 "note": "no expression for this gene in the panel"}
     meta = _gene_meta([gene_id]).get(gene_id, {})
-    return {"available": True, "symbol": meta.get("symbol"), "is_tf": meta.get("is_tf"),
-            "matrix_meta": mx.meta, **prof}
+    return {"available": True, "species": species, "symbol": meta.get("symbol"),
+            "is_tf": meta.get("is_tf"), "matrix_meta": mx.meta, **prof}
 
 
 @app.post("/api/v1/coexpression")
 async def coexpression(request: CoexpRequest):
-    """Predicted co-expression partners of a gene across the petunia panel (#2).
+    """Predicted co-expression partners of a gene across its species' panel (#2).
 
     Pearson correlation on log2(TPM+1). This is an inferred, UNDIRECTED association
     (labelled Inferred:Expression) — not measured regulation and not a causal
     direction. With tf_only=True, restricts partners to TFs (candidate regulators).
     """
-    mx = expression.get_matrix()
+    species = _species_of(request.gene_id)
+    mx = expression.get_matrix(species) if species else None
     if mx is None:
         return {"gene_id": request.gene_id, "available": False,
-                "results": [], "note": "expression matrix not built (petunia only)"}
+                "results": [], "note": f"no expression panel for {species or 'this gene'}"}
 
     candidates = None
     if request.tf_only:
         candidates = [r["id"] for r in db.conn.execute(
-            "SELECT id FROM genes WHERE is_tf = 1 AND species = 'petunia'").fetchall()]
+            "SELECT id FROM genes WHERE is_tf = 1 AND species = ?", (species,)).fetchall()]
     hits = mx.coexpressed(request.gene_id, top=request.top, min_abs_r=request.min_abs_r,
                           min_expr=request.min_expr, candidates=candidates)
     meta = _gene_meta([h["gene_id"] for h in hits])

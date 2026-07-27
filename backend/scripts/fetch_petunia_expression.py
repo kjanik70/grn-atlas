@@ -100,7 +100,7 @@ def stream_subsample(url, dest, n_reads):
     return dest.exists() and dest.stat().st_size > 0
 
 
-def quant_run(run):
+def quant_run(run, idx=IDX):
     """Download (subsampled) + kallisto quant one run. Returns abundance.tsv path."""
     outdir = QUANT / run
     ab = outdir / "abundance.tsv"
@@ -123,7 +123,7 @@ def quant_run(run):
                 print(f"  [{run}] download failed", flush=True)
                 return None
             fastqs = [str(f1), str(f2)]
-            kcmd = [str(KALLISTO), "quant", "-i", str(IDX), "-o", str(outdir),
+            kcmd = [str(KALLISTO), "quant", "-i", str(idx), "-o", str(outdir),
                     "-t", "2"] + fastqs
         else:
             u = next((u for u in urls if u.endswith(".fastq.gz")), urls[0])
@@ -132,7 +132,7 @@ def quant_run(run):
                 print(f"  [{run}] download failed", flush=True)
                 return None
             fastqs = [str(f)]
-            kcmd = [str(KALLISTO), "quant", "-i", str(IDX), "-o", str(outdir),
+            kcmd = [str(KALLISTO), "quant", "-i", str(idx), "-o", str(outdir),
                     "-t", "2", "--single", "-l", "200", "-s", "20"] + fastqs
         r = subprocess.run(kcmd, capture_output=True, text=True)
         if r.returncode != 0:

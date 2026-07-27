@@ -89,16 +89,33 @@ class ExpressionMatrix:
         return out[:top]
 
 
+DATA_DIR = DEFAULT_PATH.parent
+
+
+def path_for(species: str) -> Path:
+    return DATA_DIR / f"expression_{species}.json.gz"
+
+
 _cache: Dict[str, Optional[ExpressionMatrix]] = {}
 
 
-def get_matrix(path: Path = DEFAULT_PATH) -> Optional[ExpressionMatrix]:
-    """Lazy-load + cache the expression matrix; None if not built yet."""
+def get_matrix(species: str = "petunia") -> Optional[ExpressionMatrix]:
+    """Lazy-load + cache the expression matrix for a species; None if not built.
+
+    Cached by file path so tests can pre-seed `_cache[str(path_for(sp))]`.
+    """
+    path = path_for(species)
     key = str(path)
     if key not in _cache:
-        if not Path(path).exists():
+        if not path.exists():
             _cache[key] = None
         else:
             with gzip.open(path, "rt") as fh:
                 _cache[key] = ExpressionMatrix(json.load(fh))
     return _cache[key]
+
+
+def species_with_expression() -> list:
+    """Species that currently have a built expression matrix."""
+    return sorted(p.name[len("expression_"):-len(".json.gz")]
+                  for p in DATA_DIR.glob("expression_*.json.gz"))

@@ -33,10 +33,11 @@ Last updated: 2026-07-26 · Baseline: backend 78 tests, frontend 5 tests, build 
 - **Actionable coordinates** — export of signed edges + confidence + genomic coords
   + promoter windows + predicted binding sites (tomato/petunia).
 
-### Expression & co-expression (petunia)
+### Expression & co-expression (petunia, tomato)
 - **Per-tissue expression profile** — `GET /api/v1/expression/{gene_id}`: TPM across a
-  29-sample P. axillaris RNA-seq panel (vegetative + floral/pigmentation tissues),
-  quantified with kallisto vs PLAZA pax CDS (Peaxi162 IDs). Predicted/shallow (subsampled).
+  species' RNA-seq panel, quantified with kallisto vs PLAZA CDS. Petunia (29 samples,
+  floral/pigmentation) and tomato (20 samples: leaf/root/stem/flower/bud/fruit/apex/
+  cotyledon). Predicted/shallow (subsampled); the endpoint auto-selects by gene species.
 - **Predicted co-expression** — `POST /api/v1/coexpression`: Pearson on log2(TPM+1),
   labeled `Inferred:Expression`, undirected (not causal, not measured regulation).
   `tf_only` restricts partners to candidate TF regulators. Shown in the gene detail panel.
@@ -76,9 +77,10 @@ Last updated: 2026-07-26 · Baseline: backend 78 tests, frontend 5 tests, build 
 
 ## 2. Honest boundaries (what bounds rigor today)
 
-- **Expression exists for petunia only, and is shallow** — 29 subsampled samples, one
-  species; use for relative/co-expression signal, not absolute levels. Other species
-  still have no expression axis.
+- **Expression covers petunia + tomato only, and is shallow** — subsampled panels
+  (29 + 20 samples); relative/co-expression signal, not absolute. Human/mouse/arabidopsis
+  still have no expression axis. (Tomato: only atlas genes whose PLAZA CDS version matches
+  get expression.)
 - **No dynamics** — the cascade/intervention view is a toy, not a quantitative model.
 - **Petunia edges are inferred** — hypotheses, not evidence; no measured petunia GRN.
 - **No accessibility (ATAC), PPI/complexes, or phenotype/QTL linkage.**
@@ -198,3 +200,11 @@ data-free item ships first, then the expression linchpin, then the rest.
   sentinel-versioned sources (GWAS "latest", Plant Reactome "current") correctly read as
   current. **All of 1–6 now have a shipped increment.** Deeper #6 (re-fetch to newer
   releases + rebuild; add wheat/cotton) remains future work, now visible via the audit.
+- **2026-07-26** — Backlog: **extended expression + co-expression to tomato**. Generalized
+  `expression.get_matrix(species)` + endpoints auto-select the matrix by gene species (petunia
+  tests unchanged). `fetch_tomato_expression.py` reuses the petunia ENA/kallisto helpers over a
+  curated 20-sample tissue panel vs PLAZA sly CDS (Solyc IDs join the atlas directly) →
+  `expression_tomato.json.gz` (34,725 genes). +1 API test (79 backend). Verified: a leaf-marker
+  gene (leaf 48k vs root 52 TPM) co-expresses r≥0.93 with a coherent leaf/photosynthesis module.
+  Next backlog options: arabidopsis expression; tree-based co-expression (GENIE3); human
+  binding/pathways (ENSG→symbol map).

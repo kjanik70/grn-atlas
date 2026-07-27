@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { geneAPI, analysisAPI } from '../services/apiService';
 import '../styles/ExpressionPanel.css';
 
-// Petunia expression profile + predicted co-expression partners.
-// Both are PREDICTED (shallow subsampled RNA-seq, kallisto vs PLAZA pax CDS);
+// Per-species expression profile + predicted co-expression partners (petunia, tomato).
+// Both are PREDICTED (shallow subsampled RNA-seq, kallisto vs PLAZA CDS);
 // co-expression is an undirected association, not measured regulation.
 export default function ExpressionPanel({ geneId }) {
   const [profile, setProfile] = useState(null);
@@ -31,8 +31,8 @@ export default function ExpressionPanel({ geneId }) {
           Expression <span className="expr-tag">predicted</span>
         </h3>
         <p className="expr-muted">
-          Per-tissue TPM across a {profile.samples.length}-sample petunia RNA-seq panel
-          (kallisto vs PLAZA pax CDS, subsampled). Relative, not absolute.
+          Per-tissue TPM across a {profile.samples.length}-sample{profile.species ? ` ${profile.species}` : ''}{' '}
+          RNA-seq panel (kallisto vs PLAZA CDS, subsampled). Relative, not absolute.
         </p>
         <div className="expr-bars">
           {profile.samples.map((s, i) => (
