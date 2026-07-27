@@ -154,6 +154,16 @@ def test_provenance_manifest(client):
     assert all("doi" in s and "name" in s for s in m["sources"])
 
 
+def test_provenance_freshness(client):
+    f = client.get("/api/v1/provenance/freshness").json()
+    assert "sources" in f and "stale" in f
+    by = {s["key"]: s for s in f["sources"]}
+    # every manifest source appears with a status
+    assert all(s["status"] in ("current", "stale", "unknown") for s in f["sources"])
+    # PLAZA 4.5 is known-stale (dicots 5.0 exists) per the committed audit cache
+    assert by["plaza"]["status"] == "stale" and by["plaza"]["latest_version"]
+
+
 def test_citations_bibtex(client):
     bib = client.get("/api/v1/citations.bib").text
     assert bib.count("@article") == len(client.get("/api/v1/provenance").json()["sources"])

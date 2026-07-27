@@ -76,6 +76,30 @@ def manifest():
             "methods": METHODS, "sources": SOURCES}
 
 
+def freshness():
+    """Data-currency audit: each source's loaded version vs the latest available
+    release (from the committed source_freshness.json cache; run
+    scripts/check_source_freshness.py to refresh). Merges in each source's display
+    name + url. Sources not in the cache are reported status='unknown'."""
+    import json
+    from pathlib import Path
+    cache_path = Path(__file__).parent / "data" / "source_freshness.json"
+    cache = {"checked": None, "sources": {}}
+    if cache_path.exists():
+        cache = json.loads(cache_path.read_text())
+    fresh = cache.get("sources", {})
+    rows = []
+    for s in SOURCES:
+        f = fresh.get(s["key"], {})
+        rows.append({"key": s["key"], "name": s["name"], "url": s.get("url"),
+                     "our_version": f.get("our_version", s.get("version")),
+                     "latest_version": f.get("latest_version"),
+                     "status": f.get("status", "unknown"), "note": f.get("note", "")})
+    return {"checked": cache.get("checked"),
+            "stale": [r["key"] for r in rows if r["status"] == "stale"],
+            "sources": rows}
+
+
 def bibtex():
     out = []
     for s in SOURCES:

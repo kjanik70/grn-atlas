@@ -1,0 +1,71 @@
+{
+ "checked": "2026-07-26",
+ "sources": {
+  "trrust2": {
+   "our_version": "v2",
+   "latest_version": null,
+   "status": "unknown",
+   "note": "TRRUST v2 is the latest published release"
+  },
+  "plantregmap": {
+   "our_version": "2019",
+   "latest_version": null,
+   "status": "unknown",
+   "note": ""
+  },
+  "oma": {
+   "our_version": "2021",
+   "latest_version": null,
+   "status": "unknown",
+   "note": "OMA browser updates periodically; not auto-checked"
+  },
+  "plaza": {
+   "our_version": "4.5",
+   "latest_version": "5",
+   "status": "stale",
+   "note": "PLAZA dicots"
+  },
+  "plantreactome": {
+   "our_version": "current",
+   "latest_version": "97",
+   "status": "current",
+   "note": "Reactome/Plant Reactome share a release number"
+  },
+  "gwascatalog": {
+   "our_version": "latest",
+   "latest_version": null,
+   "status": "current",
+   "note": "tracked as 'latest'; re-fetch pulls the current weekly release"
+  },
+  "dnazoo": {
+   "our_version": "v1.6.2 HiC",
+   "latest_version": null,
+   "status": "unknown",
+   "note": "static assembly release"
+  },
+  "itag41": {
+   "our_version": "ITAG4.1",
+   "latest_version": null,
+   "status": "unknown",
+   "note": ""
+  },
+  "jaspar2024": {
+   "our_version": "2024",
+   "latest_version": null,
+   "status": "unknown",
+   "note": "JASPAR 2024 is the current CORE release"
+  },
+  "mygene": {
+   "our_version": "v3",
+   "latest_version": null,
+   "status": "unknown",
+   "note": "live API; always current at fetch time"
+  },
+  "blast": {
+   "our_version": "2.17.0",
+   "latest_version": null,
+   "status": "unknown",
+   "note": ""
+  }
+ }
+}

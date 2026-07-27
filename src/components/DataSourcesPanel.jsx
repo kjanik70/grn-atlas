@@ -21,12 +21,17 @@ function download(text, filename, type) {
 export default function DataSourcesPanel({ open, onClose }) {
   const [stats, setStats] = useState(null);
   const [prov, setProv] = useState(null);
+  const [fresh, setFresh] = useState(null);
 
   useEffect(() => {
     if (!open) return;
     fetch('/api/v1/stats').then((r) => r.json()).then(setStats).catch(() => {});
     fetch('/api/v1/provenance').then((r) => r.json()).then(setProv).catch(() => {});
+    fetch('/api/v1/provenance/freshness').then((r) => r.json()).then(setFresh).catch(() => {});
   }, [open]);
+
+  // key -> {status, latest_version} for the data-currency badge
+  const freshBy = Object.fromEntries((fresh?.sources || []).map((s) => [s.key, s]));
 
   if (!open) return null;
 
@@ -72,6 +77,15 @@ export default function DataSourcesPanel({ open, onClose }) {
               <a className="ds-name" href={s.url} target="_blank" rel="noopener noreferrer">
                 {s.name}{s.version ? ` (${s.version})` : ''}
               </a>
+              {freshBy[s.key]?.status === 'stale' && (
+                <span className="ds-badge stale"
+                      title={`A newer release is available: ${freshBy[s.key].latest_version}`}>
+                  update available → {freshBy[s.key].latest_version}
+                </span>
+              )}
+              {freshBy[s.key]?.status === 'current' && (
+                <span className="ds-badge current" title="Loaded data matches the latest release">current</span>
+              )}
               <div className="ds-provides">{s.provides}</div>
               <div className="ds-cite">
                 {s.authors} ({s.year}) {s.journal}{s.volume ? ` ${s.volume}` : ''}{s.pages ? `:${s.pages}` : ''}.

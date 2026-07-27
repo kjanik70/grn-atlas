@@ -6,7 +6,7 @@
 > Iteration Log. The working loop is: _build → test → document here → find gaps →
 > plan → repeat._
 
-Last updated: 2026-07-26 · Baseline: backend 77 tests, frontend 5 tests, build clean.
+Last updated: 2026-07-26 · Baseline: backend 78 tests, frontend 5 tests, build clean.
 
 ---
 
@@ -59,6 +59,9 @@ Last updated: 2026-07-26 · Baseline: backend 77 tests, frontend 5 tests, build 
 ### Practical / trust
 - **Gene identification despite messy annotation** — BLAST regulator ID + synonym search.
 - **Cite & reproduce** — provenance manifest + BibTeX + versioned methods in exports.
+- **Judge data currency** — freshness audit (`/api/v1/provenance/freshness`): each source's
+  loaded version vs the latest available release, with an "update available" badge in the
+  Data & citations panel. Re-runnable via `check_source_freshness.py`.
 - **Share** — permalinks; exports (PNG/SVG/GraphML/JSON/CSV/TSV); collections.
 - **Teach** — student scaffolding (examples, glossary, inferred-edge explainers).
 
@@ -79,7 +82,9 @@ Last updated: 2026-07-26 · Baseline: backend 77 tests, frontend 5 tests, build 
 - **No dynamics** — the cascade/intervention view is a toy, not a quantitative model.
 - **Petunia edges are inferred** — hypotheses, not evidence; no measured petunia GRN.
 - **No accessibility (ATAC), PPI/complexes, or phenotype/QTL linkage.**
-- **Data currency** — PLAZA 4.5 is 2018; TRRUST v2 is older.
+- **Data currency** — PLAZA 4.5 is 2018 (dicots 5.0 now exists, flagged by the freshness
+  audit); TRRUST v2 is older. Currency is now *surfaced*; actual re-fetch/rebuild to newer
+  releases (and adding species e.g. wheat/cotton) remains future work.
 
 **Guiding principle:** never fabricate scientific data. Inferred/predicted/curated
 data must always be labeled distinct from measured (inferred edges, JASPAR_scan
@@ -141,7 +146,8 @@ data-free item ships first, then the expression linchpin, then the rest.
 - ~~Only GO enrichment~~ ✅ #5 shipped: pathway enrichment (Plant Reactome, plant side) +
   trait linkage (GWAS Catalog, human). Pending: human/mouse pathways (Reactome, needs
   ENSG→symbol map); plant QTL trait data (sparse, no clean gene-mapped source).
-- Stale releases; narrow taxon set (addressed by #6).
+- ~~No visibility into stale releases~~ ✅ #6 (freshness half): currency audit surfaces
+  staleness (PLAZA 4.5→5.0 flagged). Actual refresh-to-newer + new species (wheat/cotton) still open.
 - Older docs (START_HERE/PROJECT_SUMMARY etc.) predate recent features — consolidate.
 
 ## 5. Iteration Log
@@ -184,3 +190,11 @@ data-free item ships first, then the expression linchpin, then the rest.
   **1–6 core plan now complete.** Remaining follow-ups: #6 freshness/scope; human
   base-resolution binding + human/mouse pathways (ENSG→symbol map); extend expression
   to tomato/arabidopsis; upgrade co-expression to tree-based (GENIE3).
+- **2026-07-26** — Shipped **#6 (freshness half)**: data-currency audit.
+  `check_source_freshness.py` live-probes each source's latest release (PLAZA dicots,
+  Reactome) and writes `source_freshness.json`; `provenance.freshness()` +
+  `GET /api/v1/provenance/freshness`; Data & citations panel shows an "update available"
+  badge. +1 API test (78 backend). Verified: PLAZA correctly flagged stale (4.5 vs 5.0);
+  sentinel-versioned sources (GWAS "latest", Plant Reactome "current") correctly read as
+  current. **All of 1–6 now have a shipped increment.** Deeper #6 (re-fetch to newer
+  releases + rebuild; add wheat/cotton) remains future work, now visible via the audit.

@@ -575,6 +575,13 @@ async def get_provenance():
     return provenance.manifest()
 
 
+@app.get("/api/v1/provenance/freshness")
+async def get_freshness():
+    """Data-currency audit: each source's loaded version vs the latest available
+    release, so users can judge how current the atlas data is (#6)."""
+    return provenance.freshness()
+
+
 @app.get("/api/v1/citations.bib")
 async def get_citations():
     """BibTeX for every data source the atlas integrates."""
