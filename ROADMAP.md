@@ -225,3 +225,13 @@ data-free item ships first, then the expression linchpin, then the rest.
   When Dahlia data lands: add its `species_config` entry + genome/CDS/orthologs, run the
   fetchers, and `ingest_trait_table.py` for Zach's GWAS. Optional follow-up: surface `/species`
   in the UI; fold the near-duplicate seqctx/scan scripts into fully generic config-driven ones.
+- **2026-07-27** — Shipped **generic ingestion pipeline + cleanup**. Collapsed the 8
+  per-species scripts into 4 config-driven ones off `species_config.py`: `fetch_seqctx.py`
+  (PLAZA-identity), `motif_scan.py` (PWM core + scan), `fetch_expression.py` (ENA/kallisto),
+  `load_seqctx.py`. Config now carries assembly/URLs/promoter/chrom_norm/scan_edge_sql/
+  expr panels per species (tomato seqctx stays bespoke — SGN ITAG lift-over). Verified
+  faithful by regeneration+diff: arabidopsis seqctx & motif_hits **byte-identical**, all 3
+  expression matrices **identical**, petunia seqctx a +4-gene superset (current DB).
+  Cleanup: removed dead unimported `backend/app/` scaffold; standardized tomato motif caches
+  to `_tomato` suffix; repointed `test_science.py` to the generic modules. 80 backend / 5
+  frontend green. Adding Dahlia is now: config entry + drop-in refs + run the generic scripts.

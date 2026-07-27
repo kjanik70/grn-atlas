@@ -1,22 +1,27 @@
-"""Targeted loader for the Arabidopsis sequence-context layer (#4) into grn.sqlite3
-WITHOUT a full DB rebuild. Idempotent: clears existing arabidopsis/TAIR10 rows first.
+"""Generic targeted loader for a species' sequence-context layer into grn.sqlite3 —
+no full rebuild. Replaces load_arabidopsis_seqctx.py. Idempotent: clears the species'
+existing rows first. Loads whatever caches are present:
+  gene_id_crosswalk_<species>.json.gz , gene_windows_<species>.json.gz   (always)
+  motifs_<species>.json , motif_hits_<species>.json.gz                   (if non-empty)
 
-Loads whatever caches are present:
-  gene_id_crosswalk_arabidopsis.json.gz, gene_windows_arabidopsis.json.gz  (always)
-  motifs_arabidopsis.json, motif_hits_arabidopsis.json.gz                  (if non-empty)
+Run once before scanning (crosswalk + windows) and again after (motifs + hits).
 
-Run once before scanning (crosswalk + windows), then again after scanning (motifs + hits).
+Usage: python backend/scripts/load_seqctx.py <species>
 """
 import gzip
 import json
 import sqlite3
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+import species_config  # noqa: E402
 
 DATA = Path(__file__).parent.parent / "data"
 DB = DATA / "grn.sqlite3"
 
 
-def _load_json(path):
+def _load(path):
     if not path.exists():
         return []
     opener = gzip.open if path.suffix == ".gz" else open
@@ -24,16 +29,21 @@ def _load_json(path):
         return json.load(f)
 
 
-def main():
+def main(species):
+    cfg = species_config.get(species)
+    if not cfg:
+        sys.exit(f"unknown species '{species}'")
+    assembly = cfg["assembly"]
     conn = sqlite3.connect(DB)
-    cw = _load_json(DATA / "gene_id_crosswalk_arabidopsis.json.gz")
-    win = _load_json(DATA / "gene_windows_arabidopsis.json.gz")
-    conn.execute("DELETE FROM gene_id_crosswalk WHERE species='arabidopsis'")
+
+    cw = _load(DATA / f"gene_id_crosswalk_{species}.json.gz")
+    win = _load(DATA / f"gene_windows_{species}.json.gz")
+    conn.execute("DELETE FROM gene_id_crosswalk WHERE species=?", (species,))
     conn.executemany(
         "INSERT OR REPLACE INTO gene_id_crosswalk "
         "(species, atlas_gene_id, ext_gene_id, ext_assembly, relation) VALUES (?,?,?,?,?)",
         [(r["species"], r["atlas_gene_id"], r["ext_gene_id"], r["ext_assembly"], r["relation"]) for r in cw])
-    conn.execute("DELETE FROM gene_windows WHERE assembly='TAIR10'")
+    conn.execute("DELETE FROM gene_windows WHERE assembly=?", (assembly,))
     conn.executemany(
         "INSERT OR REPLACE INTO gene_windows "
         "(ext_gene_id, assembly, window_type, chromosome, start, end, strand) VALUES (?,?,?,?,?,?,?)",
@@ -41,17 +51,18 @@ def main():
           r["start"], r["end"], r["strand"]) for r in win])
     print(f"loaded crosswalk={len(cw)} windows={len(win)}")
 
-    motifs = _load_json(DATA / "motifs_arabidopsis.json")
-    hits = _load_json(DATA / "motif_hits_arabidopsis.json.gz")
+    motifs = _load(DATA / f"motifs_{species}.json")
+    hits = _load(DATA / f"motif_hits_{species}.json.gz")
     if motifs:
-        conn.execute("DELETE FROM motifs WHERE motif_id LIKE '%|AT%'")
+        conn.execute("DELETE FROM motifs WHERE tf_gene_id IN (SELECT id FROM genes WHERE species=?)",
+                     (species,))
         conn.executemany(
             "INSERT OR REPLACE INTO motifs (motif_id, source, jaspar_id, tf_gene_id, tf_symbol) "
             "VALUES (?,?,?,?,?)",
             [(m["motif_id"], m["source"], m.get("jaspar_id"), m.get("tf_gene_id"), m.get("tf_symbol"))
              for m in motifs])
     if hits:
-        conn.execute("DELETE FROM motif_hits WHERE assembly='TAIR10'")
+        conn.execute("DELETE FROM motif_hits WHERE assembly=?", (assembly,))
         conn.executemany(
             "INSERT INTO motif_hits (ext_gene_id, motif_id, assembly, window_type, chromosome, "
             "start, end, strand, score, p_value, tier, site_confidence) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
@@ -64,4 +75,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) != 2:
+        sys.exit("usage: load_seqctx.py <species>")
+    main(sys.argv[1])

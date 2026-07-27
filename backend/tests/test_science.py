@@ -4,10 +4,15 @@ import math
 import numpy as np
 import pytest
 
-from scan_tomato_motifs import score_pvalues, encode, scan, COMP
+from motif_scan import score_pvalues, encode, scan, COMP
 from build_db import norm_chrom
 from fetch_tomato_seqctx import promoter_window as tomato_promoter
-from fetch_petunia_seqctx import promoter as petunia_promoter
+from fetch_seqctx import promoter_window as _generic_promoter
+
+
+def petunia_promoter(start, end, strand):
+    # generic PLAZA-identity promoter with the standard TSS -2000/+500 window
+    return _generic_promoter(start, end, strand, 2000, 500)
 
 
 # ---------- PWM p-value distribution ----------

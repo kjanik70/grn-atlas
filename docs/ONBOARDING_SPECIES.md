@@ -17,19 +17,22 @@ the remaining onboarding steps.
 1. **Genes + genome/annotation.** Load gene models (id, symbol, description, coords) from
    the release's GFF into `genes` + `gene_locations`. Set the assembly tag.
 
-2. **Sequence context + predicted TF binding** (needs genome FASTA + GFF):
-   - promoter/gene-body windows: adapt `fetch_arabidopsis_seqctx.py` (identity crosswalk +
-     windows) or the generic path; load with a `load_*_seqctx.py`.
-   - JASPAR-plant PWM scan over target promoters: adapt `scan_arabidopsis_motifs.py`
-     (symbol/`tf_motif_map` mapping) → `motif_hits` (`tier=JASPAR_scan`).
+2. **Sequence context + predicted TF binding** (needs genome FASTA + GFF). All
+   config-driven off `species_config.py` — no per-species scripts:
+   - windows: `python backend/scripts/fetch_seqctx.py <species>` (PLAZA-identity pattern;
+     tomato's SGN ITAG lift-over is the one special case in `fetch_tomato_seqctx.py`).
+   - load: `python backend/scripts/load_seqctx.py <species>` (crosswalk + windows).
+   - scan: `python backend/scripts/motif_scan.py <species> <genome.fa>` (JASPAR-plant PWMs,
+     `tf_motif_map_<species>.json` if present else symbol match) → `motif_hits` (`tier=JASPAR_scan`);
+     then `load_seqctx.py <species>` again to load motifs + hits.
    - Register the assembly in `_ASSEMBLY_OF` (backend/main.py) → motif enrichment +
      sequence-context export light up.
 
 3. **Expression + co-expression** (needs a CDS FASTA + a curated SRA panel):
-   - build a kallisto index from the CDS; curate a tissue panel (aim for contrast:
-     leaf/root/flower/fruit…, prefer same-study contrasts to limit batch effects).
-   - copy `fetch_tomato_expression.py` (it reuses the shared ENA-streaming + kallisto
-     helpers in `fetch_petunia_expression.py`) → `expression_<species>.json.gz`.
+   - build a kallisto index from the CDS (`tools/kallisto/kallisto index`); curate a tissue
+     panel in the species' `expr_panel` (aim for contrast; prefer same-study to limit batch).
+   - `EXPR_SUBSAMPLE=3000000 python backend/scripts/fetch_expression.py <species>` →
+     `expression_<species>.json.gz`.
    - No backend change: `expression.get_matrix(species)` + the `/expression` and
      `/coexpression` endpoints auto-select by gene species.
 

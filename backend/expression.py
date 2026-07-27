@@ -1,7 +1,7 @@
 """Petunia expression matrix access + co-expression inference (#1, #2).
 
-Loads the committed `expression_petunia.json.gz` (built by
-scripts/fetch_petunia_expression.py) and provides:
+Loads the committed `expression_<species>.json.gz` (built by
+scripts/fetch_expression.py) and provides:
   - per-gene expression profiles across the sample panel (#1)
   - Pearson co-expression neighbours on log2(TPM+1) (#2 network inference)
 
