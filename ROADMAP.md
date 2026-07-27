@@ -215,8 +215,13 @@ data-free item ships first, then the expression linchpin, then the rest.
   changes needed — the multi-species machinery handled it. Verified: floral organ-identity
   genes AP3/AG/AP1 are inflorescence-specific (0 TPM in vegetative shoot); AP3 co-expresses
   with MYB21 + floral genes. **All three plant species now have expression + binding + pathways.**
-- **NEXT LOOP → Dahlia onboarding** (real data incoming from Alex/Zach; see
-  [memory] grn-atlas-dahlia-collaboration): make new-species onboarding turnkey.
-  (1) config-driven generic fetchers (seqctx/scan/expression), (2) generalize trait linkage
-  to any species (for Zach's ~400-cultivar GWAS), (3) `GET /api/v1/species` capability
-  registry, (4) docs/ONBOARDING_SPECIES.md runbook.
+- **2026-07-26** — Shipped **Dahlia-onboarding prep** (real data incoming from Alex/Zach;
+  see [memory] grn-atlas-dahlia-collaboration): (1) `species_config.py` central per-species
+  registry (with a `dahlia` placeholder); (2) **trait linkage generalized to any species** —
+  `ingest_trait_table.py` loads any gene→trait TSV keyed to atlas ids (verified end-to-end on
+  a non-human species), and the `/trait_enrichment` note is now dynamic; (3) `GET /api/v1/species`
+  capability matrix (network/orthologs/binding/expression/pathways/traits per species) — the
+  onboarding-readiness view; (4) `docs/ONBOARDING_SPECIES.md` runbook. +2 API tests (80 backend).
+  When Dahlia data lands: add its `species_config` entry + genome/CDS/orthologs, run the
+  fetchers, and `ingest_trait_table.py` for Zach's GWAS. Optional follow-up: surface `/species`
+  in the UI; fold the near-duplicate seqctx/scan scripts into fully generic config-driven ones.

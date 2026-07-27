@@ -1126,8 +1126,10 @@ async def trait_enrichment(request: EnrichmentRequest):
 
     N, trait_k, gene_traits = _trait_index_for(species)
     if N == 0:
+        have = [r[0] for r in db.conn.execute(
+            "SELECT DISTINCT g.species FROM trait_associations a JOIN genes g ON g.id=a.gene_id")]
         return {"species": species, "background": 0, "study": 0, "results": [],
-                "note": "trait associations available for human only"}
+                "note": f"trait associations available for: {', '.join(sorted(have)) or 'none'}"}
 
     study = [g for g in ids if g in gene_traits]
     n = len(study)
@@ -1503,6 +1505,47 @@ async def get_stats():
         "databases": ["TRRUST", "PlantRegMap"],
         "version": "1.0.0"
     }
+
+@app.get("/api/v1/species")
+async def species_capabilities():
+    """Per-species capability matrix: which data layers are populated (network,
+    orthologs, binding sites, expression, pathways, traits). This is the
+    onboarding-readiness view — a new species (e.g. dahlia) appears here and fills
+    in as its data lands."""
+    cur = db.conn.execute
+    species = [r[0] for r in cur("SELECT DISTINCT species FROM genes ORDER BY species")]
+    expr_species = set(expression.species_with_expression())
+    rows = []
+    for sp in species:
+        assembly = _ASSEMBLY_OF.get(sp)
+        genes = cur("SELECT COUNT(*) FROM genes WHERE species=?", (sp,)).fetchone()[0]
+        measured = cur("SELECT COUNT(*) FROM interactions i JOIN genes t ON t.id=i.target_id "
+                       "WHERE t.species=? AND i.sources NOT LIKE '%Inferred%'", (sp,)).fetchone()[0]
+        inferred = cur("SELECT COUNT(*) FROM interactions i JOIN genes t ON t.id=i.target_id "
+                       "WHERE t.species=? AND i.sources LIKE '%Inferred%'", (sp,)).fetchone()[0]
+        orthologs = cur("SELECT COUNT(*) FROM orthologs o JOIN genes g ON g.id=o.gene_a "
+                        "WHERE g.species=?", (sp,)).fetchone()[0]
+        binding = cur("SELECT COUNT(*) FROM motif_hits WHERE assembly=?", (assembly,)).fetchone()[0] if assembly else 0
+        pathways = cur("SELECT COUNT(*) FROM pathway_annotations a JOIN genes g ON g.id=a.gene_id "
+                       "WHERE g.species=?", (sp,)).fetchone()[0]
+        traits = cur("SELECT COUNT(*) FROM trait_associations a JOIN genes g ON g.id=a.gene_id "
+                     "WHERE g.species=?", (sp,)).fetchone()[0]
+        emx = expression.get_matrix(sp) if sp in expr_species else None
+        rows.append({
+            "species": sp, "assembly": assembly, "genes": genes,
+            "layers": {
+                "network": {"measured_edges": measured, "inferred_edges": inferred},
+                "orthologs": orthologs,
+                "binding_sites": binding,
+                "expression_samples": emx.n if emx else 0,
+                "pathway_annotations": pathways,
+                "trait_associations": traits,
+            },
+        })
+    return {"species": rows,
+            "note": "Layer counts reflect currently-loaded data; empty layers are "
+                    "onboarding opportunities."}
+
 
 @app.get("/api/v1/stats/species/{species}")
 async def get_species_stats(species: str):

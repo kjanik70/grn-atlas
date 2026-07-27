@@ -275,7 +275,18 @@ def test_trait_enrichment(client):
 def test_trait_enrichment_species_without_data(client):
     r = client.post("/api/v1/trait_enrichment",
                     json={"gene_ids": ["SlTF", "SlTGT"], "species": "tomato"}).json()
-    assert r["results"] == [] and "note" in r
+    # dynamic note lists species that DO have trait data (human, from the fixture)
+    assert r["results"] == [] and "human" in r["note"]
+
+
+def test_species_capabilities(client):
+    d = client.get("/api/v1/species").json()
+    by = {r["species"]: r for r in d["species"]}
+    assert {"human", "tomato"} <= set(by)
+    assert by["human"]["layers"]["trait_associations"] > 0          # GWAS loaded
+    assert by["tomato"]["layers"]["pathway_annotations"] > 0        # Reactome loaded
+    assert by["tomato"]["layers"]["binding_sites"] > 0              # motif scan loaded
+    assert by["human"]["layers"]["network"]["measured_edges"] > 0
 
 
 def test_perturb_signed_propagation(client):
