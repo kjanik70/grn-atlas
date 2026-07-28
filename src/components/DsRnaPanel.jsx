@@ -50,6 +50,23 @@ function GLabel({ symbol, inferred }) {
   return <>{symbol}{inferred && <span className="gs-ns" title="inferred from ortholog — not a native symbol">°</span>}</>;
 }
 
+function gcPercent(s) {
+  if (!s) return null;
+  const u = s.toUpperCase();
+  const gc = (u.match(/[GC]/g) || []).length;
+  return Math.round((gc / u.length) * 100);
+}
+
+function downloadFasta(seq, name) {
+  const header = `>${name || 'dsRNA'} designed_by=GRN_Atlas`;
+  const blob = new Blob([`${header}\n${seq}\n`], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${(name || 'dsRNA').replace(/[^\w.-]/g, '_')}_dsRNA.fasta`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
 function Verdict({ offCount }) {
   if (offCount === 0) return <span className="gs-cons-yes">✓ Fully specific (no off-targets)</span>;
   return <span className="gs-cons-no">⚠ predicted to also hit {offCount} other gene{offCount === 1 ? '' : 's'}</span>;
@@ -169,14 +186,33 @@ export default function DsRnaPanel({ open, onClose, initialTarget, initialSpecie
                 {res.on_target && <> · on-target <strong>{res.on_target.symbol}</strong> {res.on_target.sites} sites
                   {res.on_target.mean_tpm != null && ` (${res.on_target.mean_tpm} TPM)`}</>}
               </p>
-              {res.design && (
-                <>
-                  <TranscriptMap design={res.design} />
-                  <button className="gs-export" onClick={copySeq}>{copied ? '✓ Copied' : '⧉ Copy sequence'}</button>
-                  <textarea className="gs-input" rows={3} readOnly value={res.design.sequence}
-                    title={`transcript window ${res.design.start}-${res.design.end}`} />
-                </>
-              )}
+              {(() => {
+                const seqOut = res.design ? res.design.sequence : seq.replace(/\s/g, '').toUpperCase();
+                const gc = gcPercent(seqOut);
+                const gcOk = gc != null && gc >= 30 && gc <= 65;
+                const len = seqOut ? seqOut.length : 0;
+                const lenOk = len >= 100 && len <= 600;
+                return (
+                  <>
+                    <p className="gs-metrics">
+                      GC <strong className={gcOk ? 'gs-cons-yes' : 'gs-cons-no'}>{gc}%</strong>
+                      {' '}(aim 30–65%) · length{' '}
+                      <strong className={lenOk ? 'gs-cons-yes' : 'gs-cons-no'}>{len} bp</strong>
+                      {' '}(typical 100–600 bp for a dsRNA construct)
+                    </p>
+                    {res.design && <TranscriptMap design={res.design} />}
+                    <button className="gs-export" onClick={copySeq}>{copied ? '✓ Copied' : '⧉ Copy sequence'}</button>
+                    <button className="gs-export" style={{ marginLeft: 6 }}
+                      onClick={() => downloadFasta(seqOut, res.on_target?.symbol || 'dsRNA')}>
+                      ⤓ FASTA
+                    </button>
+                    {res.design && (
+                      <textarea className="gs-input" rows={3} readOnly value={res.design.sequence}
+                        title={`transcript window ${res.design.start}-${res.design.end}`} />
+                    )}
+                  </>
+                );
+              })()}
             </div>
 
             {res.off_targets.length > 0 && (
