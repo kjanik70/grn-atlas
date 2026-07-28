@@ -61,8 +61,11 @@ def _build_fixture(path):
     db.executemany("INSERT INTO pathways VALUES (?,?,?)", [
         ("R-SLY-1", "Flavonoid biosynthesis", "PlantReactome"),
         ("R-SLY-2", "Photosynthesis", "PlantReactome")])
+    db.executemany("INSERT INTO pathways VALUES (?,?,?)", [
+        ("R-HSA-1", "p53 pathway", "Reactome")])
     db.executemany("INSERT INTO pathway_annotations VALUES (?,?)", [
-        ("SlTGT", "R-SLY-1"), ("SlTGT2", "R-SLY-1"), ("SlTGT2", "R-SLY-2")])
+        ("SlTGT", "R-SLY-1"), ("SlTGT2", "R-SLY-1"), ("SlTGT2", "R-SLY-2"),
+        ("TF1", "R-HSA-1"), ("TG1", "R-HSA-1")])
     db.executemany("INSERT INTO trait_associations (gene_id, trait, pubmed_id) VALUES (?,?,?)", [
         ("TG1", "Trait A", "111"), ("TG2", "Trait A", "222"), ("TF1", "Trait B", "333")])
     # sequence context for the tomato target (SL4.0 crosswalk + window + motif hit)
@@ -268,9 +271,17 @@ def test_pathway_enrichment(client):
     assert 0.0 <= top["q_value"] <= 1.0
 
 
-def test_pathway_enrichment_species_without_annotations(client):
+def test_pathway_enrichment_human(client):
     r = client.post("/api/v1/pathway_enrichment",
-                    json={"gene_ids": ["TF1", "TG1"], "species": "human"}).json()
+                    json={"gene_ids": ["TF1", "TG1"], "species": "human", "min_genes": 2}).json()
+    assert r["background"] == 2
+    assert r["results"][0]["name"] == "p53 pathway" and r["results"][0]["study_count"] == 2
+
+
+def test_pathway_enrichment_species_without_annotations(client):
+    # petunia genes have no pathway annotations in the fixture
+    r = client.post("/api/v1/pathway_enrichment",
+                    json={"gene_ids": ["GX", "GY"], "species": "petunia"}).json()
     assert r["results"] == [] and "note" in r
 
 

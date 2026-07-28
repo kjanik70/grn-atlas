@@ -21,8 +21,9 @@ Last updated: 2026-07-26 · Baseline: backend 78 tests, frontend 5 tests, build 
 
 ### Gene-set interpretation
 - **Functional theme of a set** — GO enrichment (hypergeometric + BH FDR).
-- **Pathway membership of a set** — Reactome pathway enrichment (`/api/v1/pathway_enrichment`),
-  Plant Reactome for arabidopsis + tomato; same hypergeometric+BH machinery. In the gene-set panel.
+- **Pathway membership of a set** — pathway enrichment (`/api/v1/pathway_enrichment`),
+  Plant Reactome (arabidopsis + tomato) and Reactome/WikiPathways via mygene (human);
+  same hypergeometric+BH machinery. In the gene-set panel.
 - **Phenotype/trait linkage (human)** — GWAS Catalog associations: per-gene traits
   (`/api/v1/traits/{id}`) and trait enrichment for a gene set / regulon
   (`/api/v1/trait_enrichment`). Statistical (SNP→mapped gene→trait), not mechanistic.
@@ -170,6 +171,14 @@ data-free item ships first, then the expression linchpin, then the rest.
 
 ## 5. Iteration Log
 
+- **2026-07-27** — **#38 pathway half shipped: human pathway enrichment.**
+  `fetch_pathways_animal.py` pulls Reactome + WikiPathways for human/mouse gene symbols
+  directly from mygene (no ENSG map needed) → 940 pathways / 11,034 annotations (1,674 human
+  genes); `load_pathways_animal.py` loads additively; build_db globs pick them up. Verified:
+  a p53 gene set enriches "TP53 network" (q=1.8e-12), DNA-damage-response, p53 pathway.
+  Human **base-resolution binding** (JASPAR-vertebrate / ReMap over the ~3 GB human genome)
+  is the heavy remaining half — deferred with a note (much larger than the plant scans;
+  human already has measured TRRUST edges). +1 API test (106 backend).
 - **2026-07-27** — **GENIE3 data-derived petunia network: investigated, deferred (honest
   call).** Ran ExtraTrees tree-importance (GENIE3) over the 29-sample petunia panel and
   checked whether it recovers KNOWN anthocyanin regulation: JAF13→CHS ranked 11/616 TFs

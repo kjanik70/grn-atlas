@@ -1069,7 +1069,10 @@ async def pathway_enrichment(request: EnrichmentRequest):
     N, pw_k, gene_pathways = _pathway_index_for(species)
     if N == 0:
         return {"species": species, "background": 0, "study": 0, "results": [],
-                "note": "pathway annotations available for arabidopsis and tomato"}
+                "note": "pathway annotations available for: " + (", ".join(
+                    r[0] for r in db.conn.execute(
+                        "SELECT DISTINCT g.species FROM pathway_annotations a "
+                        "JOIN genes g ON g.id=a.gene_id ORDER BY g.species")) or "none")}
 
     study = [g for g in ids if g in gene_pathways]
     n = len(study)
