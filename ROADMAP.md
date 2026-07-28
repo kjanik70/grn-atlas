@@ -158,8 +158,9 @@ data-free item ships first, then the expression linchpin, then the rest.
 - ~~Static network — no time/condition axis~~ ✅ shipped (#1) for petunia: 29-sample expression profiles.
 - ~~Petunia has no data-derived network~~ ✅ shipped (#2): co-expression inference (`Inferred:Expression`).
   Follow-ups: ✅ expression extended to tomato/arabidopsis. **GENIE3/tree-based directed network is
-  BLOCKED on deeper sampling** — validated that 29 samples don't reliably recover known edges (see log);
-  needs a deeper panel before it's honest to ship.
+  NOT viable on available data** — validated at BOTH 29 and 63 samples that tree-importance
+  doesn't reliably recover known edges (see log); needs condition/perturbation-rich data (not
+  just more tissue replicates) before it's honest to ship.
 - ~~Sequence layer absent for arabidopsis~~ ✅ shipped (#4, plant side): TAIR10 JASPAR scan (95k sites).
   Human base-resolution binding (ReMap/JASPAR vertebrate) still pending — larger genome + peak ingest.
 - ~~Only GO enrichment~~ ✅ #5 shipped: pathway enrichment (Plant Reactome, plant side) +
@@ -170,6 +171,18 @@ data-free item ships first, then the expression linchpin, then the rest.
 - ~~Older scaffold docs predate recent features~~ ✅ pruned; docs are now README + DEVELOPMENT + ONBOARDING_SPECIES + ROADMAP.
 
 ## 5. Iteration Log
+
+- **2026-07-28** — **Deepened petunia expression + re-ran the GENIE3 gate — still negative
+  (honest result).** Quantified a 63-sample petunia panel (up from 29; all 71 available P.
+  axillaris SRA runs, 8 failed to pseudoalign) and re-tested tree-importance recovery of
+  known anthocyanin regulation. It did NOT improve: JAF13→CHS stayed decent (~14/616) but
+  AN2→CHS (256) and every DFR regulator (112–264) remained noise — no better than at 29
+  samples. Conclusion: GENIE3 is **not viable on the available petunia data** (mostly
+  tissue/replicate variance across a few studies, not the perturbation diversity GENIE3
+  needs; MBW-complex control isn't captured by single-TF importance; shallow subsampled
+  quant). Not shipped — pairwise co-expression (#2) remains the honest tool. The clean
+  29-sample curated panel is kept (a 63-sample study grab-bag adds batch effects with
+  generic labels). Revisit only with condition/perturbation-rich data (e.g. dahlia).
 
 - **2026-07-27** — **PLAZA 5.0 refresh: investigated, deferred (honest call).** Probed
   dicots_05: it has the same species (pax/sly/ath) with the SAME gene IDs (no break) and
