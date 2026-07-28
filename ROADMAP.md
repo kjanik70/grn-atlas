@@ -171,6 +171,14 @@ data-free item ships first, then the expression linchpin, then the rest.
 
 ## 5. Iteration Log
 
+- **2026-07-27** — **PLAZA 5.0 refresh: investigated, deferred (honest call).** Probed
+  dicots_05: it has the same species (pax/sly/ath) with the SAME gene IDs (no break) and
+  adds `symbol=`/`uniprot=` GFF fields — BUT those symbol fields are **empty for petunia
+  and tomato** (0 annotations) and redundant for arabidopsis (already mygene-annotated).
+  A full migration means re-running every plant fetcher (coords/synteny/orthology/GO/seqctx)
+  + rebuild + re-verifying all plant layers for marginal benefit and real regression risk.
+  Deferred as a dedicated future project; the freshness audit (#6) continues to flag 4.5 to
+  users transparently. No changes shipped by design.
 - **2026-07-27** — **#38 pathway half shipped: human pathway enrichment.**
   `fetch_pathways_animal.py` pulls Reactome + WikiPathways for human/mouse gene symbols
   directly from mygene (no ENSG map needed) → 940 pathways / 11,034 annotations (1,674 human
