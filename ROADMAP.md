@@ -156,7 +156,9 @@ data-free item ships first, then the expression linchpin, then the rest.
 - ~~Perturbation model is a toy~~ ✅ shipped (#3): signed-path propagation, honest unknown/inferred labels.
 - ~~Static network — no time/condition axis~~ ✅ shipped (#1) for petunia: 29-sample expression profiles.
 - ~~Petunia has no data-derived network~~ ✅ shipped (#2): co-expression inference (`Inferred:Expression`).
-  Follow-ups: extend expression to tomato/arabidopsis; deepen sampling; upgrade correlation → tree-based (GENIE3).
+  Follow-ups: ✅ expression extended to tomato/arabidopsis. **GENIE3/tree-based directed network is
+  BLOCKED on deeper sampling** — validated that 29 samples don't reliably recover known edges (see log);
+  needs a deeper panel before it's honest to ship.
 - ~~Sequence layer absent for arabidopsis~~ ✅ shipped (#4, plant side): TAIR10 JASPAR scan (95k sites).
   Human base-resolution binding (ReMap/JASPAR vertebrate) still pending — larger genome + peak ingest.
 - ~~Only GO enrichment~~ ✅ #5 shipped: pathway enrichment (Plant Reactome, plant side) +
@@ -167,6 +169,17 @@ data-free item ships first, then the expression linchpin, then the rest.
 - ~~Older scaffold docs predate recent features~~ ✅ pruned; docs are now README + DEVELOPMENT + ONBOARDING_SPECIES + ROADMAP.
 
 ## 5. Iteration Log
+
+- **2026-07-27** — **GENIE3 data-derived petunia network: investigated, deferred (honest
+  call).** Ran ExtraTrees tree-importance (GENIE3) over the 29-sample petunia panel and
+  checked whether it recovers KNOWN anthocyanin regulation: JAF13→CHS ranked 11/616 TFs
+  (encouraging) but AN2→CHS ranked 162 and all three known DFR regulators ranked 233–441
+  (noise). **29 shallow samples is too few for a trustworthy directed network**, so we do
+  NOT ship one (it would present spurious edges as confident) — the pairwise co-expression
+  endpoint (#2) remains the appropriately-humble tool. Prerequisite for revisiting: deepen
+  the expression panel (petunia has ~166 public SRA runs; we quantified 29) or use the
+  incoming dahlia data. (scikit-learn is now available in the venv for when that lands.)
+
 
 - **2026-07-27** — Replaced inferred labels with **real curated symbols** where an authoritative
   source exists. `fetch_curated_symbols.py`: tomato from UniProt Swiss-Prot via EnsemblPlants
