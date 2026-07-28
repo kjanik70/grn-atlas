@@ -50,6 +50,21 @@ function GLabel({ symbol, inferred }) {
   return <>{symbol}{inferred && <span className="gs-ns" title="inferred from ortholog — not a native symbol">°</span>}</>;
 }
 
+// tiny per-transcript hit-density sparkline (where the dsRNA hits this off-target)
+function SiteTrack({ profile, length }) {
+  if (!profile || !profile.length) return null;
+  const W = 90, H = 12, n = profile.length, max = Math.max(1, ...profile), bw = W / n;
+  return (
+    <svg width={W} height={H} role="img" aria-label={`hits across ${length} bp`}>
+      <rect x={0} y={H - 3} width={W} height={2} fill="var(--surface-2,#eee)" />
+      {profile.map((v, i) => v > 0 && (
+        <rect key={i} x={i * bw} y={(H - 3) * (1 - v / max)} width={Math.max(1, bw - 0.4)}
+          height={(H - 3) * (v / max)} fill="var(--warning-dark,#c63)" />
+      ))}
+    </svg>
+  );
+}
+
 function gcPercent(s) {
   if (!s) return null;
   const u = s.toUpperCase();
@@ -219,12 +234,15 @@ export default function DsRnaPanel({ open, onClose, initialTarget, initialSpecie
               <div className="gs-section">
                 <h3>Predicted off-targets <span className="gs-label">(also silenced)</span></h3>
                 <table className="gs-table">
-                  <thead><tr><th>Gene</th><th title="matching siRNA sites">siRNA sites</th><th>mean TPM</th></tr></thead>
+                  <thead><tr><th>Gene</th><th title="matching siRNA sites">siRNA sites</th>
+                    <th title="where the sites fall along the off-target transcript">site map</th>
+                    <th>mean TPM</th></tr></thead>
                   <tbody>
                     {res.off_targets.map((o) => (
                       <tr key={o.gene_id}>
                         <td><GLabel symbol={o.symbol} inferred={o.label_inferred} />{o.is_tf && <span className="gs-ns"> TF</span>}</td>
                         <td className="gs-num">{o.sites}</td>
+                        <td><SiteTrack profile={o.profile} length={o.length} /></td>
                         <td className="gs-num">{o.mean_tpm != null ? o.mean_tpm : '—'}</td>
                       </tr>
                     ))}

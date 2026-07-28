@@ -95,14 +95,24 @@ def scan(dsrna: str, transcripts: Dict[str, str], k: int = 21,
     A 'site' is one k-mer position in a gene matching a dsRNA k-mer (either strand).
     """
     qk = query_kmers(dsrna, k)
+    NB = 40  # bins for the per-transcript hit-density map
     per_gene = {}
     for gid, seq in transcripts.items():
-        n = sum(1 for _, w in kmers(seq, k) if w in qk)
+        L = len(seq)
+        span = max(1, L - k + 1)
+        n, bins = 0, None
+        for i, w in kmers(seq, k):
+            if w in qk:
+                n += 1
+                if bins is None:
+                    bins = [0] * NB
+                bins[min(NB - 1, i * NB // span)] += 1
         if n:
-            per_gene[gid] = n
+            per_gene[gid] = {"sites": n, "length": L, "profile": bins}
 
-    on = per_gene.get(target_gene, 0) if target_gene else 0
-    offs = [{"gene_id": g, "sites": n} for g, n in per_gene.items() if g != target_gene]
+    on = per_gene.get(target_gene, {}).get("sites", 0) if target_gene else 0
+    offs = [{"gene_id": g, "sites": d["sites"], "length": d["length"], "profile": d["profile"]}
+            for g, d in per_gene.items() if g != target_gene]
     offs.sort(key=lambda d: d["sites"], reverse=True)
     off_total = sum(o["sites"] for o in offs)
     denom = on + off_total
