@@ -22,12 +22,14 @@ export default function DataSourcesPanel({ open, onClose }) {
   const [stats, setStats] = useState(null);
   const [prov, setProv] = useState(null);
   const [fresh, setFresh] = useState(null);
+  const [coverage, setCoverage] = useState(null);
 
   useEffect(() => {
     if (!open) return;
     fetch('/api/v1/stats').then((r) => r.json()).then(setStats).catch(() => {});
     fetch('/api/v1/provenance').then((r) => r.json()).then(setProv).catch(() => {});
     fetch('/api/v1/provenance/freshness').then((r) => r.json()).then(setFresh).catch(() => {});
+    fetch('/api/v1/species').then((r) => r.json()).then(setCoverage).catch(() => {});
   }, [open]);
 
   // key -> {status, latest_version} for the data-currency badge
@@ -70,6 +72,44 @@ export default function DataSourcesPanel({ open, onClose }) {
           <button className="ds-dl-btn" onClick={exportManifest} disabled={!prov}>⤓ Provenance manifest (JSON)</button>
           <button className="ds-dl-btn" onClick={exportBib}>⤓ Citations (BibTeX)</button>
         </div>
+
+        {coverage?.species && (
+          <div className="ds-coverage">
+            <h3 className="ds-subhead">Data coverage by species</h3>
+            <table className="ds-cov-table">
+              <thead>
+                <tr>
+                  <th>Species</th><th title="measured / inferred edges">network</th>
+                  <th>orthologs</th><th title="predicted TF binding sites">binding</th>
+                  <th title="RNA-seq samples">expression</th>
+                  <th>pathways</th><th title="GWAS trait associations">traits</th>
+                </tr>
+              </thead>
+              <tbody>
+                {coverage.species.map((s) => {
+                  const L = s.layers;
+                  const cell = (n) => (n ? <span className="ds-cov-yes">{n.toLocaleString()}</span>
+                    : <span className="ds-cov-no">—</span>);
+                  return (
+                    <tr key={s.species}>
+                      <td className="ds-cov-sp">{s.species}</td>
+                      <td>{cell(L.network.measured_edges)}<span className="ds-cov-inf">
+                        {L.network.inferred_edges ? ` +${L.network.inferred_edges.toLocaleString()}i` : ''}</span></td>
+                      <td>{cell(L.orthologs)}</td>
+                      <td>{cell(L.binding_sites)}</td>
+                      <td>{cell(L.expression_samples)}</td>
+                      <td>{cell(L.pathway_annotations)}</td>
+                      <td>{cell(L.trait_associations)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            <p className="ds-note" style={{ marginTop: 4 }}>
+              Empty cells are onboarding opportunities. “+Ni” = inferred edges (predicted, not measured).
+            </p>
+          </div>
+        )}
 
         <ul className="ds-list">
           {(prov?.sources || []).map((s) => (

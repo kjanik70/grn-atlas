@@ -85,3 +85,13 @@
 }
 .ds-badge.stale   { background: var(--warning-bg, #fdf0e3); color: var(--warning-dark, #b5651d); }
 .ds-badge.current { background: var(--success-bg, #e8f6ee); color: var(--text-success, #2a8a52); }
+
+.ds-coverage { margin: 12px 0; }
+.ds-cov-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ds-cov-table th, .ds-cov-table td { padding: 3px 6px; text-align: right; border-bottom: 1px solid var(--border, #eee); }
+.ds-cov-table th:first-child, .ds-cov-table td:first-child { text-align: left; }
+.ds-cov-table th { color: var(--text-secondary, #888); font-weight: 600; }
+.ds-cov-sp { font-weight: 600; text-transform: capitalize; }
+.ds-cov-yes { font-variant-numeric: tabular-nums; }
+.ds-cov-no { color: var(--text-muted, #bbb); }
+.ds-cov-inf { color: var(--text-accent, #46c); font-size: 11px; }
