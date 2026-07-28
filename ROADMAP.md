@@ -164,7 +164,7 @@ data-free item ships first, then the expression linchpin, then the rest.
   ENSG→symbol map); plant QTL trait data (sparse, no clean gene-mapped source).
 - ~~No visibility into stale releases~~ ✅ #6 (freshness half): currency audit surfaces
   staleness (PLAZA 4.5→5.0 flagged). Actual refresh-to-newer + new species (wheat/cotton) still open.
-- Older docs (START_HERE/PROJECT_SUMMARY etc.) predate recent features — consolidate.
+- ~~Older scaffold docs predate recent features~~ ✅ pruned; docs are now README + DEVELOPMENT + ONBOARDING_SPECIES + ROADMAP.
 
 ## 5. Iteration Log
 
