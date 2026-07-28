@@ -172,6 +172,15 @@ data-free item ships first, then the expression linchpin, then the rest.
 
 ## 5. Iteration Log
 
+- **2026-07-28** — **Human base-resolution binding (#45): assessed, deferred with a plan.**
+  The useful ReMap-2022 human file (per-TF peaks) is 1.4 GB; the alternative JASPAR-vertebrate
+  scan needs the ~3 GB human genome + promoter extraction. Either is a full new pipeline
+  (promoter windows from our 1,991 human GRCh38 coords → peak/PWM mapping → motif_hits →
+  `_ASSEMBLY_OF['human']='GRCh38'`). Priority-4, and human already has measured TRRUST edges,
+  so the marginal value (human motif enrichment) doesn't justify the download/compute now.
+  **Concrete plan when prioritised:** stream ReMap nr BED, keep only peaks within ±2 kb of a
+  human TSS, aggregate per (TF, target) → predicted binding-site table (tier='ReMap_ChIP',
+  measured), reuse the existing motif-enrichment machinery. No data shipped by design.
 - **2026-07-28** — **Deepened petunia expression + re-ran the GENIE3 gate — still negative
   (honest result).** Quantified a 63-sample petunia panel (up from 29; all 71 available P.
   axillaris SRA runs, 8 failed to pseudoalign) and re-tested tree-importance recovery of
