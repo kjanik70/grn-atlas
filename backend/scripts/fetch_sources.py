@@ -20,21 +20,30 @@ Usage: python backend/scripts/fetch_sources.py [--tier core|light|all]
 import argparse
 import subprocess
 import sys
+import urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+DATA = HERE.parent / "data"
 PY = sys.executable
 
-# (label, argv, note). argv=None => manual/direct-download guidance only.
+# (label, argv, note). argv forms:
+#   [prog, args...]              -> run a fetch script (list-of-lists = several)
+#   ("DOWNLOAD", url, filename)  -> direct download into backend/data/
+#   None                         -> guidance only (manual step)
 CORE = [
+    ("TRRUST human network", ("DOWNLOAD",
+     "https://www.grnpedia.org/trrust/data/trrust_rawdata.human.tsv",
+     "trrust_rawdata.human.tsv"), None),
     ("gene names (mygene)", [PY, "fetch_gene_names.py"], None),
     ("OMA coords + orthologs", [PY, "fetch_genome_data.py"], None),
     ("PLAZA plant coords/orthology/symbols", [PY, "fetch_plaza_data.py"], None),
     ("GO annotations", [PY, "fetch_go.py"], None),
     ("tomato regulation (PlantRegMap)", [PY, "fetch_tomato_regulation.py"], None),
-    ("TRRUST human / ATRM / arabidopsis regulation", None,
-     "direct downloads -> backend/data/{trrust_rawdata.human.tsv, atrm_regulations.tsv, "
-     "regulation_arabidopsis.tsv}; see the source sites (grnpedia TRRUST, ATRM, PlantRegMap)."),
+    ("ATRM + arabidopsis regulation", None,
+     "manual: backend/data/{atrm_regulations.tsv, regulation_arabidopsis.tsv} (ATRM site; "
+     "PlantRegMap, pre-filtered to tf/target/reg/confidence). build_db skips these gracefully "
+     "if absent (arabidopsis network + projection then empty)."),
 ]
 LIGHT = [
     ("plant pathways (Plant Reactome)", [PY, "fetch_pathways.py"], None),
@@ -54,6 +63,15 @@ def run(label, argv, note):
     if note:
         print(f"    note: {note}", flush=True)
     if argv is None:
+        return
+    if isinstance(argv, tuple) and argv and argv[0] == "DOWNLOAD":
+        _, url, fname = argv
+        dest = DATA / fname
+        try:
+            urllib.request.urlretrieve(url, dest)
+            print(f"    downloaded -> {dest} ({dest.stat().st_size} bytes)", flush=True)
+        except Exception as e:
+            print(f"    ! download failed ({e}) — continuing", flush=True)
         return
     cmds = argv if isinstance(argv[0], list) else [argv]
     for c in cmds:

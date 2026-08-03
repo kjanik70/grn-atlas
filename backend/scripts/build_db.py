@@ -149,6 +149,9 @@ def norm_chrom(species, name):
 
 def load_human_edges():
     """Parse TRRUST, merging duplicate (tf, target) pairs across papers."""
+    if not TRRUST_TSV.exists():
+        print(f"  (skip) {TRRUST_TSV.name} not fetched — human network empty")
+        return []
     pair_data = defaultdict(lambda: {"Activation": set(), "Repression": set()})
     with open(TRRUST_TSV) as f:
         for line in f:
@@ -174,6 +177,8 @@ def load_human_edges():
 def load_atrm_directions():
     """Load ATRM literature-curated direction labels (A/R/D)."""
     directions = {}
+    if not ATRM_TSV.exists():
+        return directions
     with open(ATRM_TSV) as f:
         next(f)  # skip header
         for line in f:
@@ -196,6 +201,9 @@ def load_arabidopsis_edges():
     edges = []
     seen = set()
     directed = 0
+    if not ARABIDOPSIS_TSV.exists():
+        print(f"  (skip) {ARABIDOPSIS_TSV.name} not fetched — arabidopsis network empty")
+        return edges
     with open(ARABIDOPSIS_TSV) as f:
         for line in f:
             parts = line.rstrip("\n").split("\t")
@@ -236,9 +244,9 @@ def build():
     arab_edges = load_arabidopsis_edges()
     tomato_edges = load_tomato_edges()
 
-    # Load gene names
-    human_names = json.loads(HUMAN_NAMES_JSON.read_text())
-    arab_names = json.loads(ARABIDOPSIS_NAMES_JSON.read_text())
+    # Load gene names (optional; fall back to bare ids if not fetched)
+    human_names = json.loads(HUMAN_NAMES_JSON.read_text()) if HUMAN_NAMES_JSON.exists() else {}
+    arab_names = json.loads(ARABIDOPSIS_NAMES_JSON.read_text()) if ARABIDOPSIS_NAMES_JSON.exists() else {}
 
     # Human genes
     human_tfs = {tf for tf, *_ in human_edges}
