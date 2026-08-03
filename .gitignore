@@ -33,3 +33,11 @@ backend/data/.oma_cache.json
 tools/
 backend/data/expr/
 paseo.json
+
+# Third-party source data + derived caches — not redistributed; regenerate with
+# backend/scripts/fetch_sources.py (see LICENSE + docs/DEVELOPMENT.md).
+backend/data/*.json
+backend/data/*.json.gz
+backend/data/*.tsv
+backend/data/*.fasta.gz
+backend/data/*.assembly.gz

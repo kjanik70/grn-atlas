@@ -25,20 +25,24 @@ npx vite build                            # production build sanity
 npx oxlint src/...                        # lint
 ```
 
-## Rebuild the database
+## Fetch source data, then build the database
 
-`build_db.py` deletes and rebuilds `grn.sqlite3` from local caches in `backend/data/`
-(no network needed) in ~10 s:
+Third-party data is **not committed** (see LICENSE). Fetch it, then build:
 
 ```bash
-venv/bin/python backend/scripts/build_db.py
+venv/bin/python backend/scripts/fetch_sources.py --tier light   # sources -> backend/data/ (network)
+venv/bin/python backend/scripts/build_db.py                     # deletes + rebuilds grn.sqlite3 (~10 s)
 ```
 
-Everything the loaders add (sequence context, motif hits, pathways, traits, curated
-symbols) is glob-loaded from committed `backend/data/*.json[.gz]` caches, so a fresh
-clone reproduces the live DB. Targeted loaders (`load_seqctx.py`, `load_pathways.py`,
-`load_traits.py`, `load_curated_symbols.py`) update the live DB in place without a full
-rebuild.
+`build_db.py` is stdlib-only and glob-loads whatever caches are present in `backend/data/`
+(sequence context, motif hits, pathways, traits, curated symbols) — **missing caches just
+leave that layer empty**, so the core atlas always builds. Targeted loaders
+(`load_seqctx.py`, `load_pathways.py`, `load_traits.py`, `load_curated_symbols.py`) update
+an existing DB in place without a full rebuild.
+
+Fetch tiers (`fetch_sources.py --tier`): `core` (genes/interactions/coords/orthologs/GO,
+required), `light` (+ pathways/traits/seqctx/curated symbols), `all` (also attempts the
+heavy layers below).
 
 ## Compute dependencies (only for regenerating derived data)
 
