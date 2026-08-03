@@ -45,6 +45,11 @@ Or with the Makefile: `make setup && make fetch && make db`, then `make backend`
 > binding (motif scans over multi-GB genomes) — are optional, need kallisto/BLAST+, and take
 > much longer; `build_db` loads whatever caches are present, so a clone always yields a
 > working atlas and those layers light up once regenerated.
+>
+> **This `light` build is not the full atlas.** Two core inputs (the measured Arabidopsis
+> network + ATRM) are not auto-fetched, and the expression/binding layers are optional and
+> tool-heavy. See **[Full data setup, caveats & quality checks](#full-data-setup-caveats--quality-checks)**
+> below for the complete, verified setup.
 
 ## Tests
 
@@ -54,14 +59,89 @@ venv/bin/python -m pytest backend -q     # backend: unit + DB-invariant + API-co
 npm run test                             # frontend (vitest)
 ```
 
-## Regenerating the heavy layers (optional)
+## Full data setup, caveats & quality checks
 
-The expression and predicted-binding layers are fetched separately because they need the
-compute tools (kallisto, BLAST+) and hours of processing over large downloads:
-`fetch_expression.py <species>` and `motif_scan.py <species> <genome>` (both driven by
-`species_config.py`). See **[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)** for the bootstrap,
-and **[docs/ONBOARDING_SPECIES.md](docs/ONBOARDING_SPECIES.md)** to add a
-species.
+The `light` quick-start above gives a working atlas, but **not every layer is fully
+automatic.** Here is exactly what each step provides, what needs manual work, and how to
+confirm the build is complete.
+
+### What each tier provides
+
+| Tier / step | Command | Provides | Auto? | Needs |
+|---|---|---|---|---|
+| core | `fetch_sources.py --tier core` | genes, **human** network (TRRUST), coords, orthologs, GO | mostly | network |
+| light | `fetch_sources.py --tier light` | + pathways, traits, sequence-context windows, curated UniProt symbols | mostly | network; BLAST+ for petunia symbols |
+| manual core | *(see below)* | **measured Arabidopsis network** + its tomato/petunia projection | **no** | manual download |
+| heavy | `fetch_expression.py`, `motif_scan.py` | expression + predicted binding | **no** | kallisto / BLAST+, hours, GBs |
+
+`build_db.py` glob-loads whatever caches are present and **skips missing inputs gracefully**
+(printing `(skip) …`), so a partial fetch always yields a working — if reduced — atlas.
+
+### ⚠️ Caveats (know these before relying on a fresh clone)
+
+1. **Two core inputs are NOT auto-fetched** — their upstreams are unreliable or need
+   reshaping, so `fetch_sources.py` only prints guidance:
+   - `backend/data/regulation_arabidopsis.tsv` — the **measured Arabidopsis TF→target
+     network**. Without it you lose the Arabidopsis edges **and** the inferred tomato/petunia
+     edges projected from them (a large share of the plant networks).
+   - `backend/data/atrm_regulations.tsv` — ATRM literature-curated direction labels (refine
+     Arabidopsis edge signs). Optional; the atlas works without it.
+2. **Heavy layers are optional and slow** — expression (kallisto over dozens of public
+   RNA-seq runs = hours) and predicted binding (motif scans over multi-GB genomes). A basic
+   clone has neither; the dsRNA/expression/binding features light up once regenerated.
+3. **`petunia` curated symbols need BLAST+** (`fetch_curated_symbols.py petunia` homology-maps
+   real names). Skipped automatically if BLAST+ isn't on `BLAST_BIN`/PATH.
+4. **A full from-scratch fetch has not been certified end-to-end** — it hits several live
+   sources; expect occasional retries. Each fetcher is the same one that produced the shipped
+   data, and graceful degradation is tested, but plan to spot-check (see quality checks).
+
+### Ensuring the manual core files
+
+- **`regulation_arabidopsis.tsv`** — a tab-separated file with **no header**, one edge per
+  line, exactly four columns: `TF_locus  target_locus  activation|repression  confidence`
+  (AGI ids, e.g. `AT1G01060`; confidence 0–1). Produce it from PlantRegMap's Arabidopsis
+  regulation data (https://plantregmap.gao-lab.org/, TF→target / FunTFBS) reduced to those
+  four columns.
+- **`atrm_regulations.tsv`** *(optional)* — tab-separated **with a header row**; ≥5 columns
+  where col 1 = TF locus, col 2 = target locus, col 5 = direction label `A` / `R` / `D`.
+  Source: ATRM (http://atrm.cbi.pku.edu.cn/). Skip if unavailable.
+
+Place both in `backend/data/`, then re-run `build_db.py`.
+
+### Regenerating the heavy layers (optional)
+
+Install the compute tools once (see **[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)** for the
+kallisto/BLAST+ bootstrap), then per plant species:
+
+```bash
+# expression (kallisto index of the species CDS + a curated RNA-seq panel in species_config)
+EXPR_SUBSAMPLE=3000000 venv/bin/python backend/scripts/fetch_expression.py petunia
+# predicted binding (JASPAR-plant PWM scan over the genome)
+venv/bin/python backend/scripts/motif_scan.py petunia /path/to/genome.fa
+venv/bin/python backend/scripts/load_seqctx.py petunia         # load motifs+hits into the DB
+```
+
+Both are driven by `backend/scripts/species_config.py` (assembly, URLs, RNA-seq panel).
+To add a species see **[docs/ONBOARDING_SPECIES.md](docs/ONBOARDING_SPECIES.md)**.
+
+### Quality checks — confirm the build is complete & correct
+
+```bash
+# 1. Referential-integrity + sanity invariants over the built DB
+venv/bin/python -m pytest backend/tests/test_db_invariants.py -q
+
+# 2. Per-species layer coverage (network / orthologs / binding / expression / pathways / traits)
+curl -s localhost:8000/api/v1/species | python3 -m json.tool
+
+# 3. Source-currency audit (loaded vs latest upstream version)
+curl -s localhost:8000/api/v1/provenance/freshness | python3 -m json.tool
+```
+
+A **complete** build (all tiers + manual core + heavy layers) should report roughly:
+`~50,800` genes · human `~4,859` edges · arabidopsis `~91,844` edges · tomato measured
+`12,719` + inferred `~197,618`. `build_db.py`'s own summary prints these counts — compare
+them, and use `/api/v1/species` to see which layers are populated vs empty. If a layer is
+unexpectedly empty, its source file wasn't fetched (check the `(skip)` lines from `build_db`).
 
 ## Docs
 - **[ROADMAP.md](ROADMAP.md)** — living source of truth: capabilities, honest boundaries,
